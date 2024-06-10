@@ -125,6 +125,13 @@
     ];
   };
 
+  home-manager = {
+      specialArgs = {inherit inputs;};
+      users = {
+        "xsharawi" = import ./home.nix;
+      };
+  };
+
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
 
