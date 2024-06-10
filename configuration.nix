@@ -126,7 +126,7 @@
   };
 
   home-manager = {
-      specialArgs = {inherit inputs;};
+      extraSpecialArgs = {inherit inputs;};
       users = {
         "xsharawi" = import ./home.nix;
       };
