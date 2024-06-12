@@ -232,6 +232,8 @@
     #gopls
 
     obs-studio
+    bun
+
     #newpackage
     wineWowPackages.stable
 
