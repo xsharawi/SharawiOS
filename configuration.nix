@@ -119,9 +119,6 @@
     description = "xsharawi";
     extraGroups = [ "networkmanager" "wheel" "gamemode" ];
     packages = with pkgs; [
-      firefox
-      kate
-    #  thunderbird
     ];
   };
 
