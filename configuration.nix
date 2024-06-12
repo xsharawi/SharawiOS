@@ -64,6 +64,8 @@
   services.xserver = {
     xkb.layout = "us";
     xkb.variant = "";
+    xkb.options = "caps:swapescape";
+
 
     windowManager.i3 = {
       enable = true;
