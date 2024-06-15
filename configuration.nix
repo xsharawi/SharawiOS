@@ -109,7 +109,7 @@
     driSupport = true;
     driSupport32Bit = true;
   };
-  services.xserver.videoDrivers = [ "nvidia" ];
+  # services.xserver.videoDrivers = [ "nvidia" ];
   # hardware.nvidia.modesetting.enable = true;
 
   # Enable touchpad support (enabled default in most desktopManager).
