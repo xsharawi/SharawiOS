@@ -329,6 +329,8 @@
     randomizedDelaySec = "45min";
   };
 
+  programs.direnv.enable = true;
+
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];
   # networking.firewall.allowedUDPPorts = [ ... ];
