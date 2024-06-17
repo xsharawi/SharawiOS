@@ -119,7 +119,7 @@
   users.users.xsharawi = {
     isNormalUser = true;
     description = "xsharawi";
-    extraGroups = [ "networkmanager" "wheel" "gamemode" ];
+    extraGroups = [ "networkmanager" "wheel" "gamemode" "libvirtd" ];
     packages = with pkgs; [
     ];
   };
@@ -329,7 +329,12 @@
     randomizedDelaySec = "45min";
   };
 
+  # direnv
   programs.direnv.enable = true;
+
+  # vms
+  virtualisation.libvirtd.enable = true;
+  programs.virt-manager.enable = true;
 
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];
