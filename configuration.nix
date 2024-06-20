@@ -233,7 +233,7 @@
     obs-studio
     bun
 
-    #veracrypt
+    veracrypt
     #newpackage
     wineWowPackages.stable
 
