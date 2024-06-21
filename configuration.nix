@@ -234,6 +234,7 @@
     bun
 
     veracrypt
+    tree
     #newpackage
     wineWowPackages.stable
 
