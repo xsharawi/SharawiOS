@@ -139,7 +139,6 @@
   environment.systemPackages = with pkgs; [
     vim  
     wget
-    neovim
     pulseaudioFull
     keepassxc
     xclip
@@ -250,7 +249,8 @@
     hyprcursor
 
   ];
-
+  programs.neovim.enable = true;
+  programs.neovim.defaultEditor = true;
   programs.hyprland.enable = true;
   programs.hyprland.xwayland.enable = true;
 
