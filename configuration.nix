@@ -276,6 +276,7 @@
             "terraform"
             "systemadmin"
             "vi-mode"
+            "nix-shell"
           ];
         };
       };
