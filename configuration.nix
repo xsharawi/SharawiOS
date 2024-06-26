@@ -59,6 +59,7 @@
   services.displayManager.sddm.enable = true;
   services.displayManager.sddm.autoNumlock = true;
   services.xserver.desktopManager.plasma5.enable = true;
+  services.envfs.enable = true;
 
   # Configure keymap in X11
   services.xserver = {
@@ -228,12 +229,12 @@
 
     go
     #gopls
-
     obs-studio
     bun
-
     veracrypt
     tree
+    tokei
+
     #newpackage
     wineWowPackages.stable
 
