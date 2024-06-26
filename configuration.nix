@@ -120,7 +120,7 @@
   users.users.xsharawi = {
     isNormalUser = true;
     description = "xsharawi";
-    extraGroups = [ "networkmanager" "wheel" "gamemode" "libvirtd" ];
+    extraGroups = [ "networkmanager" "wheel" "gamemode" "libvirtd" "docker" ];
     packages = with pkgs; [
     ];
   };
@@ -234,6 +234,7 @@
     veracrypt
     tree
     tokei
+    docker-compose
 
     #newpackage
     wineWowPackages.stable
@@ -339,6 +340,8 @@
   # vms
   virtualisation.libvirtd.enable = true;
   programs.virt-manager.enable = true;
+
+  virtualisation.docker.enable = true; 
 
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];
