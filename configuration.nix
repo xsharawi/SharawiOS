@@ -235,6 +235,10 @@
     tree
     tokei
     docker-compose
+    dolphin-emu
+    retroarch
+    retroarch-assets
+    retroarch-joypad-autoconfig
 
     #newpackage
     wineWowPackages.stable
