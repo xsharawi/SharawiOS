@@ -347,6 +347,11 @@
 
   virtualisation.docker.enable = true; 
 
+  # stylix
+  stylix.enable = true;
+  stylix.image = ./zoz.png;
+
+
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];
   # networking.firewall.allowedUDPPorts = [ ... ];
