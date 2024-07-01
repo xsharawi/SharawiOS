@@ -104,7 +104,6 @@
   # gaming stuff
   programs.gamemode.enable = true;
   programs.steam.gamescopeSession.enable = true; # gamescope
-  services.factorio.enable = true;
   hardware.opengl = {
     enable = true;
     driSupport = true;
@@ -349,7 +348,15 @@
 
   # stylix
   stylix.enable = true;
-  stylix.image = ./zoz.png;
+  stylix.image = ./wallpapers/zoz.png;
+  stylix.polarity = "dark";
+  stylix.cursor.package = pkgs.banana-cursor;
+  stylix.cursor.name = "banana-cursor";
+  stylix.cursor.size = 22;
+  stylix.fonts.sizes.applications = 10;
+  stylix.fonts.sizes.desktop = 8;
+
+  home-manager.backupFileExtension = "mybackup";
 
 
   # Open ports in the firewall.
