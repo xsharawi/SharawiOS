@@ -238,6 +238,7 @@
     retroarch
     retroarch-assets
     retroarch-joypad-autoconfig
+    onlyoffice-bin
 
     #newpackage
     wineWowPackages.stable
