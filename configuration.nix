@@ -249,8 +249,8 @@
     kdePackages.kwallet-pam
     waybar
     wofi
-    dunst
     hyprpicker
+    swaynotificationcenter
     cliphist
     wl-clip-persist
     hyprcursor
@@ -348,7 +348,7 @@
 
   virtualisation.docker.enable = true; 
 
-  # stylix
+  # # # stylix
   stylix.enable = true;
   stylix.image = ./wallpapers/zoz.png;
   stylix.polarity = "dark";
@@ -357,8 +357,8 @@
   stylix.cursor.size = 22;
   stylix.fonts.sizes.applications = 10;
   stylix.fonts.sizes.desktop = 8;
-
-  home-manager.backupFileExtension = "mybackup";
+   
+  home-manager.backupFileExtension = "wawa";
 
 
   # Open ports in the firewall.
