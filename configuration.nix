@@ -239,6 +239,7 @@
     retroarch-assets
     retroarch-joypad-autoconfig
     onlyoffice-bin
+    graphite-cli
 
     #newpackage
     wineWowPackages.stable
