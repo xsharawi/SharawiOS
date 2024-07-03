@@ -251,6 +251,7 @@
     wofi
     hyprpicker
     swaynotificationcenter
+    notion-app-enhanced
     cliphist
     wl-clip-persist
     hyprcursor
