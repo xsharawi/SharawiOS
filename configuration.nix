@@ -240,6 +240,8 @@
     retroarch-joypad-autoconfig
     onlyoffice-bin
     graphite-cli
+    screenkey
+    kdePackages.kdeconnect-kde
 
     #newpackage
     wineWowPackages.stable
@@ -257,6 +259,7 @@
     hyprcursor
 
   ];
+
   programs.neovim.enable = true;
   programs.neovim.defaultEditor = true;
   programs.hyprland.enable = true;
@@ -359,8 +362,7 @@
   stylix.fonts.sizes.applications = 10;
   stylix.fonts.sizes.desktop = 8;
    
-  home-manager.backupFileExtension = "wawa";
-
+  home-manager.backupFileExtension = "lksdjfklasdjflasdkj";
 
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];
