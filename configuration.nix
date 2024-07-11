@@ -242,6 +242,7 @@
     graphite-cli
     screenkey
     kdePackages.kdeconnect-kde
+    zig
 
     #newpackage
     wineWowPackages.stable
