@@ -77,6 +77,8 @@
   };
 
 
+      # TODO: fix hyprland and default settings
+
       # wayland.windowManager.hyprland = {
       #
       #   systemd.enable = true;
