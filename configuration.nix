@@ -9,6 +9,7 @@
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
       inputs.home-manager.nixosModules.default
+      inputs.xremap-flake.nixosModules.default
     ];
 
   # Bootloader.
@@ -362,8 +363,26 @@
   stylix.cursor.size = 22;
   stylix.fonts.sizes.applications = 10;
   stylix.fonts.sizes.desktop = 8;
-   
+
+  # find out why is this needed
   home-manager.backupFileExtension = "lksdjfklasdjflasdkj";
+
+  # xremap
+  services.xremap = {
+    withWlroots = true;
+    userName = "xsharawi";
+    config = {
+      modmap = [
+        {
+          name = "caps unlimited caps but no caps";
+          remap = {
+            "CapsLock" = {"held" = "leftctrl"; "alone" = "esc"; "alone_timeout_millis" = 150; };
+          };
+        }
+      ];
+    };
+  };
+
 
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];
