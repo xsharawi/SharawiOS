@@ -336,6 +336,10 @@
     };
   };
 
+  stylix.targets.kitty.enable = true;
+  stylix.targets.kitty.variant256Colors = true;
+  programs.kitty.enable = true;
+
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
 }

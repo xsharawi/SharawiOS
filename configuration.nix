@@ -177,7 +177,6 @@
     pywal
     manrope
     libnotify
-    kitty
     gtk2
     gtk3
     gtk4
