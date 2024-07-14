@@ -93,11 +93,12 @@
             #"systemctl --user import-environment &"
             #"hash dbus-update-activation-environment 2>/dev/null &"
             #"dbus-update-activation-environment --systemd &"
-            #"wl-clip-persist --clipboard both"
+            "wl-clip-persist --clipboard both"
             # add a wallpaper
             # "sleep 1 && swaylock"
             # "poweralertd &"
-            "waybar"
+            "nm-applet --indicator &"
+            "waybar &"
             # "mako &"
           ];
 
@@ -114,6 +115,7 @@
 
           general = {
             "$mainMod" = "SUPER";
+            "$TERMINAL" = "konsole";
             layout = "master";
             gaps_in = 2;
             gaps_out = 10;
@@ -121,8 +123,8 @@
             #border_part_of_window = true;
             #no_border_on_floating = true;
             # find the default ones
-            col.active_border = "rgba(33ccffee) rgba(00ff99ee) 45deg";
-            col.inactive_border = "rgba(595959aa)";
+            #"col.active_border" = "rgba(33ccffee) rgba(00ff99ee) 45deg";
+            #"col.inactive_border" = "rgba(595959aa)";
           };
 
           misc = {
@@ -193,12 +195,15 @@
             # "$mainMod, S, exec, show-keybinds"
 
             "$mainMod, Q, killactive,"
+            "$mainMod, SHIFT + Q, exec, hyprctl dispatch exit"
             "$mainMod, SHIFT + Space, togglefloating,"
             "$mainMod, Return, exec, $TERMINAL"
             "$mainMod, F, Fullscreen, fullscreen, 1"
-            "$mainMod SHIFT, F, fullscreen, 0"
+            "$mainMod, Space, exec, pkill wofi || wofi --show drun"
             # "$mainMod, Space, exec, pkill rofi || rofi --show drun"
-            "$mainMod SHIFT, 4, exec, hyprctl dispatch exec '[workspace 4 silent] discord'"
+            "$mainMod SHIFT, e, exec, hyprctl dispatch exec '[workspace 2 silent] konsole'"
+            "$mainMod SHIFT, c, exec, hyprctl dispatch exec '[workspace 3 silent] chromium'"
+            "$mainMod SHIFT, d, exec, hyprctl dispatch exec '[workspace 4 silent] discord'"
             # screenshot maybe
             # "$mainMod, Print, exec, ${pkgs.grim}/bin/grim -s \"$(slurp -w 0)\" -t png - | ${pkgs.wl-clipboard}/bin/wl-copy"
             # screenshot
@@ -206,10 +211,17 @@
             # ",Print, exec, grimblast --notify --cursor  copy area"
 
             # switch focus
-            "$mainMod, l, movefocus, l"
-            "$mainMod, h, movefocus, r"
+            "$mainMod, h, movefocus, l"
+            "$mainMod, l, movefocus, r"
             "$mainMod, k, movefocus, u"
             "$mainMod, j, movefocus, d"
+
+            # window control
+            "$mainMod SHIFT, h, movewindow, l"
+            "$mainMod SHIFT, l, movewindow, r"
+            "$mainMod SHIFT, k, movewindow, u"
+            "$mainMod SHIFT, j, movewindow, d"
+
 
             # switch workspace
             "$mainMod, 1, workspace, 1"
@@ -235,12 +247,6 @@
             "$mainMod SHIFT, 9, movetoworkspacesilent, 9"
             "$mainMod SHIFT, 0, movetoworkspacesilent, 10"
             # "$mainMod CTRL, c, movetoworkspace, empty"
-
-            # window control
-            "$mainMod SHIFT, l, movewindow, l"
-            "$mainMod SHIFT, h, movewindow, r"
-            "$mainMod SHIFT, k, movewindow, u"
-            "$mainMod SHIFT, j, movewindow, d"
 
             # clipboard manager
             # "$mainMod, V, exec, cliphist list | ${pkgs.rofi-wayland}/bin/rofi --dmenu | cliphist decode | ${pkgs.wl-clipboard}/bin/wl-copy"
@@ -301,8 +307,12 @@
   };
 
   stylix.targets.kitty.enable = true;
+  stylix.targets.kde.enable = false;
   stylix.targets.kitty.variant256Colors = true;
   programs.kitty.enable = true;
+
+  stylix.targets.swaylock.enable = true;
+  stylix.targets.swaylock.useImage = true;
 
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;

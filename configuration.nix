@@ -241,8 +241,10 @@
     onlyoffice-bin
     graphite-cli
     screenkey
-    kdePackages.kdeconnect-kde
     zig
+    networkmanagerapplet
+    swaylock
+    swaylock-effects
 
     #newpackage
     wineWowPackages.stable
@@ -260,11 +262,40 @@
     hyprcursor
 
   ];
+  security.pam.services.swaylock = {};
 
   programs.neovim.enable = true;
   programs.neovim.defaultEditor = true;
   programs.hyprland.enable = true;
   programs.hyprland.xwayland.enable = true;
+
+  security.pam.services.kwallet = {
+    name = "kwallet";
+    enableKwallet = true;
+  };
+   systemd = {
+    user.services.polkit-kde-authentication-agent-1 = {
+      enable = true;
+      description = "polkit-kde-authentication-agent-1";
+      wantedBy = [ "graphical-session.target" ];
+      wants = [ "graphical-session.target" ];
+      after = [ "graphical-session.target" ];
+      serviceConfig = {
+        ExecStart = "${pkgs.polkit-kde-agent}/libexec/polkit-kde-authentication-agent-1";
+        Restart = "on-failure";
+        RestartSec = 1;
+        TimeoutStopSec = 10;
+      };
+    };
+  };
+    xdg = {
+    portal = {
+      enable = true;
+      extraPortals = with pkgs; [
+        xdg-desktop-portal-hyprland
+      ];
+    };
+  };
 
   fonts.packages = with pkgs; [
     (nerdfonts.override { fonts = [ "Hack" ]; })
@@ -364,7 +395,7 @@
   stylix.fonts.sizes.desktop = 8;
 
   # find out why is this needed
-  home-manager.backupFileExtension = "lksdjfklasdjflasdkj";
+  home-manager.backupFileExtension = "HELPMEEEEPLEASE";
 
   # xremap
   services.xremap = {
@@ -398,3 +429,4 @@
   system.stateVersion = "23.11"; # Did you read the comment?
 
 }
+#./nix/store/lgc5ma7rvgalalhivz1am85xw8rjpr36-kwallet-pam-6.0.5/libexec/pam_kwallet_init
