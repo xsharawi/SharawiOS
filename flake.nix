@@ -8,6 +8,10 @@
       url = "github:nix-community/home-manager/release-24.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+   hyprpicker = {
+      url = "github:hyprwm/hyprpicker";
+      inputs.nixpkgs.follows = "nixpkgs";
+    }; 
     stylix.url = "github:danth/stylix";
     xremap-flake.url = "github:xremap/nix-flake";
   };

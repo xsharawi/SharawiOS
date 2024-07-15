@@ -259,8 +259,15 @@
     notion-app-enhanced
     cliphist
     wl-clip-persist
+    wl-clipboard
     hyprcursor
-
+    hyprshot
+    hyprpicker
+    shotman
+    slurp
+    brightnessctl
+    grim
+    grimblast
   ];
   security.pam.services.swaylock = {};
 
