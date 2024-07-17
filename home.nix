@@ -93,6 +93,10 @@
         "wl-clip-persist --clipboard both"
         "nm-applet --indicator &"
         "waybar &"
+        "'[workspace 1 silent] $TERMINAL'"
+        "'[workspace 2 silent] $TERMINAL'"
+        "'[workspace 3 silent] chromium'"
+        "'[workspace 4 silent] vesktop'"
       ];
 
       input = {
@@ -164,8 +168,8 @@
           "fadeShadow, 1, 10, easeOutCirc" # fade on changing activewindow for shadows
           "fadeDim, 1, 4, fluent_decel" # the easing of the dimming of inactive windows
           "border, 1, 2.7, easeOutCirc" # for animating the border's color switch speed
-          "borderangle, 1, 30, fluent_decel, once" # for animating the border's gradient angle - styles: once (default), loop
-          "workspaces, 1, 4, easeOutCubic, fade" # styles: slide, slidevert, fade, slidefade, slidefadevert
+          "borderangle, 1, 30, fluent_decel, loop" # for animating the border's gradient angle - styles: once (default), loop
+          "workspaces, 1, 4, easeOutCubic, slide" # styles: slide, slidevert, fade, slidefade, slidefadevert
         ];
       };
 
@@ -174,19 +178,21 @@
         # "$mainMod, S, exec, show-keybinds"
 
         "$mainMod, Q, killactive,"
-        "$mainMod, W, exec, hyprctl dispatch exit"
+        "$mainMod SHIFT , Q, exec, hyprctl dispatch exit"
+        "$mainMod, W, exec, swaylock --color 000000"
         "$mainMod SHIFT, Space, togglefloating"
         "$mainMod, Return, exec, $TERMINAL"
         "$mainMod, F, Fullscreen, fullscreen, 1"
         "$mainMod, Space, exec, pkill wofi || wofi --show drun"
         "$mainMod SHIFT, e, exec, hyprctl dispatch exec '[workspace 2 silent] konsole'"
         "$mainMod SHIFT, c, exec, hyprctl dispatch exec '[workspace 3 silent] chromium'"
-        "$mainMod SHIFT, d, exec, hyprctl dispatch exec '[workspace 4 silent] discord'"
+        "$mainMod SHIFT, d, exec, hyprctl dispatch exec '[workspace 4 silent] vesktop'"
 
         "$mainMod, F2, exec, brightnessctl s 5%-"
         "$mainMod, F3, exec, brightnessctl s +5%"
 
         "$mainMod, PRINT, exec, hyprshot -m region"
+        ", PRINT, exec, grimblast --freeze copysave area ~/Pictures/$(date +%Y-%m-%d_%H-%m-%s).png"
 
         # switch focus
         "$mainMod, h, movefocus, l"

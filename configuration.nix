@@ -95,7 +95,7 @@
     alsa.support32Bit = true;
     pulse.enable = true;
     # If you want to use JACK applications, uncomment this
-    jack.enable = true;
+    # jack.enable = true;
 
     # use the example session manager (no others are packaged yet so this is enabled by default,
     # no need to redefine it in your config for now)
@@ -189,6 +189,9 @@
     libsForQt5.kde-gtk-config
     libsForQt5.kdeplasma-addons
     xdg-desktop-portal-gtk
+    xdg-desktop-portal
+    xdg-desktop-portal-hyprland
+    xdg-desktop-portal-kde
     nixd
     fastfetch
     zoxide
@@ -245,6 +248,7 @@
     networkmanagerapplet
     swaylock
     swaylock-effects
+    pamixer
 
     #newpackage
     wineWowPackages.stable
