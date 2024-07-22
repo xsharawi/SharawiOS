@@ -81,22 +81,27 @@
 
 
   wayland.windowManager.hyprland = {
+  
     systemd.enable = true;
+
     xwayland.enable = true;
     enable = true;
+
     settings = {
       # Autostart.
+
       debug = {
         disable_logs = true;
       };
+
       exec-once = [
-        "wl-clip-persist --clipboard both"
+        # "wl-clip-persist --clipboard both"
         "nm-applet --indicator &"
         "waybar &"
-        "'[workspace 1 silent] $TERMINAL'"
-        "'[workspace 2 silent] $TERMINAL'"
-        "'[workspace 3 silent] chromium'"
-        "'[workspace 4 silent] vesktop'"
+        "[workspace 1 silent] $TERMINAL"
+        "[workspace 2 silent] $TERMINAL"
+        "[workspace 3 silent] chromium"
+        "[workspace 4 silent] vesktop"
       ];
 
       input = {
@@ -116,6 +121,11 @@
         gaps_in = 2;
         gaps_out = 6;
         border_size = 2;
+        env = [
+          "HYPRCURSOR_THEME,banana-cursor"
+          "HYPRCURSOR_SIZE,24"
+          "XCURSOR_SIZE,24"
+        ];
       };
 
       misc = {
@@ -191,6 +201,10 @@
         "$mainMod, F2, exec, brightnessctl s 5%-"
         "$mainMod, F3, exec, brightnessctl s +5%"
 
+        "$mainMod, M, exec, pamixer --toggle-mute"
+        "$mainMod, up, exec, pamixer -i 5"
+        "$mainMod, down, exec, pamixer -d 5"
+
         "$mainMod, PRINT, exec, hyprshot -m region"
         ", PRINT, exec, grimblast --freeze copysave area ~/Pictures/$(date +%Y-%m-%d_%H-%m-%s).png"
 
@@ -234,6 +248,11 @@
         "$mainMod CTRL, h,resizeactive,-10 0"
         "$mainMod CTRL, k,resizeactive,0 -10"
         "$mainMod CTRL, j,resizeactive,0 10 "
+
+        # won't need it but it exists
+
+        # "$mainMod, E, togglegroup"
+
         # "$mainMod CTRL, c, movetoworkspace, empty"
 
         # clipboard manager

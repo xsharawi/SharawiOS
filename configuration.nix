@@ -304,6 +304,7 @@
       enable = true;
       extraPortals = with pkgs; [
         xdg-desktop-portal-hyprland
+        xdg-desktop-portal-gtk
       ];
     };
   };
@@ -406,7 +407,7 @@
   stylix.fonts.sizes.desktop = 8;
 
   # find out why is this needed
-  home-manager.backupFileExtension = "HELPMEEEEPLEASE";
+  home-manager.backupFileExtension = "whatwhatwhyhow";
 
   # xremap
   services.xremap = {
