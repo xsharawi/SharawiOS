@@ -37,9 +37,6 @@
      (pkgs.writeShellScriptBin "up" ''
        sudo nixos-rebuild switch --flake /etc/nixos#vim
      '')
-     (pkgs.writeShellScriptBin "sudoenv" ''
-       sudo -E -s
-     '')
 
      inputs.hyprpicker.packages.${pkgs.system}.default
   ];
