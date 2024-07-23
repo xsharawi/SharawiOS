@@ -61,6 +61,7 @@
   services.displayManager.sddm.autoNumlock = true;
   services.xserver.desktopManager.plasma5.enable = true;
   services.envfs.enable = true;
+  programs.dconf.enable = true;
 
   # Configure keymap in X11
   services.xserver = {
@@ -407,7 +408,7 @@
   stylix.fonts.sizes.desktop = 8;
 
   # find out why is this needed
-  home-manager.backupFileExtension = "whatwhatwhyhow";
+  home-manager.backupFileExtension = "thisisalie";
 
   # xremap
   services.xremap = {

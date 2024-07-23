@@ -107,7 +107,7 @@
       input = {
         kb_layout = "us";
         numlock_by_default = true;
-        follow_mouse = 0;
+        follow_mouse = 2;
         sensitivity = 0;
         touchpad = {
           natural_scroll = "yes";
@@ -123,8 +123,8 @@
         border_size = 2;
         env = [
           "HYPRCURSOR_THEME,banana-cursor"
-          "HYPRCURSOR_SIZE,24"
-          "XCURSOR_SIZE,24"
+          "HYPRCURSOR_SIZE,22"
+          "XCURSOR_SIZE,22"
         ];
       };
 
@@ -207,6 +207,7 @@
 
         "$mainMod, PRINT, exec, hyprshot -m region"
         ", PRINT, exec, grimblast --freeze copysave area ~/Pictures/$(date +%Y-%m-%d_%H-%m-%s).png"
+        "$mainMod, page_down , exec, grimblast --freeze copysave area ~/Pictures/$(date +%Y-%m-%d_%H-%m-%s).png"
 
         # switch focus
         "$mainMod, h, movefocus, l"
@@ -283,13 +284,15 @@
     };
   };
 
+  stylix.enable = true;
   stylix.targets.kitty.enable = true;
-  stylix.targets.kde.enable = false;
+  # stylix.targets.kde.enable = false;
   stylix.targets.kitty.variant256Colors = true;
   programs.kitty.enable = true;
 
   stylix.targets.swaylock.enable = true;
   stylix.targets.swaylock.useImage = true;
+  qt.platformTheme.name = "kde";
 
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
