@@ -250,6 +250,8 @@
     swaylock
     swaylock-effects
     pamixer
+    kdePackages.krfb
+    kdePackages.krdc
 
     #newpackage
     wineWowPackages.stable
@@ -280,6 +282,8 @@
   programs.neovim.defaultEditor = true;
   programs.hyprland.enable = true;
   programs.hyprland.xwayland.enable = true;
+
+  programs.kdeconnect.enable = true;
 
   security.pam.services.kwallet = {
     name = "kwallet";

@@ -286,11 +286,12 @@
 
   stylix.enable = true;
   stylix.targets.kitty.enable = true;
-  # stylix.targets.kde.enable = false;
+  stylix.targets.kde.enable = false;
   stylix.targets.kitty.variant256Colors = true;
   programs.kitty.enable = true;
 
   stylix.targets.swaylock.enable = true;
+  stylix.targets.sway.enable = true;
   stylix.targets.swaylock.useImage = true;
   qt.platformTheme.name = "kde";
 
