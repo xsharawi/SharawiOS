@@ -412,7 +412,7 @@
   stylix.fonts.sizes.desktop = 8;
 
   # find out why is this needed
-  home-manager.backupFileExtension = "thisisalie";
+  home-manager.backupFileExtension = "shit";
 
   # xremap
   services.xremap = {
@@ -423,7 +423,7 @@
         {
           name = "caps unlimited caps but no caps";
           remap = {
-            "CapsLock" = {"held" = "leftctrl"; "alone" = "esc"; "alone_timeout_millis" = 150; };
+            "CapsLock" = {"held" = "leftctrl"; "alone" = "esc"; "alone_timeout_millis" = 200; };
           };
         }
       ];
