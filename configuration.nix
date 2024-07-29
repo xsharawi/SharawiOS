@@ -189,6 +189,7 @@
     dotnet-sdk_8
     libsForQt5.kde-gtk-config
     libsForQt5.kdeplasma-addons
+    libsForQt5.breeze-qt5
     xdg-desktop-portal-gtk
     xdg-desktop-portal
     xdg-desktop-portal-hyprland
@@ -252,6 +253,11 @@
     pamixer
     kdePackages.krfb
     kdePackages.krdc
+    pipes
+    xfce.thunar
+    xfce.thunar-archive-plugin
+    qt5ct
+
 
     #newpackage
     wineWowPackages.stable
@@ -335,7 +341,6 @@
             "terraform"
             "systemadmin"
             "vi-mode"
-            "nix-shell"
           ];
         };
       };
@@ -412,11 +417,12 @@
   stylix.fonts.sizes.desktop = 8;
 
   # find out why is this needed
-  home-manager.backupFileExtension = "shit";
+  home-manager.backupFileExtension = "bruhwhatisthisbullshitthatshere";
 
   # xremap
   services.xremap = {
     withWlroots = true;
+    watch = true;
     userName = "xsharawi";
     config = {
       modmap = [
@@ -430,6 +436,10 @@
     };
   };
 
+
+  qt.enable = true;
+  qt.style = "breeze";
+  qt.platformTheme = "kde";
 
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];

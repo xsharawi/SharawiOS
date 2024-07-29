@@ -116,7 +116,7 @@
 
       general = {
         "$mainMod" = "SUPER";
-        "$TERMINAL" = "konsole";
+        "$TERMINAL" = "kitty";
         layout = "master";
         gaps_in = 2;
         gaps_out = 6;
@@ -134,7 +134,7 @@
       };
 
       decoration = {
-        rounding = 20;
+        rounding = 15;
         active_opacity = 1;
         inactive_opacity = 0.80;
         fullscreen_opacity = 1.0;
@@ -286,14 +286,16 @@
 
   stylix.enable = true;
   stylix.targets.kitty.enable = true;
-  stylix.targets.kde.enable = true;
+  #stylix.targets.kde.enable = true;
   stylix.targets.kitty.variant256Colors = true;
   programs.kitty.enable = true;
 
   stylix.targets.swaylock.enable = true;
   stylix.targets.sway.enable = true;
   stylix.targets.swaylock.useImage = true;
-  qt.platformTheme.name = "kde";
+  stylix.targets.gtk.enable = true;
+  gtk.enable = true;
+  qt.enable = true;
 
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
