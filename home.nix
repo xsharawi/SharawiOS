@@ -123,8 +123,8 @@
         border_size = 2;
         env = [
           "HYPRCURSOR_THEME,banana-cursor"
-          "HYPRCURSOR_SIZE,22"
-          "XCURSOR_SIZE,22"
+          "HYPRCURSOR_SIZE,32"
+          "XCURSOR_SIZE,32"
         ];
       };
 

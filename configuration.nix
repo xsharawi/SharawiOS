@@ -257,6 +257,8 @@
     xfce.thunar
     xfce.thunar-archive-plugin
     qt5ct
+    sweet-folders
+    candy-icons
 
 
     #newpackage
@@ -412,12 +414,12 @@
   stylix.polarity = "dark";
   stylix.cursor.package = pkgs.banana-cursor;
   stylix.cursor.name = "banana-cursor";
-  stylix.cursor.size = 22;
+  stylix.cursor.size = 32;
   stylix.fonts.sizes.applications = 10;
   stylix.fonts.sizes.desktop = 8;
 
   # find out why is this needed
-  home-manager.backupFileExtension = "bruhwhatisthisbullshitthatshere";
+  home-manager.backupFileExtension = "psabruhwhatisthisbullshitthatshere";
 
   # xremap
   services.xremap = {
@@ -439,7 +441,7 @@
 
   qt.enable = true;
   qt.style = "breeze";
-  qt.platformTheme = "kde";
+  qt.platformTheme = "qt5ct";
 
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];
