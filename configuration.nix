@@ -139,7 +139,7 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
-    vim  
+    vim
     wget
     pulseaudioFull
     keepassxc
@@ -257,8 +257,20 @@
     xfce.thunar
     xfce.thunar-archive-plugin
     qt5ct
-    sweet-folders
-    candy-icons
+    #sweet-folders
+    #candy-icons
+    stdmanpages
+    man-pages
+    man-pages-posix
+    clang-manpages
+    unrar
+    zip
+    openjdk8
+    openjfx
+    jre8_headless
+    jre8
+    xorg.libXext
+
 
 
     #newpackage
@@ -360,6 +372,14 @@
   programs.nix-ld.libraries = with pkgs; [
 
     #add any missing dynamic libraries for unpackaged programs here not in enviroment.systempackages
+    xorg.libXext
+    xorg.libX11
+    xorg.libXrender
+    xorg.libXtst
+    xorg.libXi
+
+    xwayland
+
 
   ];
 
@@ -419,7 +439,8 @@
   stylix.fonts.sizes.desktop = 8;
 
   # find out why is this needed
-  home-manager.backupFileExtension = "psabruhwhatisthisbullshitthatshere";
+  # something about .gtkrc
+  #home-manager.backupFileExtension = "psabruhwhatisthisbullshitthatshere";
 
   # xremap
   services.xremap = {
@@ -440,7 +461,7 @@
 
 
   qt.enable = true;
-  qt.style = "breeze";
+  #qt.style = "breeze";
   qt.platformTheme = "qt5ct";
 
   # Open ports in the firewall.

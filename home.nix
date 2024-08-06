@@ -105,7 +105,9 @@
       ];
 
       input = {
-        kb_layout = "us";
+        kb_layout = "us, us ,eg";
+        kb_variant = ",dvorak,";
+        kb_options = "grp:shifts_toggle";
         numlock_by_default = true;
         follow_mouse = 2;
         sensitivity = 0;
@@ -282,7 +284,16 @@
       autoconnect = ["qemu:///system"];
       uris = ["qemu:///system"];
     };
+    # disable dconf first use warning
+    "ca/desrt/dconf-editor" = {
+      show-warning = false;
+    };
+    # set dark theme for gtk 4
+    "org/gnome/desktop/interface" = {
+      color-scheme = "prefer-dark";
+    };
   };
+
 
   stylix.enable = true;
   stylix.targets.kitty.enable = true;
@@ -294,7 +305,15 @@
   stylix.targets.sway.enable = true;
   stylix.targets.swaylock.useImage = true;
   stylix.targets.gtk.enable = true;
-  gtk.enable = true;
+  gtk = {
+    enable = true;
+    gtk3.extraConfig = {
+      gtk-application-prefer-dark-theme = 1;
+    };
+    gtk4.extraConfig = {
+      gtk-application-prefer-dark-theme = 1;
+    };
+  };
   qt.enable = true;
 
   # Let Home Manager install and manage itself.
