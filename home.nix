@@ -306,15 +306,14 @@
   stylix.targets.swaylock.useImage = true;
   stylix.targets.gtk.enable = true;
   gtk = {
-    enable = true;
-    gtk3.extraConfig = {
-      gtk-application-prefer-dark-theme = 1;
-    };
-    gtk4.extraConfig = {
-      gtk-application-prefer-dark-theme = 1;
-    };
+   enable = true;
+   gtk3.extraConfig = {
+     gtk-application-prefer-dark-theme = 1;
+   };
+   gtk4.extraConfig = {
+     gtk-application-prefer-dark-theme = 1;
+   };
   };
-  qt.enable = true;
 
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;

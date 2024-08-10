@@ -92,6 +92,16 @@
   security.rtkit.enable = true;
   services.pipewire = {
     enable = true;
+    wireplumber = {
+      enable = true;
+      extraConfig = {
+        "10-disable-camera" = {
+          "wireplumber.profiles" = {
+            main."monitor.libcamera" = "disabled";
+          };
+        };
+      };
+    };
     alsa.enable = true;
     alsa.support32Bit = true;
     pulse.enable = true;
@@ -270,8 +280,8 @@
     jre8_headless
     jre8
     xorg.libXext
-
-
+    yazi
+    obsidian
 
     #newpackage
     wineWowPackages.stable
@@ -461,7 +471,7 @@
 
 
   qt.enable = true;
-  #qt.style = "breeze";
+  qt.style = "breeze";
   qt.platformTheme = "qt5ct";
 
   # Open ports in the firewall.
