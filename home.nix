@@ -193,35 +193,20 @@
         "$mainMod SHIFT , Q, exec, hyprctl dispatch exit"
         "$mainMod, W, exec, swaylock --color 000000"
         "$mainMod SHIFT, Space, togglefloating"
-        "$mainMod, Return, exec, $TERMINAL"
         "$mainMod, F, Fullscreen, fullscreen, 1"
         "$mainMod, Space, exec, pkill wofi || wofi --show drun"
         "$mainMod SHIFT, e, exec, hyprctl dispatch exec '[workspace 2 silent] konsole'"
         "$mainMod SHIFT, c, exec, hyprctl dispatch exec '[workspace 3 silent] chromium'"
         "$mainMod SHIFT, d, exec, hyprctl dispatch exec '[workspace 4 silent] vesktop'"
 
-        "$mainMod, F2, exec, brightnessctl s 5%-"
-        "$mainMod, F3, exec, brightnessctl s +5%"
 
         "$mainMod, M, exec, pamixer --toggle-mute"
-        "$mainMod, up, exec, pamixer -i 5"
-        "$mainMod, down, exec, pamixer -d 5"
+
+        "$mainMod, S, exec, pkill -SIGUSR1 waybar"
 
         "$mainMod, PRINT, exec, hyprshot -m region"
         ", PRINT, exec, grimblast --freeze copysave area ~/Pictures/$(date +%Y-%m-%d_%H-%m-%s).png"
         "$mainMod, page_down , exec, grimblast --freeze copysave area ~/Pictures/$(date +%Y-%m-%d_%H-%m-%s).png"
-
-        # switch focus
-        "$mainMod, h, movefocus, l"
-        "$mainMod, l, movefocus, r"
-        "$mainMod, k, movefocus, u"
-        "$mainMod, j, movefocus, d"
-
-        # window control
-        "$mainMod SHIFT, h, movewindow, l"
-        "$mainMod SHIFT, l, movewindow, r"
-        "$mainMod SHIFT, k, movewindow, u"
-        "$mainMod SHIFT, j, movewindow, d"
 
 
         # switch workspace
@@ -236,6 +221,46 @@
         "$mainMod, 9, workspace, 9"
         "$mainMod, 0, workspace, 10"
 
+        # won't need it but it exists
+
+        # "$mainMod, E, togglegroup"
+
+        # "$mainMod CTRL, c, movetoworkspace, empty"
+
+        # clipboard manager
+        # "$mainMod, V, exec, cliphist list | ${pkgs.rofi-wayland}/bin/rofi --dmenu | cliphist decode | ${pkgs.wl-clipboard}/bin/wl-copy"
+      ];
+
+      # binds that can be repeated
+      binde = [
+
+        # terminal open
+        "$mainMod, Return, exec, $TERMINAL"
+
+        # switch focus
+        "$mainMod, h, movefocus, l"
+        "$mainMod, l, movefocus, r"
+        "$mainMod, k, movefocus, u"
+        "$mainMod, j, movefocus, d"
+
+        # window control
+        "$mainMod SHIFT, h, movewindow, l"
+        "$mainMod SHIFT, l, movewindow, r"
+        "$mainMod SHIFT, k, movewindow, u"
+        "$mainMod SHIFT, j, movewindow, d"
+
+        # resize windows
+        "$mainMod CTRL, l,resizeactive,10 0"
+        "$mainMod CTRL, h,resizeactive,-10 0"
+        "$mainMod CTRL, k,resizeactive,0 -10"
+        "$mainMod CTRL, j,resizeactive,0 10 "
+
+        # sound and brightness control
+        "$mainMod, F2, exec, brightnessctl s 5%-"
+        "$mainMod, F3, exec, brightnessctl s +5%"
+        "$mainMod, up, exec, pamixer -i 5"
+        "$mainMod, down, exec, pamixer -d 5"
+
         # same as above, but switch to the workspace
         "$mainMod SHIFT, 1, movetoworkspacesilent, 1" # movetoworkspacesilent
         "$mainMod SHIFT, 2, movetoworkspacesilent, 2"
@@ -247,19 +272,8 @@
         "$mainMod SHIFT, 8, movetoworkspacesilent, 8"
         "$mainMod SHIFT, 9, movetoworkspacesilent, 9"
         "$mainMod SHIFT, 0, movetoworkspacesilent, 10"
-        "$mainMod CTRL, l,resizeactive,10 0"
-        "$mainMod CTRL, h,resizeactive,-10 0"
-        "$mainMod CTRL, k,resizeactive,0 -10"
-        "$mainMod CTRL, j,resizeactive,0 10 "
 
-        # won't need it but it exists
 
-        # "$mainMod, E, togglegroup"
-
-        # "$mainMod CTRL, c, movetoworkspace, empty"
-
-        # clipboard manager
-        # "$mainMod, V, exec, cliphist list | ${pkgs.rofi-wayland}/bin/rofi --dmenu | cliphist decode | ${pkgs.wl-clipboard}/bin/wl-copy"
       ];
 
       # mouse binding
