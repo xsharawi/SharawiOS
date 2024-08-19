@@ -283,6 +283,9 @@
       yazi
       obsidian
       firefox-bin
+      emacs
+      coreutils
+
 
       #newpackage
       wineWowPackages.stable
@@ -490,4 +493,3 @@
   system.stateVersion = "23.11"; # Did you read the comment?
 
 }
-#./nix/store/lgc5ma7rvgalalhivz1am85xw8rjpr36-kwallet-pam-6.0.5/libexec/pam_kwallet_init
