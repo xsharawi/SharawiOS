@@ -273,6 +273,8 @@
         "$mainMod SHIFT, 9, movetoworkspacesilent, 9"
         "$mainMod SHIFT, 0, movetoworkspacesilent, 10"
 
+        "$mainMod, N, workspace, +1"
+        "$mainMod, P, workspace, -1"
 
       ];
 

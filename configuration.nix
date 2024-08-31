@@ -2,31 +2,31 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs,inputs, ... }:
+{ config, pkgs, inputs, ... }:
 
 {
-  imports =
-    [ # Include the results of the hardware scan.
+  imports = [
+    # Include the results of the hardware scan.
     ./hardware-configuration.nix
-      inputs.home-manager.nixosModules.default
-      inputs.xremap-flake.nixosModules.default
-    ];
+    inputs.home-manager.nixosModules.default
+    inputs.xremap-flake.nixosModules.default
+  ];
 
-# Bootloader.
+  # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
   networking.hostName = "vim"; # Define your hostname.
-# networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
+  # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
-# Configure network proxy if necessary
-# networking.proxy.default = "http://user:password@proxy:port/";
-# networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
+  # Configure network proxy if necessary
+  # networking.proxy.default = "http://user:password@proxy:port/";
+  # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
 
-# Enable networking
-    networking.networkmanager.enable = true;
+  # Enable networking
+  networking.networkmanager.enable = true;
 
-# flakes
+  # flakes
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
   hardware.enableAllFirmware = true;
@@ -36,34 +36,34 @@
   ];
 
   hardware.bluetooth.enable = true; # enables support for Bluetooth
-    hardware.bluetooth.powerOnBoot = true; # powers up the default Bluetooth controller on boot
-    hardware.bluetooth.package = pkgs.bluez;
+  hardware.bluetooth.powerOnBoot = true; # powers up the default Bluetooth controller on boot
+  hardware.bluetooth.package = pkgs.bluez;
   services.blueman.enable = true;
-# systemd.user.services.mpris-proxy = {
-#     description = "Mpris proxy";
-#     after = [ "network.target" "sound.target" ];
-#     wantedBy = [ "default.target" ];
-#     serviceConfig.ExecStart = "${pkgs.bluez}/bin/mpris-proxy";
-# };
+  # systemd.user.services.mpris-proxy = {
+  #     description = "Mpris proxy";
+  #     after = [ "network.target" "sound.target" ];
+  #     wantedBy = [ "default.target" ];
+  #     serviceConfig.ExecStart = "${pkgs.bluez}/bin/mpris-proxy";
+  # };
 
 
-# Set your time zone.
+  # Set your time zone.
   time.timeZone = "Asia/Hebron";
 
-# Select internationalisation properties.
+  # Select internationalisation properties.
   i18n.defaultLocale = "en_US.UTF-8";
 
-# Enable the X11 windowing system.
+  # Enable the X11 windowing system.
   services.xserver.enable = true;
 
-# Enable the KDE Plasma Desktop Environment.
+  # Enable the KDE Plasma Desktop Environment.
   services.displayManager.sddm.enable = true;
   services.displayManager.sddm.autoNumlock = true;
   services.xserver.desktopManager.plasma5.enable = true;
   services.envfs.enable = true;
   programs.dconf.enable = true;
 
-# Configure keymap in X11
+  # Configure keymap in X11
   services.xserver = {
     xkb.layout = "us";
     xkb.variant = "";
@@ -74,19 +74,19 @@
       enable = true;
       extraPackages = with pkgs; [
         dmenu #application launcher most people use
-          i3status # gives you the default i3 status bar
-          i3lock #default i3 screen locker
-          i3blocks #if you are planning on using i3blocks over i3status
-          nitrogen #background hehe
+        i3status # gives you the default i3 status bar
+        i3lock #default i3 screen locker
+        i3blocks #if you are planning on using i3blocks over i3status
+        nitrogen #background hehe
       ];
     };
 
   };
 
-# Enable CUPS to print documents.
+  # Enable CUPS to print documents.
   services.printing.enable = true;
 
-# Enable sound with pipewire.
+  # Enable sound with pipewire.
   sound.enable = true;
   security.rtkit.enable = true;
   services.pipewire = {
@@ -103,29 +103,30 @@
     };
     alsa.enable = true;
     alsa.support32Bit = true;
-# If you want to use JACK applications, uncomment this
-# jack.enable = true;
+    pulse.enable = true;
+    # If you want to use JACK applications, uncomment this
+    # jack.enable = true;
 
-# use the example session manager (no others are packaged yet so this is enabled by default,
-# no need to redefine it in your config for now)
-# media-session.enable = true;
+    # use the example session manager (no others are packaged yet so this is enabled by default,
+    # no need to redefine it in your config for now)
+    # media-session.enable = true;
   };
 
-# gaming stuff
+  # gaming stuff
   programs.gamemode.enable = true;
   programs.steam.gamescopeSession.enable = true; # gamescope
-    hardware.opengl = {
-      enable = true;
-      driSupport = true;
-      driSupport32Bit = true;
-    };
-# services.xserver.videoDrivers = [ "nvidia" ];
-# hardware.nvidia.modesetting.enable = true;
+  hardware.opengl = {
+    enable = true;
+    driSupport = true;
+    driSupport32Bit = true;
+  };
+  # services.xserver.videoDrivers = [ "nvidia" ];
+  # hardware.nvidia.modesetting.enable = true;
 
-# Enable touchpad support (enabled default in most desktopManager).
-# services.xserver.libinput.enable = true;
+  # Enable touchpad support (enabled default in most desktopManager).
+  # services.xserver.libinput.enable = true;
 
-# Define a user account. Don't forget to set a password with ‘passwd’.
+  # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.xsharawi = {
     isNormalUser = true;
     description = "xsharawi";
@@ -135,181 +136,188 @@
   };
 
   home-manager = {
-    extraSpecialArgs = {inherit inputs;};
+    extraSpecialArgs = { inherit inputs; };
     users = {
       "xsharawi" = import ./home.nix;
     };
   };
 
-# Allow unfree packages
+  # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
 
-# List packages installed in system profile. To search, run:
-# $ nix search wget
+  # List packages installed in system profile. To search, run:
+  # $ nix search wget
   environment.systemPackages = with pkgs; [
-      vim
-      wget
-      keepassxc
-      xclip
-      firmwareLinuxNonfree
-      gparted
-      os-prober
-      grub2
-      git
-      clang
-      rustup
-      cargo
-      gcc
-      fzf
-      fd
-      fzf-zsh
-      ripgrep
-      gnumake
-      unzip
-      curl
-      zsh
-      openssl
-      i3
-      tmux
-      neovide
-      chromium
-      python3
-      polybar
-      rofi
-      font-awesome_5
-      rxvt-unicode
-      alsa-utils
-      mate.mate-power-manager
-      nodejs_22
-      picom
-      pywal
-      manrope
-      libnotify
-      gtk2
-      gtk3
-      gtk4
-      gtkd
-      gtk2-x11
-      gtk3-x11
-      discord
-      pkg-config
-      dotnet-sdk_8
-      libsForQt5.kde-gtk-config
-      libsForQt5.kdeplasma-addons
-      libsForQt5.breeze-qt5
-      xdg-desktop-portal-gtk
-      xdg-desktop-portal
-      xdg-desktop-portal-hyprland
-      xdg-desktop-portal-kde
-      nixd
-      fastfetch
-      zoxide
-#nerdfonts
-      zsh-powerlevel10k
-      vlc
-      zoom-us
-      nmap
-      lmms
-      lutris
-      ksnip
-      jdk21
+    vim
+    wget
+    keepassxc
+    xclip
+    firmwareLinuxNonfree
+    gparted
+    os-prober
+    grub2
+    git
+    clang
+    rustup
+    cargo
+    gcc
+    fzf
+    fd
+    fzf-zsh
+    ripgrep
+    gnumake
+    unzip
+    curl
+    zsh
+    openssl
+    i3
+    tmux
+    neovide
+    chromium
+    python3
+    polybar
+    rofi
+    font-awesome_5
+    rxvt-unicode
+    alsa-utils
+    mate.mate-power-manager
+    nodejs_22
+    picom
+    pywal
+    manrope
+    libnotify
+    gtk2
+    gtk3
+    gtk4
+    gtkd
+    gtk2-x11
+    gtk3-x11
+    discord
+    pkg-config
+    dotnet-sdk_8
+    libsForQt5.kde-gtk-config
+    libsForQt5.kdeplasma-addons
+    libsForQt5.breeze-qt5
+    xdg-desktop-portal-gtk
+    xdg-desktop-portal
+    xdg-desktop-portal-hyprland
+    xdg-desktop-portal-kde
+    nixd
+    nixdoc
+    fastfetch
+    zoxide
+    #nerdfonts
+    zsh-powerlevel10k
+    vlc
+    zoom-us
+    nmap
+    lmms
+    lutris
+    ksnip
+    jdk21
 
-# cpp c stuff
-      clangStdenv
-      clang-tools_17
-      clang_17
-      llvmPackages.libcxxClang
-      cppcheck
-      libllvm
-      valgrind
-      libcxx
-      glm
-      SDL2
-      SDL2_gfx
+    # cpp c stuff
+    clangStdenv
+    clang-tools_17
+    clang_17
+    llvmPackages.libcxxClang
+    cppcheck
+    libllvm
+    valgrind
+    libcxx
+    glm
+    SDL2
+    SDL2_gfx
 
-      winetricks
-      gst_all_1.gstreamer
-      qbittorrent
-      jetbrains.rider
+    winetricks
+    gst_all_1.gstreamer
+    qbittorrent
+    jetbrains.rider
 
-      yt-dlp
-      bottles
-      protonup
-      dxvk
-      filezilla
+    yt-dlp
+    bottles
+    protonup
+    dxvk
+    filezilla
 
-      go
-#gopls
-      obs-studio
-      bun
-      veracrypt
-      tree
-      tokei
-      docker-compose
-      dolphin-emu
-      retroarch
-      retroarch-assets
-      retroarch-joypad-autoconfig
-      onlyoffice-bin
-      graphite-cli
-      screenkey
-      zig
-      networkmanagerapplet
-      swaylock
-      swaylock-effects
-      pamixer
-      kdePackages.krfb
-      kdePackages.krdc
-      pipes
-      xfce.thunar
-      xfce.thunar-archive-plugin
-      qt5ct
-#sweet-folders
-#candy-icons
-      stdmanpages
-      man-pages
-      man-pages-posix
-      clang-manpages
-      unrar
-      zip
-      openjdk8
-      openjfx
-      jre8_headless
-      jre8
-      xorg.libXext
-      yazi
-      obsidian
-      firefox-bin
-      emacs
-      coreutils
-      gimp
-      jq
+    go
+    #gopls
+    obs-studio
+    bun
+    veracrypt
+    tree
+    tokei
+    docker-compose
+    dolphin-emu
+    retroarch
+    retroarch-assets
+    retroarch-joypad-autoconfig
+    onlyoffice-bin
+    graphite-cli
+    screenkey
+    zig
+    networkmanagerapplet
+    swaylock
+    swaylock-effects
+    pamixer
+    kdePackages.krfb
+    kdePackages.krdc
+    pipes
+    xfce.thunar
+    xfce.thunar-archive-plugin
+    qt5ct
+    #sweet-folders
+    #candy-icons
+    stdmanpages
+    man-pages
+    man-pages-posix
+    clang-manpages
+    unrar
+    zip
+    openjdk8
+    openjfx
+    jre8_headless
+    jre8
+    xorg.libXext
+    yazi
+    obsidian
+    firefox-bin
+    emacs
+    coreutils
+    gimp
+    jq
+    wl-clipboard-x11
+    pulseaudioFull
+    postman
+    rpcs3
+    cbonsai
 
 
-      #newpackage
-      wineWowPackages.stable
+
+    #newpackage
+    wineWowPackages.stable
 
     # hyprland
-      vesktop
-      kdePackages.kwallet-pam
-      waybar
-      wofi
-      hyprpicker
-      swaynotificationcenter
-      notion-app-enhanced
-      cliphist
-      wl-clip-persist
-      wl-clipboard
-      hyprcursor
-      hyprshot
-      hyprpicker
-      shotman
-      slurp
-      brightnessctl
-      grim
-      grimblast
+    vesktop
+    kdePackages.kwallet-pam
+    waybar
+    wofi
+    hyprpicker
+    swaynotificationcenter
+    notion-app-enhanced
+    cliphist
+    wl-clip-persist
+    wl-clipboard
+    hyprcursor
+    hyprshot
+    hyprpicker
+    shotman
+    slurp
+    brightnessctl
+    grim
+    grimblast
   ];
-  security.pam.services.swaylock = {};
+  security.pam.services.swaylock = { };
 
   programs.neovim.enable = true;
   programs.neovim.defaultEditor = true;
@@ -342,7 +350,7 @@
       enable = true;
       extraPortals = with pkgs; [
         xdg-desktop-portal-hyprland
-          xdg-desktop-portal-gtk
+        xdg-desktop-portal-gtk
       ];
     };
   };
@@ -365,9 +373,9 @@
         theme = "robbyrussell";
         plugins = [
           "sudo"
-            "terraform"
-            "systemadmin"
-            "vi-mode"
+          "terraform"
+          "systemadmin"
+          "vi-mode"
         ];
       };
     };
@@ -384,14 +392,14 @@
   programs.nix-ld.enable = true;
   programs.nix-ld.libraries = with pkgs; [
 
-#add any missing dynamic libraries for unpackaged programs here not in enviroment.systempackages
+    #add any missing dynamic libraries for unpackaged programs here not in enviroment.systempackages
     xorg.libXext
-      xorg.libX11
-      xorg.libXrender
-      xorg.libXtst
-      xorg.libXi
+    xorg.libX11
+    xorg.libXrender
+    xorg.libXtst
+    xorg.libXi
 
-      xwayland
+    xwayland
 
 
   ];
@@ -402,18 +410,18 @@
 
 
 
-# Some programs need SUID wrappers, can be configured further or are
-# started in user sessions.
-# programs.mtr.enable = true;
-# programs.gnupg.agent = {
-#   enable = true;
-#   enableSSHSupport = true;
-# };
+  # Some programs need SUID wrappers, can be configured further or are
+  # started in user sessions.
+  # programs.mtr.enable = true;
+  # programs.gnupg.agent = {
+  #   enable = true;
+  #   enableSSHSupport = true;
+  # };
 
-# List services that you want to enable:
+  # List services that you want to enable:
 
-# Enable the OpenSSH daemon.
-#services.openssh.enable = true;
+  # Enable the OpenSSH daemon.
+  #services.openssh.enable = true;
 
   services.mysql = {
     enable = true;
@@ -425,23 +433,23 @@
     flake = inputs.self.outPath;
     flags = [
       "--update-input"
-        "nixpkgs"
-        "-L" # print build logs
+      "nixpkgs"
+      "-L" # print build logs
     ];
     dates = "daily";
     randomizedDelaySec = "45min";
   };
 
-# direnv
+  # direnv
   programs.direnv.enable = true;
 
-# vms
+  # vms
   virtualisation.libvirtd.enable = true;
   programs.virt-manager.enable = true;
 
-  virtualisation.docker.enable = true; 
+  virtualisation.docker.enable = true;
 
-# # # stylix
+  # # # stylix
   stylix.enable = true;
   stylix.image = ./wallpapers/zoz.png;
   stylix.polarity = "dark";
@@ -451,23 +459,23 @@
   stylix.fonts.sizes.applications = 10;
   stylix.fonts.sizes.desktop = 8;
 
-# find out why is this needed
-# something about .gtkrc
-#home-manager.backupFileExtension = "psabruhwhatisthisbullshitthatshere";
+  # find out why is this needed
+  # something about .gtkrc
+  #home-manager.backupFileExtension = "psabruhwhatisthisbullshitthatshere";
 
-# xremap
+  # xremap
   services.xremap = {
     withWlroots = true;
     watch = true;
     userName = "xsharawi";
     config = {
       modmap = [
-      {
-        name = "caps unlimited caps but no caps";
-        remap = {
-          "CapsLock" = {"held" = "leftctrl"; "alone" = "esc"; "alone_timeout_millis" = 200; };
-        };
-      }
+        {
+          name = "caps unlimited caps but no caps";
+          remap = {
+            "CapsLock" = { "held" = "leftctrl"; "alone" = "esc"; "alone_timeout_millis" = 200; };
+          };
+        }
       ];
     };
   };
@@ -476,19 +484,21 @@
   qt.enable = true;
   qt.style = "breeze";
   qt.platformTheme = "qt5ct";
+  hardware.opentabletdriver.enable = true;
+  hardware.opentabletdriver.daemon.enable = true;
 
-# Open ports in the firewall.
-# networking.firewall.allowedTCPPorts = [ ... ];
-# networking.firewall.allowedUDPPorts = [ ... ];
-# Or disable the firewall altogether.
-# networking.firewall.enable = false;
+  # Open ports in the firewall.
+  # networking.firewall.allowedTCPPorts = [ ... ];
+  # networking.firewall.allowedUDPPorts = [ ... ];
+  # Or disable the firewall altogether.
+  # networking.firewall.enable = false;
 
-# This value determines the NixOS release from which the default
-# settings for stateful data, like file locations and database versions
-# on your system were taken. It‘s perfectly fine and recommended to leave
-# this value at the release version of the first install of this system.
-# Before changing this value read the documentation for this option
-# (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
+  # This value determines the NixOS release from which the default
+  # settings for stateful data, like file locations and database versions
+  # on your system were taken. It‘s perfectly fine and recommended to leave
+  # this value at the release version of the first install of this system.
+  # Before changing this value read the documentation for this option
+  # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   system.stateVersion = "23.11"; # Did you read the comment?
 
 }
