@@ -8,7 +8,10 @@
       url = "github:nix-community/home-manager/release-24.05";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-   hyprpicker = {
+
+    zen-browser.url = "github:MarceColl/zen-browser-flake";
+
+    hyprpicker = {
       url = "github:hyprwm/hyprpicker";
       inputs.nixpkgs.follows = "nixpkgs";
     };
@@ -16,14 +19,14 @@
     xremap-flake.url = "github:xremap/nix-flake";
   };
 
-  outputs = {self, nixpkgs, ...}@inputs: {
+  outputs = { self, nixpkgs, ... }@inputs: {
 
-    nixosConfigurations.vim = nixpkgs.lib.nixosSystem{
+    nixosConfigurations.vim = nixpkgs.lib.nixosSystem {
 
-      specialArgs = {inherit inputs;};
+      specialArgs = { inherit inputs; };
       system = "x86_64-linux";
 
-      modules = [ 
+      modules = [
         ./configuration.nix
         inputs.home-manager.nixosModules.default
         inputs.stylix.nixosModules.stylix

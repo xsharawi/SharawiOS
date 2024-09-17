@@ -291,6 +291,11 @@
     postman
     rpcs3
     cbonsai
+    ruby
+    rubyPackages.solargraph
+    rubyPackages.rexml
+    google-chrome
+    inputs.zen-browser.packages."${system}".default
 
 
 
@@ -362,6 +367,7 @@
   nix.optimise.automatic = true;
   nix.settings.auto-optimise-store = true;
 
+  programs.fish.enable = true;
   programs = {
     zsh = {
       enable = true;
@@ -453,15 +459,15 @@
   stylix.enable = true;
   stylix.image = ./wallpapers/zoz.png;
   stylix.polarity = "dark";
-  stylix.cursor.package = pkgs.banana-cursor;
-  stylix.cursor.name = "banana-cursor";
-  stylix.cursor.size = 32;
+  # stylix.cursor.package = pkgs.banana-cursor;
+  # stylix.cursor.name = "banana-cursor";
+  # stylix.cursor.size = 40;
   stylix.fonts.sizes.applications = 10;
   stylix.fonts.sizes.desktop = 8;
 
   # find out why is this needed
   # something about .gtkrc
-  #home-manager.backupFileExtension = "psabruhwhatisthisbullshitthatshere";
+  #home-manager.backupFileExtension = "ffs just work";
 
   # xremap
   services.xremap = {
@@ -486,6 +492,9 @@
   qt.platformTheme = "qt5ct";
   hardware.opentabletdriver.enable = true;
   hardware.opentabletdriver.daemon.enable = true;
+
+  # flat
+  services.flatpak.enable = true;
 
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];

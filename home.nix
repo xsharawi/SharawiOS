@@ -1,4 +1,4 @@
-{ config, pkgs, inputs, ... }:
+{ config, lib, pkgs, inputs, ... }:
 
 {
   # Home Manager needs a bit of information about you and the paths it should
@@ -34,11 +34,11 @@
     # (pkgs.writeShellScriptBin "my-hello" ''
     #   echo "Hello, ${config.home.username}!"
     # '')
-     (pkgs.writeShellScriptBin "up" ''
-       sudo nixos-rebuild switch --flake /etc/nixos#vim
-     '')
+    (pkgs.writeShellScriptBin "up" ''
+      sudo nixos-rebuild switch --flake /etc/nixos#vim
+    '')
 
-     inputs.hyprpicker.packages.${pkgs.system}.default
+    inputs.hyprpicker.packages.${pkgs.system}.default
   ];
 
   # home.file."bin/tmux-mem-cpp".source = ./tmux-mem-cpp;
@@ -81,7 +81,7 @@
 
 
   wayland.windowManager.hyprland = {
-  
+
     systemd.enable = true;
 
     xwayland.enable = true;
@@ -97,8 +97,9 @@
       exec-once = [
         # "wl-clip-persist --clipboard both"
         "nm-applet --indicator &"
+        "kdeconnect-indicator &"
         "waybar &"
-        "[workspace 1 silent] $TERMINAL"
+        "[workspace 1 silent] obsidian"
         "[workspace 2 silent] $TERMINAL"
         "[workspace 3 silent] chromium"
         "[workspace 4 silent] vesktop"
@@ -124,9 +125,9 @@
         gaps_out = 6;
         border_size = 2;
         env = [
-          "HYPRCURSOR_THEME,banana-cursor"
-          "HYPRCURSOR_SIZE,32"
-          "XCURSOR_SIZE,32"
+          "HYPRCURSOR_THEME,Banana"
+          "HYPRCURSOR_SIZE,40"
+          "XCURSOR_SIZE,40"
         ];
       };
 
@@ -294,11 +295,11 @@
     ";
   };
 
-   #also virt
-   dconf.settings = {
+  #also virt
+  dconf.settings = {
     "org/virt-manager/virt-manager/connections" = {
-      autoconnect = ["qemu:///system"];
-      uris = ["qemu:///system"];
+      autoconnect = [ "qemu:///system" ];
+      uris = [ "qemu:///system" ];
     };
     # disable dconf first use warning
     "ca/desrt/dconf-editor" = {
@@ -322,13 +323,24 @@
   stylix.targets.swaylock.useImage = true;
   stylix.targets.gtk.enable = true;
   gtk = {
-   enable = true;
-   gtk3.extraConfig = {
-     gtk-application-prefer-dark-theme = 1;
-   };
-   gtk4.extraConfig = {
-     gtk-application-prefer-dark-theme = 1;
-   };
+    enable = true;
+    gtk3.extraConfig = {
+      gtk-application-prefer-dark-theme = 1;
+    };
+    gtk4.extraConfig = {
+      gtk-application-prefer-dark-theme = 1;
+    };
+  };
+
+  stylix.cursor.name = "Banana";
+
+  # forceing because stylix is dumb
+  home.pointerCursor = {
+    x11.enable = true;
+    gtk.enable = true;
+    package = lib.mkForce pkgs.banana-cursor;
+    size = lib.mkForce 40;
+    name = lib.mkForce ("Banana");
   };
 
   # Let Home Manager install and manage itself.
