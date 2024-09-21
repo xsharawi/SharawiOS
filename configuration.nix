@@ -87,7 +87,7 @@
   services.printing.enable = true;
 
   # Enable sound with pipewire.
-  sound.enable = true;
+  #sound.enable = true;
   security.rtkit.enable = true;
   services.pipewire = {
     enable = true;
@@ -115,11 +115,11 @@
   # gaming stuff
   programs.gamemode.enable = true;
   programs.steam.gamescopeSession.enable = true; # gamescope
-  hardware.opengl = {
-    enable = true;
-    driSupport = true;
-    driSupport32Bit = true;
-  };
+  # hardware.opengl = {
+  #   enable = true;
+  #   driSupport = true;
+  #   driSupport32Bit = true;
+  # };
   # services.xserver.videoDrivers = [ "nvidia" ];
   # hardware.nvidia.modesetting.enable = true;
 
