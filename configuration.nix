@@ -214,7 +214,9 @@
     lmms
     lutris
     ksnip
-    jdk21
+    #minecraft
+    jdk17
+    javaPackages.openjfx17
 
     # cpp c stuff
     clangStdenv
@@ -279,6 +281,7 @@
     jre8_headless
     jre8
     xorg.libXext
+    xorg.libXxf86vm
     yazi
     obsidian
     firefox-bin
@@ -404,6 +407,7 @@
     xorg.libXrender
     xorg.libXtst
     xorg.libXi
+    xorg.libXxf86vm
 
     xwayland
 
