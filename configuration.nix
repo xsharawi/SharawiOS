@@ -299,6 +299,10 @@
     rubyPackages.rexml
     google-chrome
     inputs.zen-browser.packages."${system}".default
+    # ELIXIR MENTIONED
+    elixir
+    # OCAML MENTIONED
+    ocaml
 
 
 
