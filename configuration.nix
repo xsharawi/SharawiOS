@@ -301,6 +301,7 @@
     inputs.zen-browser.packages."${system}".default
     # ELIXIR MENTIONED
     elixir
+    elixir-ls
     # OCAML MENTIONED
     ocaml
 
