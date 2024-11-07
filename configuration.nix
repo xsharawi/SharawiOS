@@ -5,17 +5,18 @@
 { config, pkgs, inputs, ... }:
 
 {
-  imports = [
-    # Include the results of the hardware scan.
-    ./hardware-configuration.nix
+  imports =
+    [ # Include the results of the hardware scan.
+      ./hardware-configuration.nix
     inputs.home-manager.nixosModules.default
     inputs.xremap-flake.nixosModules.default
-  ];
+    ];
 
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
+  boot.initrd.luks.devices."luks-695f8df6-9ca9-45ab-a495-ce49f4675b37".device = "/dev/disk/by-uuid/695f8df6-9ca9-45ab-a495-ce49f4675b37";
   networking.hostName = "vim"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
@@ -29,29 +30,20 @@
   # flakes
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
-  hardware.enableAllFirmware = true;
-
-  hardware.firmware = [
-    pkgs.firmwareLinuxNonfree
-  ];
-
-  hardware.bluetooth.enable = true; # enables support for Bluetooth
-  hardware.bluetooth.powerOnBoot = true; # powers up the default Bluetooth controller on boot
-  hardware.bluetooth.package = pkgs.bluez;
-  services.blueman.enable = true;
-  # systemd.user.services.mpris-proxy = {
-  #     description = "Mpris proxy";
-  #     after = [ "network.target" "sound.target" ];
-  #     wantedBy = [ "default.target" ];
-  #     serviceConfig.ExecStart = "${pkgs.bluez}/bin/mpris-proxy";
-  # };
-
 
   # Set your time zone.
   time.timeZone = "Asia/Hebron";
 
   # Select internationalisation properties.
   i18n.defaultLocale = "en_US.UTF-8";
+
+  hardware.enableAllFirmware = true;
+
+  hardware.firmware = [
+    pkgs.firmwareLinuxNonfree
+  ];
+
+  hardware.nvidia.open = false;
 
   # Enable the X11 windowing system.
   services.xserver.enable = true;
@@ -87,7 +79,6 @@
   services.printing.enable = false;
 
   # Enable sound with pipewire.
-  #sound.enable = true;
   security.rtkit.enable = true;
   services.pipewire = {
     enable = true;
@@ -120,19 +111,16 @@
   #   driSupport = true;
   #   driSupport32Bit = true;
   # };
-  # services.xserver.videoDrivers = [ "nvidia" ];
-  # hardware.nvidia.modesetting.enable = true;
+   services.xserver.videoDrivers = [ "nvidia" ];
+   hardware.nvidia.modesetting.enable = true;
 
-  # Enable touchpad support (enabled default in most desktopManager).
-  # services.xserver.libinput.enable = true;
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.xsharawi = {
     isNormalUser = true;
     description = "xsharawi";
-    extraGroups = [ "networkmanager" "wheel" "gamemode" "libvirtd" "docker" ];
-    packages = with pkgs; [
-    ];
+    extraGroups = [ "networkmanager" "wheel" "gamemode" "libvirtd" "docker"  ];
+    packages = with pkgs; [];
   };
 
   home-manager = {
@@ -148,15 +136,15 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
-    vim
+    vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
     wget
+    git
     keepassxc
     xclip
     firmwareLinuxNonfree
     gparted
     os-prober
     grub2
-    git
     clang
     rustup
     cargo
@@ -329,6 +317,7 @@
     brightnessctl
     grim
     grimblast
+    
   ];
   security.pam.services.swaylock = { };
 
@@ -336,7 +325,6 @@
   programs.neovim.defaultEditor = true;
   programs.hyprland.enable = true;
   programs.hyprland.xwayland.enable = true;
-
   programs.kdeconnect.enable = true;
 
   security.pam.services.kwallet = {
@@ -368,6 +356,7 @@
     };
   };
 
+
   fonts.packages = with pkgs; [
     (nerdfonts.override { fonts = [ "Hack" ]; })
   ];
@@ -375,7 +364,6 @@
   nix.optimise.automatic = true;
   nix.settings.auto-optimise-store = true;
 
-  programs.fish.enable = true;
   programs = {
     zsh = {
       enable = true;
@@ -405,7 +393,6 @@
 
   programs.nix-ld.enable = true;
   programs.nix-ld.libraries = with pkgs; [
-
     #add any missing dynamic libraries for unpackaged programs here not in enviroment.systempackages
     xorg.libXext
     xorg.libX11
@@ -413,12 +400,9 @@
     xorg.libXtst
     xorg.libXi
     xorg.libXxf86vm
-
     xwayland
-
-
   ];
-
+  
   environment.sessionVariables = {
     STEAM_EXTRA_COMPAT_TOOLS_PATH = "/home/xsharawi/.steam/root/compatibilitytools.d";
   };
@@ -436,7 +420,7 @@
   # List services that you want to enable:
 
   # Enable the OpenSSH daemon.
-  #services.openssh.enable = true;
+  # services.openssh.enable = true;
 
   services.mysql = {
     enable = true;
@@ -457,11 +441,9 @@
 
   # direnv
   programs.direnv.enable = true;
-
   # vms
   virtualisation.libvirtd.enable = true;
   programs.virt-manager.enable = true;
-
   virtualisation.docker.enable = true;
 
   # # # stylix
@@ -474,8 +456,6 @@
   stylix.fonts.sizes.applications = 10;
   stylix.fonts.sizes.desktop = 8;
 
-  # find out why is this needed
-  # something about .gtkrc
   #home-manager.backupFileExtension = "ffs just work";
 
   # xremap
