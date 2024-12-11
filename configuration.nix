@@ -9,7 +9,7 @@
     [ # Include the results of the hardware scan.
       ./hardware-configuration.nix
     inputs.home-manager.nixosModules.default
-    inputs.xremap-flake.nixosModules.default
+      #inputs.xremap-flake.nixosModules.default
     ];
 
   # Bootloader.
@@ -160,7 +160,6 @@
     openssl
     i3
     tmux
-    neovide
     chromium
     python3
     polybar
@@ -194,17 +193,23 @@
     nixdoc
     fastfetch
     zoxide
-    #nerdfonts
     zsh-powerlevel10k
     vlc
     zoom-us
     nmap
     lmms
-    lutris
+    (lutris.override{
+      extraPkgs = pkgs:[
+        wineWowPackages.stable
+        winetricks
+      ];
+    }
+    )
+    protonup-qt
     ksnip
     #minecraft
-    jdk17
-    javaPackages.openjfx17
+    # jdk17
+    # javaPackages.openjfx17
 
     # cpp c stuff
     clangStdenv
@@ -218,6 +223,8 @@
     glm
     SDL2
     SDL2_gfx
+    binutils
+    glibc
 
     winetricks
     gst_all_1.gstreamer
@@ -231,6 +238,8 @@
     filezilla
 
     go
+    air
+    htmx-lsp
     #gopls
     obs-studio
     bun
@@ -255,7 +264,7 @@
     pipes
     xfce.thunar
     xfce.thunar-archive-plugin
-    qt5ct
+    libsForQt5.qt5ct
     #sweet-folders
     #candy-icons
     stdmanpages
@@ -268,6 +277,7 @@
     openjfx
     jre8_headless
     jre8
+    jdk8
     xorg.libXext
     xorg.libXxf86vm
     yazi
@@ -292,14 +302,44 @@
     elixir-ls
     # OCAML MENTIONED
     ocaml
-
-
+    mangohud
+    pcsx2
+    kdePackages.kdenetwork-filesharing
+    samba4Full
+    syncthing
+    fuse
+    alsa-lib
+    atk
+    cairo
+    dbus
+    expat
+    fontconfig
+    freetype
+    gdk-pixbuf
+    glib
+    pango
+    nspr
+    nss
+    stdenv.cc.cc
+    zlib
+    libuuid
+    wezterm
+    p7zip
+    solaar
+    logitech-udev-rules
+    logiops
+    godot_4
+    godot_4-mono
+    gdtoolkit_4
+    nerd-fonts.hack
+    gopls
+    kdePackages.qtwebsockets
+    libsForQt5.qt5.qtwebsockets
 
     #newpackage
     wineWowPackages.stable
 
     # hyprland
-    vesktop
     kdePackages.kwallet-pam
     waybar
     wofi
@@ -317,7 +357,11 @@
     brightnessctl
     grim
     grimblast
-    
+    (vesktop.overrideAttrs (finalAttrs: previousAttrs: {
+      desktopItems = [
+        ((builtins.elemAt previousAttrs.desktopItems 0).override { icon = "discord"; })
+      ];
+    }))
   ];
   security.pam.services.swaylock = { };
 
@@ -356,10 +400,6 @@
     };
   };
 
-
-  fonts.packages = with pkgs; [
-    (nerdfonts.override { fonts = [ "Hack" ]; })
-  ];
 
   nix.optimise.automatic = true;
   nix.settings.auto-optimise-store = true;
@@ -400,6 +440,13 @@
     xorg.libXtst
     xorg.libXi
     xorg.libXxf86vm
+    xorg.libxcb
+    xorg.libXcomposite
+    xorg.libXcursor
+    xorg.libXdamage
+    xorg.libXfixes
+    xorg.libXrandr
+    xorg.libXScrnSaver
     xwayland
   ];
   
@@ -458,20 +505,43 @@
 
   #home-manager.backupFileExtension = "ffs just work";
 
-  # xremap
-  services.xremap = {
-    withWlroots = true;
-    watch = true;
-    userName = "xsharawi";
-    config = {
-      modmap = [
-        {
-          name = "caps unlimited caps but no caps";
-          remap = {
-            "CapsLock" = { "held" = "leftctrl"; "alone" = "esc"; "alone_timeout_millis" = 200; };
+  # # xremap
+  # services.xremap = {
+  #   withX11 = true;
+  #   serviceMode = "user";
+  #   watch = true;
+  #   userName = "xsharawi";
+  #   config = {
+  #     modmap = [
+  #       {
+  #         name = "caps unlimited caps but no caps";
+  #         remap = {
+  #           "CapsLock" = { "held" = "leftctrl"; "alone" = "esc"; "alone_timeout_millis" = 200; };
+  #         };
+  #       }
+  #     ];
+  #   };
+  # };
+
+    services.keyd = {
+    enable = true;
+    keyboards = {
+      # The name is just the name of the configuration file, it does not really matter
+      default = {
+        ids = [ "*" ]; # what goes into the [id] section, here we select all keyboards
+        # Everything but the ID section:
+        settings = {
+          # The main layer, if you choose to declare it in Nix
+          main = {
+            capslock = "overload(control, esc)"; # you might need to also enclose the key in quotes if it contains non-alphabetical symbols
+            esc = "esc"; # you might need to also enclose the key in quotes if it contains non-alphabetical symbols
           };
-        }
-      ];
+          otherlayer = {};
+        };
+        extraConfig = ''
+          # put here any extra-config, e.g. you can copy/paste here directly a configuration, just remove the ids part
+        '';
+      };
     };
   };
 

@@ -317,11 +317,18 @@
   stylix.targets.kde.enable = true;
   stylix.targets.kitty.variant256Colors = true;
   programs.kitty.enable = true;
+  programs.kitty.settings={
+    scroll_back = -1;
+    mouse_hide_wait = 2.0;
+    font_family = "Hack";
+    font_size = 10;
+  };
 
   stylix.targets.swaylock.enable = true;
   stylix.targets.sway.enable = true;
   stylix.targets.swaylock.useImage = true;
   stylix.targets.gtk.enable = true;
+  stylix.targets.rofi.enable = true;
   gtk = {
     enable = true;
     gtk3.extraConfig = {

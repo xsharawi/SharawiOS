@@ -16,7 +16,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
     stylix.url = "github:danth/stylix";
-    xremap-flake.url = "github:xremap/nix-flake";
+    #xremap-flake.url = "github:xremap/nix-flake";
   };
 
   outputs = { self, nixpkgs, ... }@inputs: {
