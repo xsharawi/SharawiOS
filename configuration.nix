@@ -181,7 +181,6 @@
     gtk3-x11
     discord
     pkg-config
-    dotnet-sdk_8
     libsForQt5.kde-gtk-config
     libsForQt5.kdeplasma-addons
     libsForQt5.breeze-qt5
