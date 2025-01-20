@@ -11,6 +11,11 @@
 
     zen-browser.url = "github:MarceColl/zen-browser-flake";
 
+    ghostty = {
+      url = "github:ghostty-org/ghostty";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     hyprpicker = {
       url = "github:hyprwm/hyprpicker";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -19,25 +24,27 @@
     #xremap-flake.url = "github:xremap/nix-flake";
   };
 
-  outputs = { self, nixpkgs, ... }@inputs: {
+  outputs =
+    { self, nixpkgs, ... }@inputs:
+    {
 
-    nixosConfigurations.vim = nixpkgs.lib.nixosSystem {
+      nixosConfigurations.vim = nixpkgs.lib.nixosSystem {
 
-      specialArgs = { inherit inputs; };
-      system = "x86_64-linux";
+        specialArgs = { inherit inputs; };
+        system = "x86_64-linux";
 
-      modules = [
-        ./configuration.nix
-        inputs.home-manager.nixosModules.default
-        {
-          home-manager.useGlobalPkgs = true;
-          home-manager.useUserPackages = true;
-        }
-        inputs.stylix.nixosModules.stylix
-      ];
+        modules = [
+          ./configuration.nix
+          inputs.home-manager.nixosModules.default
+          {
+            home-manager.useGlobalPkgs = true;
+            home-manager.useUserPackages = true;
+          }
+          inputs.stylix.nixosModules.stylix
+        ];
+
+      };
 
     };
-
-  };
 
 }

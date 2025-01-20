@@ -2,21 +2,27 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs, inputs, ... }:
+{
+  config,
+  pkgs,
+  inputs,
+  ...
+}:
 
 {
-  imports =
-    [ # Include the results of the hardware scan.
-      ./hardware-configuration.nix
+  imports = [
+    # Include the results of the hardware scan.
+    ./hardware-configuration.nix
     inputs.home-manager.nixosModules.default
-      #inputs.xremap-flake.nixosModules.default
-    ];
+    #inputs.xremap-flake.nixosModules.default
+  ];
 
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
-  boot.initrd.luks.devices."luks-695f8df6-9ca9-45ab-a495-ce49f4675b37".device = "/dev/disk/by-uuid/695f8df6-9ca9-45ab-a495-ce49f4675b37";
+  boot.initrd.luks.devices."luks-695f8df6-9ca9-45ab-a495-ce49f4675b37".device =
+    "/dev/disk/by-uuid/695f8df6-9ca9-45ab-a495-ce49f4675b37";
   networking.hostName = "vim"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
@@ -28,8 +34,10 @@
   networking.networkmanager.enable = true;
 
   # flakes
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
-
+  nix.settings.experimental-features = [
+    "nix-command"
+    "flakes"
+  ];
 
   # Set your time zone.
   time.timeZone = "Asia/Hebron";
@@ -61,15 +69,14 @@
     xkb.variant = "";
     xkb.options = "caps:swapescape";
 
-
     windowManager.i3 = {
       enable = true;
       extraPackages = with pkgs; [
-        dmenu #application launcher most people use
+        dmenu # application launcher most people use
         i3status # gives you the default i3 status bar
-        i3lock #default i3 screen locker
-        i3blocks #if you are planning on using i3blocks over i3status
-        nitrogen #background hehe
+        i3lock # default i3 screen locker
+        i3blocks # if you are planning on using i3blocks over i3status
+        nitrogen # background hehe
       ];
     };
 
@@ -111,16 +118,21 @@
   #   driSupport = true;
   #   driSupport32Bit = true;
   # };
-   services.xserver.videoDrivers = [ "nvidia" ];
-   hardware.nvidia.modesetting.enable = true;
-
+  services.xserver.videoDrivers = [ "nvidia" ];
+  hardware.nvidia.modesetting.enable = true;
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.xsharawi = {
     isNormalUser = true;
     description = "xsharawi";
-    extraGroups = [ "networkmanager" "wheel" "gamemode" "libvirtd" "docker"  ];
-    packages = with pkgs; [];
+    extraGroups = [
+      "networkmanager"
+      "wheel"
+      "gamemode"
+      "libvirtd"
+      "docker"
+    ];
+    packages = with pkgs; [ ];
   };
 
   home-manager = {
@@ -143,7 +155,7 @@
     xclip
     firmwareLinuxNonfree
     gparted
-    os-prober
+    # os-prober
     grub2
     clang
     rustup
@@ -176,7 +188,7 @@
     gtk2
     gtk3
     gtk4
-    gtkd
+    # gtkd
     gtk2-x11
     gtk3-x11
     discord
@@ -190,20 +202,20 @@
     xdg-desktop-portal-kde
     nixd
     nixdoc
+    nixfmt-rfc-style
     fastfetch
     zoxide
     zsh-powerlevel10k
     vlc
     zoom-us
     nmap
-    lmms
-    (lutris.override{
-      extraPkgs = pkgs:[
+    #lmms
+    (lutris.override {
+      extraPkgs = pkgs: [
         wineWowPackages.stable
         winetricks
       ];
-    }
-    )
+    })
     protonup-qt
     ksnip
     #minecraft
@@ -228,10 +240,9 @@
     winetricks
     gst_all_1.gstreamer
     qbittorrent
-    jetbrains.rider
 
     yt-dlp
-    bottles
+    # bottles
     protonup
     dxvk
     filezilla
@@ -254,6 +265,7 @@
     graphite-cli
     screenkey
     zig
+    zls
     networkmanagerapplet
     swaylock
     swaylock-effects
@@ -261,7 +273,6 @@
     kdePackages.krfb
     kdePackages.krdc
     pipes
-    xfce.thunar
     xfce.thunar-archive-plugin
     libsForQt5.qt5ct
     #sweet-folders
@@ -296,6 +307,7 @@
     rubyPackages.rexml
     google-chrome
     inputs.zen-browser.packages."${system}".default
+    inputs.ghostty.packages."${system}".default
     # ELIXIR MENTIONED
     elixir
     elixir-ls
@@ -304,7 +316,7 @@
     mangohud
     pcsx2
     kdePackages.kdenetwork-filesharing
-    samba4Full
+    # samba4Full
     syncthing
     fuse
     alsa-lib
@@ -327,13 +339,17 @@
     solaar
     logitech-udev-rules
     logiops
-    godot_4
-    godot_4-mono
-    gdtoolkit_4
+    # godot_4
+    # godot_4-mono
+    # gdtoolkit_4
     nerd-fonts.hack
     gopls
     kdePackages.qtwebsockets
     libsForQt5.qt5.qtwebsockets
+    playerctl
+    pavucontrol
+    sshfs
+    entr
 
     #newpackage
     wineWowPackages.stable
@@ -356,11 +372,13 @@
     brightnessctl
     grim
     grimblast
-    (vesktop.overrideAttrs (finalAttrs: previousAttrs: {
-      desktopItems = [
-        ((builtins.elemAt previousAttrs.desktopItems 0).override { icon = "discord"; })
-      ];
-    }))
+    (vesktop.overrideAttrs (
+      finalAttrs: previousAttrs: {
+        desktopItems = [
+          ((builtins.elemAt previousAttrs.desktopItems 0).override { icon = "discord"; })
+        ];
+      }
+    ))
   ];
   security.pam.services.swaylock = { };
 
@@ -369,6 +387,10 @@
   programs.hyprland.enable = true;
   programs.hyprland.xwayland.enable = true;
   programs.kdeconnect.enable = true;
+
+  services.openssh.allowSFTP = true;
+  # services.samba.enable = true;
+  # services.samba.smbd.enable = true;
 
   security.pam.services.kwallet = {
     name = "kwallet";
@@ -399,7 +421,6 @@
     };
   };
 
-
   nix.optimise.automatic = true;
   nix.settings.auto-optimise-store = true;
 
@@ -429,7 +450,6 @@
     dedicatedServer.openFirewall = true;
   };
 
-
   programs.nix-ld.enable = true;
   programs.nix-ld.libraries = with pkgs; [
     #add any missing dynamic libraries for unpackaged programs here not in enviroment.systempackages
@@ -448,12 +468,10 @@
     xorg.libXScrnSaver
     xwayland
   ];
-  
+
   environment.sessionVariables = {
     STEAM_EXTRA_COMPAT_TOOLS_PATH = "/home/xsharawi/.steam/root/compatibilitytools.d";
   };
-
-
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
@@ -473,17 +491,18 @@
     package = pkgs.mariadb;
   };
 
-  system.autoUpgrade = {
-    enable = true;
-    flake = inputs.self.outPath;
-    flags = [
-      "--update-input"
-      "nixpkgs"
-      "-L" # print build logs
-    ];
-    dates = "daily";
-    randomizedDelaySec = "45min";
-  };
+  # fuck kde
+  # system.autoUpgrade = {
+  #   enable = true;
+  #   flake = inputs.self.outPath;
+  #   flags = [
+  #     "--update-input"
+  #     "nixpkgs"
+  #     "-L" # print build logs
+  #   ];
+  #   dates = "daily";
+  #   randomizedDelaySec = "45min";
+  # };
 
   # direnv
   programs.direnv.enable = true;
@@ -522,7 +541,7 @@
   #   };
   # };
 
-    services.keyd = {
+  services.keyd = {
     enable = true;
     keyboards = {
       # The name is just the name of the configuration file, it does not really matter
@@ -535,7 +554,7 @@
             capslock = "overload(control, esc)"; # you might need to also enclose the key in quotes if it contains non-alphabetical symbols
             esc = "esc"; # you might need to also enclose the key in quotes if it contains non-alphabetical symbols
           };
-          otherlayer = {};
+          otherlayer = { };
         };
         extraConfig = ''
           # put here any extra-config, e.g. you can copy/paste here directly a configuration, just remove the ids part
@@ -544,6 +563,7 @@
     };
   };
 
+  nix.nixPath = [ "nixpkgs=${inputs.nixpkgs}" ];
 
   qt.enable = true;
   qt.style = "breeze";
@@ -567,5 +587,4 @@
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   system.stateVersion = "23.11"; # Did you read the comment?
-
 }

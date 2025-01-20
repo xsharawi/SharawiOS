@@ -1,4 +1,10 @@
-{ config, lib, pkgs, inputs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  inputs,
+  ...
+}:
 
 {
   # Home Manager needs a bit of information about you and the paths it should
@@ -78,8 +84,6 @@
     # EDITOR = "emacs";
   };
 
-
-
   wayland.windowManager.hyprland = {
 
     systemd.enable = true;
@@ -149,12 +153,12 @@
           ignore_opacity = true;
         };
 
-        drop_shadow = true;
+        #drop_shadow = true;
 
-        shadow_ignore_window = true;
+        #shadow_ignore_window = true;
         #shadow_offset = "0 2";
-        shadow_range = 4;
-        shadow_render_power = 3;
+        #shadow_range = 4;
+        #shadow_render_power = 3;
         #"col.shadow" = "rgba(1a1a1aee)";
       };
 
@@ -200,7 +204,6 @@
         "$mainMod SHIFT, c, exec, hyprctl dispatch exec '[workspace 3 silent] chromium'"
         "$mainMod SHIFT, d, exec, hyprctl dispatch exec '[workspace 4 silent] vesktop'"
 
-
         "$mainMod, M, exec, pamixer --toggle-mute"
 
         "$mainMod, S, exec, pkill -SIGUSR1 waybar"
@@ -208,7 +211,6 @@
         "$mainMod, PRINT, exec, hyprshot -m region"
         ", PRINT, exec, grimblast --freeze copysave area ~/Pictures/$(date +%Y-%m-%d_%H-%m-%s).png"
         "$mainMod, page_down , exec, grimblast --freeze copysave area ~/Pictures/$(date +%Y-%m-%d_%H-%m-%s).png"
-
 
         # switch workspace
         "$mainMod, 1, workspace, 1"
@@ -311,17 +313,19 @@
     };
   };
 
-
   stylix.enable = true;
   stylix.targets.kitty.enable = true;
-  stylix.targets.kde.enable = true;
   stylix.targets.kitty.variant256Colors = true;
+  stylix.targets.kde.enable = true;
   programs.kitty.enable = true;
-  programs.kitty.settings={
+  programs.kitty.settings = {
     scroll_back = -1;
     mouse_hide_wait = 2.0;
     font_family = "Hack";
     font_size = 10;
+    remember_window_size = "yes";
+    initial_window_width = 640;
+    initial_window_height = 400;
   };
 
   stylix.targets.swaylock.enable = true;
@@ -349,6 +353,8 @@
     size = lib.mkForce 40;
     name = lib.mkForce ("Banana");
   };
+
+  gtk.gtk2.configLocation = "${config.xdg.configHome}/gtk-2.0/gtkrc";
 
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
