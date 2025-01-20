@@ -149,12 +149,12 @@
           ignore_opacity = true;
         };
 
-        drop_shadow = true;
-
-        shadow_ignore_window = true;
+        # drop_shadow = true;
+        #
+        # shadow_ignore_window = true;
         #shadow_offset = "0 2";
-        shadow_range = 4;
-        shadow_render_power = 3;
+        # shadow_range = 4;
+        # shadow_render_power = 3;
         #"col.shadow" = "rgba(1a1a1aee)";
       };
 
@@ -287,8 +287,13 @@
 
     };
 
+
+
+    # old
+    # monitor=, highres@highrr, auto, auto
     extraConfig = "
-       monitor=, highres@highrr, auto, auto
+        monitor = eDP-1,1366x768@60.00300,0x0,1 
+        monitor = HDMI-A-1,1920x1080@100.00000,1366x0,1
        xwayland {
          force_zero_scaling = true
        }

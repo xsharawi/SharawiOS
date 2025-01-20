@@ -267,7 +267,7 @@
     pipes
     xfce.thunar
     xfce.thunar-archive-plugin
-    qt5ct
+    libsForQt5.qt5ct
     #sweet-folders
     #candy-icons
     stdmanpages
@@ -293,17 +293,23 @@
     pulseaudioFull
     postman
     rpcs3
+    pcsx2
     cbonsai
     ruby
     rubyPackages.solargraph
     rubyPackages.rexml
     google-chrome
     inputs.zen-browser.packages."${system}".default
+    inputs.swww.packages.${pkgs.system}.swww
     # ELIXIR MENTIONED
     elixir
     elixir-ls
     # OCAML MENTIONED
     ocaml
+
+    ntfs3g
+    ntfsprogs
+    nerd-fonts.hack
 
 
 
@@ -368,10 +374,6 @@
     };
   };
 
-  fonts.packages = with pkgs; [
-    (nerdfonts.override { fonts = [ "Hack" ]; })
-  ];
-
   nix.optimise.automatic = true;
   nix.settings.auto-optimise-store = true;
 
@@ -423,6 +425,9 @@
     STEAM_EXTRA_COMPAT_TOOLS_PATH = "/home/xsharawi/.steam/root/compatibilitytools.d";
   };
 
+  environment.variables = {
+    NIXOS_OZONE_WL = "1";
+  };
 
 
   # Some programs need SUID wrappers, can be configured further or are
