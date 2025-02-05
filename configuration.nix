@@ -306,7 +306,7 @@
     rubyPackages.solargraph
     rubyPackages.rexml
     google-chrome
-    inputs.zen-browser.packages."${system}".default
+    inputs.zen-browser.packages."${system}".specific
     inputs.ghostty.packages."${system}".default
     # ELIXIR MENTIONED
     elixir
@@ -389,6 +389,7 @@
   programs.kdeconnect.enable = true;
 
   services.openssh.allowSFTP = true;
+  programs.ssh.askPassword = "";
   # services.samba.enable = true;
   # services.samba.smbd.enable = true;
 
@@ -566,8 +567,8 @@
   nix.nixPath = [ "nixpkgs=${inputs.nixpkgs}" ];
 
   qt.enable = true;
-  qt.style = "breeze";
-  qt.platformTheme = "qt5ct";
+  #qt.style = "breeze";
+  #qt.platformTheme = "qtct";
   hardware.opentabletdriver.enable = true;
   hardware.opentabletdriver.daemon.enable = true;
 
