@@ -236,6 +236,9 @@
     SDL2_gfx
     binutils
     glibc
+    cmake
+    ccls
+    devenv
 
     winetricks
     gst_all_1.gstreamer
@@ -269,7 +272,8 @@
     networkmanagerapplet
     swaylock
     swaylock-effects
-    pamixer
+    # re enable if hyprland and once it gets fixed
+    #pamixer
     kdePackages.krfb
     kdePackages.krdc
     pipes
@@ -306,7 +310,7 @@
     rubyPackages.solargraph
     rubyPackages.rexml
     google-chrome
-    inputs.zen-browser.packages."${system}".specific
+    inputs.zen-browser.packages."${system}".default
     inputs.ghostty.packages."${system}".default
     # ELIXIR MENTIONED
     elixir
@@ -353,6 +357,9 @@
 
     #newpackage
     wineWowPackages.stable
+
+    # make it work one day
+    # ciscoPacketTracer8
 
     # hyprland
     kdePackages.kwallet-pam
