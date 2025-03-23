@@ -313,7 +313,7 @@
     };
   };
 
-  stylix.enable = true;
+  stylix.enable = false;
   stylix.targets.kitty.enable = true;
   stylix.targets.kitty.variant256Colors = true;
   stylix.targets.kde.enable = true;

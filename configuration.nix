@@ -9,6 +9,17 @@
   ...
 }:
 
+let
+  retroarchWithCores = (
+    pkgs.retroarch.withCores (
+      cores: with cores; [
+        bsnes
+        mgba
+        quicknes
+      ]
+    )
+  );
+in
 {
   imports = [
     # Include the results of the hardware scan.
@@ -261,7 +272,14 @@
     tokei
     docker-compose
     dolphin-emu
-    retroarch
+    # (retroarch.override {
+    #   cores = with libretroe; [
+    #     bsnes
+    #     mgba
+    #     quicknes
+    #   ];
+    # })
+    retroarchWithCores
     retroarch-assets
     retroarch-joypad-autoconfig
     onlyoffice-bin
@@ -354,6 +372,8 @@
     pavucontrol
     sshfs
     entr
+    libretro.gpsp
+    osu-lazer
 
     #newpackage
     wineWowPackages.stable
@@ -520,7 +540,7 @@
   virtualisation.docker.enable = true;
 
   # # # stylix
-  stylix.enable = true;
+  stylix.enable = false;
   stylix.image = ./wallpapers/zoz.png;
   stylix.polarity = "dark";
   # stylix.cursor.package = pkgs.banana-cursor;
@@ -583,7 +603,7 @@
   services.flatpak.enable = true;
 
   # Open ports in the firewall.
-  # networking.firewall.allowedTCPPorts = [ ... ];
+  networking.firewall.allowedTCPPorts = [ 8081 ];
   # networking.firewall.allowedUDPPorts = [ ... ];
   # Or disable the firewall altogether.
   # networking.firewall.enable = false;
