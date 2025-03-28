@@ -375,6 +375,7 @@ in
     entr
     libretro.gpsp
     osu-lazer
+    aseprite
 
     #newpackage
     wineWowPackages.stable
