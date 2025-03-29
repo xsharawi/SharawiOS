@@ -19,12 +19,23 @@
       url = "github:hyprwm/hyprpicker";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    nvf = {
+      url = "github:notashelf/nvf";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     stylix.url = "github:danth/stylix";
     #xremap-flake.url = "github:xremap/nix-flake";
   };
 
   outputs =
-    { self, nixpkgs, ... }@inputs:
+    {
+      self,
+      nixpkgs,
+      nvf,
+      ...
+    }@inputs:
     {
 
       nixosConfigurations.vim = nixpkgs.lib.nixosSystem {
@@ -40,6 +51,7 @@
             home-manager.useUserPackages = true;
           }
           inputs.stylix.nixosModules.stylix
+          nvf.nixosModules.default
         ];
 
       };

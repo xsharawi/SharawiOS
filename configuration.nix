@@ -75,6 +75,55 @@ in
   services.envfs.enable = true;
   programs.dconf.enable = true;
 
+  programs.nvf = {
+    enable = true;
+    settings = {
+      vim.viAlias = true;
+      vim.vimAlias = true;
+      vim.extraPlugins = with pkgs.vimPlugins; {
+
+        harpoon = {
+          package = harpoon;
+          setup = "require('harpoon').setup {}";
+        };
+      };
+      vim.lsp = {
+        enable = true;
+        null-ls.enable = true;
+        formatOnSave = true;
+        lightbulb.enable = true;
+        lspSignature.enable = true;
+        lspconfig.enable = true;
+        lsplines.enable = true;
+        trouble.enable = true;
+        mappings = {
+          codeAction = "<leader>ca";
+          goToDefinition = "gd";
+        };
+      };
+      vim.theme = {
+        enable = true;
+        name = "tokyonight";
+        style = "night";
+      };
+      vim.treesitter = {
+        enable = true;
+      };
+      vim.languages = {
+        rust.enable = true;
+        nix.enable = true;
+        sql.enable = true;
+        clang.enable = true;
+        ts.enable = true;
+        zig.enable = true;
+        markdown.enable = true;
+        html.enable = true;
+        go.enable = true;
+        lua.enable = true;
+      };
+    };
+  };
+
   # Configure keymap in X11
   services.xserver = {
     xkb.layout = "us";
