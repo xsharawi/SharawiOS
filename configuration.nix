@@ -366,6 +366,9 @@ in
     # godot_4-mono
     # gdtoolkit_4
     nerd-fonts.hack
+    nerd-fonts.ubuntu
+    nerd-fonts.ubuntu-mono
+    nerd-fonts.ubuntu-sans
     gopls
     kdePackages.qtwebsockets
     libsForQt5.qt5.qtwebsockets
