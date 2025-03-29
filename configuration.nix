@@ -71,7 +71,8 @@ in
   # Enable the KDE Plasma Desktop Environment.
   services.displayManager.sddm.enable = true;
   services.displayManager.sddm.autoNumlock = true;
-  services.xserver.desktopManager.plasma5.enable = true;
+  #services.xserver.desktopManager.plasma5.enable = true;
+  services.desktopManager.plasma6.enable = true;
   services.envfs.enable = true;
   programs.dconf.enable = true;
 
@@ -257,10 +258,10 @@ in
     libsForQt5.kde-gtk-config
     libsForQt5.kdeplasma-addons
     libsForQt5.breeze-qt5
+    kdePackages.xdg-desktop-portal-kde
     xdg-desktop-portal-gtk
     xdg-desktop-portal
     xdg-desktop-portal-hyprland
-    xdg-desktop-portal-kde
     nixd
     nixdoc
     nixfmt-rfc-style
@@ -478,21 +479,22 @@ in
     name = "kwallet";
     enableKwallet = true;
   };
-  systemd = {
-    user.services.polkit-kde-authentication-agent-1 = {
-      enable = true;
-      description = "polkit-kde-authentication-agent-1";
-      wantedBy = [ "graphical-session.target" ];
-      wants = [ "graphical-session.target" ];
-      after = [ "graphical-session.target" ];
-      serviceConfig = {
-        ExecStart = "${pkgs.polkit-kde-agent}/libexec/polkit-kde-authentication-agent-1";
-        Restart = "on-failure";
-        RestartSec = 1;
-        TimeoutStopSec = 10;
-      };
-    };
-  };
+  #systemd = {
+  #user.services.polkit-kde-agent-1= {
+  #    enable = true;
+  #    package = pkgs.kdePackages.polkit-kde-agent-1;
+  #    description = "polkit-kde-authentication-agent-1";
+  #    wantedBy = [ "graphical-session.target" ];
+  #    wants = [ "graphical-session.target" ];
+  #    after = [ "graphical-session.target" ];
+  #    serviceConfig = {
+  #      ExecStart = "${pkgs.polkit-kde-agent}/libexec/polkit-kde-authentication-agent-1";
+  #      Restart = "on-failure";
+  #      RestartSec = 1;
+  #      TimeoutStopSec = 10;
+  #    };
+  #  };
+  #};
   xdg = {
     portal = {
       enable = true;
