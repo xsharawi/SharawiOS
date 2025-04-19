@@ -4,9 +4,7 @@
   pkgs,
   inputs,
   ...
-}:
-
-{
+}: {
   # Home Manager needs a bit of information about you and the paths it should
   # manage.
   home.username = "xsharawi";
@@ -85,7 +83,6 @@
   };
 
   wayland.windowManager.hyprland = {
-
     systemd.enable = true;
 
     xwayland.enable = true;
@@ -236,7 +233,6 @@
 
       # binds that can be repeated
       binde = [
-
         # terminal open
         "$mainMod, Return, exec, $TERMINAL"
 
@@ -278,7 +274,6 @@
 
         "$mainMod, N, workspace, +1"
         "$mainMod, P, workspace, -1"
-
       ];
 
       # mouse binding
@@ -286,7 +281,6 @@
         "$mainMod, mouse:272, movewindow"
         "$mainMod, mouse:273, resizewindow"
       ];
-
     };
 
     extraConfig = "
@@ -300,8 +294,8 @@
   #also virt
   dconf.settings = {
     "org/virt-manager/virt-manager/connections" = {
-      autoconnect = [ "qemu:///system" ];
-      uris = [ "qemu:///system" ];
+      autoconnect = ["qemu:///system"];
+      uris = ["qemu:///system"];
     };
     # disable dconf first use warning
     "ca/desrt/dconf-editor" = {
@@ -324,8 +318,6 @@
     font_family = "Hack";
     font_size = 10;
     remember_window_size = "yes";
-    initial_window_width = 640;
-    initial_window_height = 400;
   };
 
   stylix.targets.swaylock.enable = true;
@@ -351,7 +343,7 @@
     gtk.enable = true;
     package = lib.mkForce pkgs.banana-cursor;
     size = lib.mkForce 40;
-    name = lib.mkForce ("Banana");
+    name = lib.mkForce "Banana";
   };
 
   gtk.gtk2.configLocation = "${config.xdg.configHome}/gtk-2.0/gtkrc";

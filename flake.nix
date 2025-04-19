@@ -1,5 +1,4 @@
 {
-
   description = "system flake or something ig";
 
   inputs = {
@@ -26,36 +25,28 @@
     };
 
     stylix.url = "github:danth/stylix";
-    #xremap-flake.url = "github:xremap/nix-flake";
   };
 
-  outputs =
-    {
-      self,
-      nixpkgs,
-      nvf,
-      ...
-    }@inputs:
-    {
+  outputs = {
+    self,
+    nixpkgs,
+    nvf,
+    ...
+  } @ inputs: {
+    nixosConfigurations.vim = nixpkgs.lib.nixosSystem {
+      specialArgs = {inherit inputs;};
+      system = "x86_64-linux";
 
-      nixosConfigurations.vim = nixpkgs.lib.nixosSystem {
-
-        specialArgs = { inherit inputs; };
-        system = "x86_64-linux";
-
-        modules = [
-          ./configuration.nix
-          inputs.home-manager.nixosModules.default
-          {
-            home-manager.useGlobalPkgs = true;
-            home-manager.useUserPackages = true;
-          }
-          inputs.stylix.nixosModules.stylix
-          nvf.nixosModules.default
-        ];
-
-      };
-
+      modules = [
+        ./configuration.nix
+        inputs.home-manager.nixosModules.default
+        {
+          home-manager.useGlobalPkgs = true;
+          home-manager.useUserPackages = true;
+        }
+        inputs.stylix.nixosModules.stylix
+        nvf.nixosModules.default
+      ];
     };
-
+  };
 }

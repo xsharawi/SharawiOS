@@ -1,26 +1,23 @@
 # Edit this configuration file to define what should be installed on
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
-
 {
   config,
   pkgs,
   inputs,
   ...
-}:
-
-let
+}: let
   retroarchWithCores = (
     pkgs.retroarch.withCores (
-      cores: with cores; [
-        bsnes
-        mgba
-        quicknes
-      ]
+      cores:
+        with cores; [
+          bsnes
+          mgba
+          quicknes
+        ]
     )
   );
-in
-{
+in {
   imports = [
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
@@ -33,8 +30,7 @@ in
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
-  boot.initrd.luks.devices."luks-695f8df6-9ca9-45ab-a495-ce49f4675b37".device =
-    "/dev/disk/by-uuid/695f8df6-9ca9-45ab-a495-ce49f4675b37";
+  boot.initrd.luks.devices."luks-695f8df6-9ca9-45ab-a495-ce49f4675b37".device = "/dev/disk/by-uuid/695f8df6-9ca9-45ab-a495-ce49f4675b37";
   networking.hostName = "vim"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
@@ -71,56 +67,383 @@ in
   # Enable the KDE Plasma Desktop Environment.
   services.displayManager.sddm.enable = true;
   services.displayManager.sddm.autoNumlock = true;
-  #services.xserver.desktopManager.plasma5.enable = true;
   services.desktopManager.plasma6.enable = true;
   services.envfs.enable = true;
   programs.dconf.enable = true;
 
   programs.nvf = {
     enable = true;
-    settings = {
-      vim.viAlias = true;
-      vim.vimAlias = true;
-      vim.extraPlugins = with pkgs.vimPlugins; {
 
-        harpoon = {
-          package = harpoon;
-          setup = "require('harpoon').setup {}";
+    settings = {
+      vim = {
+        extraPlugins = {
+          vim-tmux-navigator = {
+            package = pkgs.vimPlugins.vim-tmux-navigator;
+          };
         };
-      };
-      vim.lsp = {
-        enable = true;
-        null-ls.enable = true;
-        formatOnSave = true;
-        lightbulb.enable = true;
-        lspSignature.enable = true;
-        lspconfig.enable = true;
-        lsplines.enable = true;
-        trouble.enable = true;
-        mappings = {
-          codeAction = "<leader>ca";
-          goToDefinition = "gd";
+
+        viAlias = true;
+        vimAlias = true;
+        globals = {
+          mapleader = " ";
+          maplocalleader = " ";
         };
-      };
-      vim.theme = {
-        enable = true;
-        name = "tokyonight";
-        style = "night";
-      };
-      vim.treesitter = {
-        enable = true;
-      };
-      vim.languages = {
-        rust.enable = true;
-        nix.enable = true;
-        sql.enable = true;
-        clang.enable = true;
-        ts.enable = true;
-        zig.enable = true;
-        markdown.enable = true;
-        html.enable = true;
-        go.enable = true;
-        lua.enable = true;
+
+        undoFile.enable = true;
+
+        navigation.harpoon = {
+          enable = true;
+
+          mappings = {
+            file1 = "<leader>j";
+            file2 = "<leader>k";
+            file3 = "<leader>l";
+            file4 = "<leader>;";
+            listMarks = "<leader>hh";
+            markFile = "<leader>ha";
+          };
+
+          setupOpts = {
+            defaults = {
+              save_on_toggle = true;
+              sync_on_ui_close = true;
+            };
+          };
+        };
+
+        options = {
+          shiftwidth = 4;
+          tabstop = 4;
+          mouse = "a";
+          softtabstop = 4;
+          expandtab = true;
+          autoindent = true;
+          smartindent = true;
+          breakindent = true;
+          hlsearch = true;
+          incsearch = true;
+          ignorecase = true;
+          smartcase = true;
+        };
+
+        autocomplete = {
+          blink-cmp = {
+            enable = true;
+            setupOpts = {
+              signature.enabled = true;
+              sources = {
+                default = [
+                  "snippets"
+                  "lsp"
+                  "path"
+                  "buffer"
+                ];
+              };
+              completion = {
+                documentation = {
+                  auto_show = true;
+                  auto_show_delay_ms = 0;
+                };
+              };
+            };
+            mappings = {
+              confirm = "<C-y>";
+              next = "<C-n>";
+              previous = "<C-p>";
+            };
+          };
+        };
+
+        git = {
+          enable = true;
+          gitsigns = {
+            enable = true;
+          };
+        };
+
+        statusline = {
+          lualine = {
+            enable = true;
+            theme = "onedark";
+          };
+        };
+
+        telescope = {
+          enable = true;
+
+          mappings = {
+            buffers = "<leader><leader>";
+            findFiles = "<leader>sf";
+            liveGrep = "<leader>sg";
+            lspDefinitions = "<leader>d";
+            lspImplementations = "<leader>di";
+            lspReferences = "<leader>gr";
+            helpTags = "<leader>sh";
+            resume = "<leader>sr";
+          };
+
+          setupOpts.defaults.file_ignore_patterns = [
+            "node_modules"
+            ".git/"
+          ];
+        };
+
+        lsp = {
+          enable = true;
+          null-ls.enable = true;
+          formatOnSave = true;
+          lightbulb.enable = false;
+          lspconfig.enable = true;
+          lsplines.enable = true;
+          nvim-docs-view.enable = true;
+
+          trouble = {
+            enable = true;
+            mappings = {
+              symbols = null;
+              quickfix = null;
+              locList = null;
+            };
+          };
+
+          otter-nvim.enable = true;
+          mappings = {
+            codeAction = "<leader>ca";
+            goToDefinition = "gd";
+            previousDiagnostic = "[d";
+            nextDiagnostic = "]d";
+          };
+        };
+
+        theme = {
+          enable = true;
+          name = "rose-pine";
+          style = "main";
+        };
+
+        treesitter = {
+          enable = true;
+          indent.disable = ["nix" "clang"];
+        };
+
+        binds = {
+          whichKey.enable = true;
+        };
+        notify = {
+          nvim-notify.enable = true;
+        };
+
+        languages = {
+          enableLSP = true;
+          enableDAP = true;
+          enableFormat = true;
+          enableTreesitter = true;
+          enableExtraDiagnostics = true;
+          assembly.enable = true;
+          tailwind.enable = true;
+
+          go = {
+            enable = true;
+            dap.enable = true;
+            format.enable = true;
+            lsp.enable = true;
+            treesitter.enable = true;
+          };
+
+          bash.enable = true;
+          css.enable = true;
+          elixir.enable = true;
+
+          # this breaks shit
+          # hcl.enable = true;
+
+          ocaml.enable = true;
+          php.enable = true;
+          python.enable = true;
+          ruby.enable = true;
+          terraform.enable = true;
+          yaml.enable = true;
+          rust.enable = true;
+          rust.crates.enable = true;
+          nix.enable = true;
+          sql.enable = true;
+          clang.enable = true;
+          ts.enable = true;
+          zig.enable = true;
+          markdown.enable = true;
+          lua.enable = true;
+
+          html = {
+            enable = true;
+            treesitter.autotagHtml = true;
+          };
+        };
+
+        keymaps = [
+          {
+            key = "jk";
+            mode = ["i"];
+            action = "<ESC>";
+            desc = "Exit insert mode";
+          }
+          {
+            key = "jj";
+            mode = ["i"];
+            action = "<ESC>";
+            desc = "Exit insert mode";
+          }
+          {
+            key = "kk";
+            mode = ["i"];
+            action = "<ESC>";
+            desc = "Exit insert mode";
+          }
+          {
+            key = "kj";
+            mode = ["i"];
+            action = "<ESC>";
+            desc = "Exit insert mode";
+          }
+
+          {
+            key = "0";
+            mode = ["n"];
+            action = "_";
+          }
+
+          {
+            key = "<c-h>";
+            mode = ["n"];
+            action = "<CMD>TmuxNavigateLeft<CR>";
+          }
+
+          {
+            key = "<c-j>";
+            mode = ["n"];
+            action = "<CMD>TmuxNavigateDown<CR>";
+          }
+
+          {
+            key = "<c-k>";
+            mode = ["n"];
+            action = "<CMD>TmuxNavigateUp<CR>";
+          }
+
+          {
+            key = "<c-l>";
+            mode = ["n"];
+            action = "<CMD>TmuxNavigateRight<CR>";
+          }
+
+          {
+            key = "<leader>y";
+            mode = ["n" "v"];
+            action = "\"+y";
+          }
+
+          {
+            key = "<leader>x";
+            mode = ["n"];
+            action = ":bd<CR>";
+          }
+
+          {
+            key = "j";
+            mode = ["n"];
+            action = "gj";
+          }
+          {
+            key = "k";
+            mode = ["n"];
+            action = "gk";
+          }
+
+          {
+            key = "<ESC>";
+            mode = ["n"];
+            action = ":nohl<CR><ESC>";
+            desc = "no higlight esc";
+          }
+        ];
+
+        diagnostics.nvim-lint.enable = true;
+
+        spellcheck = {
+          enable = true;
+        };
+
+        debugger = {
+          nvim-dap = {
+            enable = true;
+            ui.enable = true;
+          };
+        };
+
+        visuals = {
+          nvim-scrollbar.enable = true;
+          nvim-web-devicons.enable = true;
+          nvim-cursorline.enable = true;
+          cinnamon-nvim.enable = true;
+          fidget-nvim.enable = true;
+
+          highlight-undo.enable = true;
+          indent-blankline.enable = true;
+        };
+
+        snippets.luasnip.enable = true;
+
+        treesitter.context.enable = true;
+
+        projects = {
+          project-nvim.enable = true;
+        };
+
+        utility = {
+          diffview-nvim.enable = true;
+          icon-picker.enable = true;
+          surround.enable = true;
+          leetcode-nvim.enable = true;
+
+          motion = {
+            hop.enable = true;
+            leap.enable = true;
+            #precognition.enable = true;
+          };
+        };
+
+        notes = {
+          mind-nvim.enable = true;
+          todo-comments.enable = true;
+        };
+
+        terminal = {
+          toggleterm = {
+            enable = true;
+            lazygit.enable = true;
+          };
+        };
+
+        ui = {
+          borders.enable = true;
+          colorizer.enable = true;
+          breadcrumbs = {
+            enable = true;
+            navbuddy.enable = true;
+          };
+          fastaction.enable = true;
+        };
+
+        session = {
+          nvim-session-manager.enable = true;
+        };
+
+        comments = {
+          comment-nvim.enable = true;
+        };
+
+        presence = {
+          neocord.enable = true;
+        };
       };
     };
   };
@@ -141,7 +464,6 @@ in
         nitrogen # background hehe
       ];
     };
-
   };
 
   # Enable CUPS to print documents.
@@ -180,7 +502,7 @@ in
   #   driSupport = true;
   #   driSupport32Bit = true;
   # };
-  services.xserver.videoDrivers = [ "nvidia" ];
+  services.xserver.videoDrivers = ["nvidia"];
   hardware.nvidia.modesetting.enable = true;
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
@@ -193,12 +515,13 @@ in
       "gamemode"
       "libvirtd"
       "docker"
+      "samba"
     ];
-    packages = with pkgs; [ ];
+    packages = with pkgs; [];
   };
 
   home-manager = {
-    extraSpecialArgs = { inherit inputs; };
+    extraSpecialArgs = {inherit inputs;};
     users = {
       "xsharawi" = import ./home.nix;
     };
@@ -389,7 +712,6 @@ in
     mangohud
     pcsx2
     kdePackages.kdenetwork-filesharing
-    # samba4Full
     syncthing
     fuse
     alsa-lib
@@ -429,14 +751,12 @@ in
     libretro.gpsp
     osu-lazer
     aseprite
+    gns3-gui
+    gns3-server
 
     #newpackage
     wineWowPackages.stable
 
-    # make it work one day
-    # ciscoPacketTracer8
-
-    # hyprland
     kdePackages.kwallet-pam
     waybar
     wofi
@@ -457,22 +777,23 @@ in
     (vesktop.overrideAttrs (
       finalAttrs: previousAttrs: {
         desktopItems = [
-          ((builtins.elemAt previousAttrs.desktopItems 0).override { icon = "discord"; })
+          ((builtins.elemAt previousAttrs.desktopItems 0).override {icon = "discord";})
         ];
       }
     ))
   ];
-  security.pam.services.swaylock = { };
+  security.pam.services.swaylock = {};
 
-  programs.neovim.enable = true;
-  programs.neovim.defaultEditor = true;
+  # programs.neovim.enable = true;
+  # programs.neovim.defaultEditor = true;
   programs.hyprland.enable = true;
   programs.hyprland.xwayland.enable = true;
   programs.kdeconnect.enable = true;
 
   services.openssh.allowSFTP = true;
   programs.ssh.askPassword = "";
-  # services.samba.enable = true;
+  services.samba.enable = true;
+  services.samba.usershares.enable = true;
   # services.samba.smbd.enable = true;
 
   security.pam.services.kwallet = {
@@ -630,7 +951,7 @@ in
     keyboards = {
       # The name is just the name of the configuration file, it does not really matter
       default = {
-        ids = [ "*" ]; # what goes into the [id] section, here we select all keyboards
+        ids = ["*"]; # what goes into the [id] section, here we select all keyboards
         # Everything but the ID section:
         settings = {
           # The main layer, if you choose to declare it in Nix
@@ -638,7 +959,7 @@ in
             capslock = "overload(control, esc)"; # you might need to also enclose the key in quotes if it contains non-alphabetical symbols
             esc = "esc"; # you might need to also enclose the key in quotes if it contains non-alphabetical symbols
           };
-          otherlayer = { };
+          otherlayer = {};
         };
         extraConfig = ''
           # put here any extra-config, e.g. you can copy/paste here directly a configuration, just remove the ids part
@@ -647,7 +968,7 @@ in
     };
   };
 
-  nix.nixPath = [ "nixpkgs=${inputs.nixpkgs}" ];
+  nix.nixPath = ["nixpkgs=${inputs.nixpkgs}"];
 
   qt.enable = true;
   #qt.style = "breeze";
@@ -659,7 +980,7 @@ in
   services.flatpak.enable = true;
 
   # Open ports in the firewall.
-  networking.firewall.allowedTCPPorts = [ 8081 ];
+  networking.firewall.allowedTCPPorts = [8081];
   # networking.firewall.allowedUDPPorts = [ ... ];
   # Or disable the firewall altogether.
   # networking.firewall.enable = false;
