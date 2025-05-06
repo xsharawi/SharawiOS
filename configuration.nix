@@ -5,6 +5,7 @@
   config,
   pkgs,
   inputs,
+  lib,
   ...
 }: let
   retroarchWithCores = (
@@ -164,7 +165,8 @@ in {
         statusline = {
           lualine = {
             enable = true;
-            theme = "onedark";
+            # theme = lib.mkForce "onedark";
+            theme = lib.mkForce "catppuccin";
           };
         };
 
@@ -194,7 +196,6 @@ in {
           formatOnSave = true;
           lightbulb.enable = false;
           lspconfig.enable = true;
-          lsplines.enable = true;
           nvim-docs-view.enable = true;
 
           trouble = {
@@ -217,8 +218,8 @@ in {
 
         theme = {
           enable = true;
-          name = "rose-pine";
-          style = "main";
+          name = lib.mkForce "catppuccin";
+          style = "mocha";
         };
 
         treesitter = {
@@ -312,25 +313,25 @@ in {
           }
 
           {
-            key = "<c-h>";
+            key = "<C-h>";
             mode = ["n"];
             action = "<CMD>TmuxNavigateLeft<CR>";
           }
 
           {
-            key = "<c-j>";
+            key = "<C-j>";
             mode = ["n"];
             action = "<CMD>TmuxNavigateDown<CR>";
           }
 
           {
-            key = "<c-k>";
+            key = "<C-k>";
             mode = ["n"];
             action = "<CMD>TmuxNavigateUp<CR>";
           }
 
           {
-            key = "<c-l>";
+            key = "<C-l>";
             mode = ["n"];
             action = "<CMD>TmuxNavigateRight<CR>";
           }
@@ -560,7 +561,7 @@ in {
     chromium
     python3
     polybar
-    rofi
+    #rofi
     font-awesome_5
     rxvt-unicode
     alsa-utils
@@ -753,6 +754,7 @@ in {
     aseprite
     gns3-gui
     gns3-server
+    rofi-wayland
 
     #newpackage
     wineWowPackages.stable
@@ -917,8 +919,9 @@ in {
   virtualisation.docker.enable = true;
 
   # # # stylix
-  stylix.enable = false;
-  stylix.image = ./wallpapers/zoz.png;
+  stylix.enable = true;
+  #stylix.image = ./wallpapers/zoz.png;
+  stylix.base16Scheme = ./catppuccin-mocha.yaml;
   stylix.polarity = "dark";
   # stylix.cursor.package = pkgs.banana-cursor;
   # stylix.cursor.name = "banana-cursor";
@@ -980,7 +983,7 @@ in {
   services.flatpak.enable = true;
 
   # Open ports in the firewall.
-  networking.firewall.allowedTCPPorts = [8081];
+  networking.firewall.allowedTCPPorts = [8081 27031];
   # networking.firewall.allowedUDPPorts = [ ... ];
   # Or disable the firewall altogether.
   # networking.firewall.enable = false;

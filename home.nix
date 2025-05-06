@@ -307,7 +307,7 @@
     };
   };
 
-  stylix.enable = false;
+  stylix.enable = true;
   stylix.targets.kitty.enable = true;
   stylix.targets.kitty.variant256Colors = true;
   stylix.targets.kde.enable = true;
@@ -325,6 +325,8 @@
   stylix.targets.swaylock.useImage = true;
   stylix.targets.gtk.enable = true;
   stylix.targets.rofi.enable = true;
+  stylix.base16Scheme = ./catppuccin-mocha.yaml;
+
   gtk = {
     enable = true;
     gtk3.extraConfig = {
@@ -335,7 +337,7 @@
     };
   };
 
-  stylix.cursor.name = "Banana";
+  #stylix.cursor.name = "Banana";
 
   # forceing because stylix is dumb
   home.pointerCursor = {
