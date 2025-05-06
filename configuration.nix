@@ -235,7 +235,6 @@ in {
         };
 
         languages = {
-          enableLSP = true;
           enableDAP = true;
           enableFormat = true;
           enableTreesitter = true;
