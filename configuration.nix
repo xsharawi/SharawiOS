@@ -48,6 +48,12 @@ in {
     "flakes"
   ];
 
+  # nh
+  programs.nh = {
+    enable = true;
+    flake = "/etc/nixos";
+  };
+
   # Set your time zone.
   time.timeZone = "Asia/Hebron";
 
