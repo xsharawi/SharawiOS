@@ -160,7 +160,8 @@
       };
 
       animations = {
-        enabled = true;
+        # just testing it out without animations
+        enabled = false;
 
         bezier = [
           "fluent_decel, 0, 0.2, 0.4, 1"
