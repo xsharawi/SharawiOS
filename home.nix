@@ -202,6 +202,7 @@
         "$mainMod SHIFT, d, exec, hyprctl dispatch exec '[workspace 4 silent] vesktop'"
 
         "$mainMod, M, exec, pamixer --toggle-mute"
+        "$mainMod SHIFT, M, movecurrentworkspacetomonitor, +1"
 
         "$mainMod, S, exec, pkill -SIGUSR1 waybar"
 
