@@ -337,14 +337,13 @@
     };
   };
 
-  stylix.cursor.name = "Banana";
-
-  # forceing because stylix is dumb
+  #stylix.cursor.name = "Banana";
+  # # forceing because stylix is dumb
   home.pointerCursor = {
     x11.enable = true;
     gtk.enable = true;
     package = lib.mkForce pkgs.banana-cursor;
-    size = lib.mkForce 40;
+    # size = lib.mkForce 40;
     name = lib.mkForce ("Banana");
   };
 

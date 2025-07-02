@@ -189,19 +189,16 @@
     gtk2
     gtk3
     gtk4
-    gtkd
     gtk2-x11
     gtk3-x11
     discord
     pkg-config
     dotnet-sdk_8
-    libsForQt5.kde-gtk-config
-    libsForQt5.kdeplasma-addons
-    libsForQt5.breeze-qt5
+    kdePackages.kde-gtk-config
+    kdePackages.kdeplasma-addons
+    kdePackages.breeze-gtk
     xdg-desktop-portal-gtk
-    xdg-desktop-portal
     xdg-desktop-portal-hyprland
-    xdg-desktop-portal-kde
     nixd
     nixdoc
     fastfetch
@@ -211,7 +208,6 @@
     vlc
     zoom-us
     nmap
-    lmms
     lutris
     ksnip
     #minecraft
@@ -234,7 +230,6 @@
     winetricks
     gst_all_1.gstreamer
     qbittorrent
-    jetbrains.rider
 
     yt-dlp
     bottles
@@ -267,7 +262,6 @@
     pipes
     xfce.thunar
     xfce.thunar-archive-plugin
-    libsForQt5.qt5ct
     #sweet-folders
     #candy-icons
     stdmanpages
@@ -310,6 +304,8 @@
     ntfs3g
     ntfsprogs
     nerd-fonts.hack
+    syncthing
+    ghostty
 
 
 
@@ -327,7 +323,6 @@
     cliphist
     wl-clip-persist
     wl-clipboard
-    hyprcursor
     hyprshot
     hyprpicker
     shotman
@@ -357,7 +352,7 @@
       wants = [ "graphical-session.target" ];
       after = [ "graphical-session.target" ];
       serviceConfig = {
-        ExecStart = "${pkgs.polkit-kde-agent}/libexec/polkit-kde-authentication-agent-1";
+        ExecStart = "${pkgs.kdePackages.polkit-kde-agent-1}/libexec/polkit-kde-authentication-agent-1";
         Restart = "on-failure";
         RestartSec = 1;
         TimeoutStopSec = 10;
@@ -503,7 +498,7 @@
 
   qt.enable = true;
   qt.style = "breeze";
-  qt.platformTheme = "qt5ct";
+  qt.platformTheme = "kde";
   hardware.opentabletdriver.enable = true;
   hardware.opentabletdriver.daemon.enable = true;
 
