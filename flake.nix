@@ -45,6 +45,8 @@
           home-manager.useUserPackages = true;
         }
         inputs.stylix.nixosModules.stylix
+        nvf.nixosModules.default
+
       ];
 
     };

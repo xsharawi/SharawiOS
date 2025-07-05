@@ -1,10 +1,13 @@
 # Edit this configuration file to define what should be installed on
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
-
-{ config, pkgs, lib, inputs, ... }:
-
 {
+  config,
+  pkgs,
+  lib,
+  inputs,
+  ...
+}: {
   imports = [
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
@@ -27,7 +30,7 @@
   networking.networkmanager.enable = true;
 
   # flakes
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
+  nix.settings.experimental-features = ["nix-command" "flakes"];
 
   hardware.enableAllFirmware = true;
 
@@ -45,7 +48,6 @@
   #     wantedBy = [ "default.target" ];
   #     serviceConfig.ExecStart = "${pkgs.bluez}/bin/mpris-proxy";
   # };
-
 
   # Set your time zone.
   time.timeZone = "Asia/Hebron";
@@ -208,7 +210,7 @@
 
         treesitter = {
           enable = true;
-          indent.disable = [ "nix" "clang" ];
+          indent.disable = ["nix" "clang"];
         };
 
         binds = {
@@ -224,7 +226,7 @@
           enableTreesitter = true;
           enableExtraDiagnostics = true;
           assembly.enable = true;
-          tailwind.enable = true;
+          #tailwind.enable = true;
 
           go = {
             enable = true;
@@ -266,85 +268,85 @@
         keymaps = [
           {
             key = "jk";
-            mode = [ "i" ];
+            mode = ["i"];
             action = "<ESC>";
             desc = "Exit insert mode";
           }
           {
             key = "jj";
-            mode = [ "i" ];
+            mode = ["i"];
             action = "<ESC>";
             desc = "Exit insert mode";
           }
           {
             key = "kk";
-            mode = [ "i" ];
+            mode = ["i"];
             action = "<ESC>";
             desc = "Exit insert mode";
           }
           {
             key = "kj";
-            mode = [ "i" ];
+            mode = ["i"];
             action = "<ESC>";
             desc = "Exit insert mode";
           }
 
           {
             key = "0";
-            mode = [ "n" ];
+            mode = ["n"];
             action = "_";
           }
 
           {
             key = "<C-h>";
-            mode = [ "n" ];
+            mode = ["n"];
             action = "<CMD>TmuxNavigateLeft<CR>";
           }
 
           {
             key = "<C-j>";
-            mode = [ "n" ];
+            mode = ["n"];
             action = "<CMD>TmuxNavigateDown<CR>";
           }
 
           {
             key = "<C-k>";
-            mode = [ "n" ];
+            mode = ["n"];
             action = "<CMD>TmuxNavigateUp<CR>";
           }
 
           {
             key = "<C-l>";
-            mode = [ "n" ];
+            mode = ["n"];
             action = "<CMD>TmuxNavigateRight<CR>";
           }
 
           {
             key = "<leader>y";
-            mode = [ "n" "v" ];
+            mode = ["n" "v"];
             action = "\"+y";
           }
 
           {
             key = "<leader>x";
-            mode = [ "n" ];
+            mode = ["n"];
             action = ":bd<CR>";
           }
 
           {
             key = "j";
-            mode = [ "n" ];
+            mode = ["n"];
             action = "gj";
           }
           {
             key = "k";
-            mode = [ "n" ];
+            mode = ["n"];
             action = "gk";
           }
 
           {
             key = "<ESC>";
-            mode = [ "n" ];
+            mode = ["n"];
             action = ":nohl<CR><ESC>";
             desc = "no higlight esc";
           }
@@ -432,9 +434,6 @@
     };
   };
 
-
-
-
   # Enable the KDE Plasma Desktop Environment.
   services.displayManager.sddm.enable = true;
   services.displayManager.sddm.autoNumlock = true;
@@ -448,7 +447,6 @@
     xkb.variant = "";
     xkb.options = "caps:swapescape";
 
-
     windowManager.i3 = {
       enable = true;
       extraPackages = with pkgs; [
@@ -459,7 +457,6 @@
         nitrogen #background hehe
       ];
     };
-
   };
 
   # Enable CUPS to print documents.
@@ -509,13 +506,13 @@
   users.users.xsharawi = {
     isNormalUser = true;
     description = "xsharawi";
-    extraGroups = [ "networkmanager" "wheel" "gamemode" "libvirtd" "docker" ];
+    extraGroups = ["networkmanager" "wheel" "gamemode" "libvirtd" "docker"];
     packages = with pkgs; [
     ];
   };
 
   home-manager = {
-    extraSpecialArgs = { inherit inputs; };
+    extraSpecialArgs = {inherit inputs;};
     users = {
       "xsharawi" = import ./home.nix;
     };
@@ -686,8 +683,6 @@
     syncthing
     ghostty
 
-
-
     #newpackage
     wineWowPackages.stable
 
@@ -710,7 +705,7 @@
     grim
     grimblast
   ];
-  security.pam.services.swaylock = { };
+  security.pam.services.swaylock = {};
 
   # programs.neovim.defaultEditor = true;
   # programs.neovim.enable = true;
@@ -727,9 +722,9 @@
     user.services.polkit-kde-authentication-agent-1 = {
       enable = true;
       description = "polkit-kde-authentication-agent-1";
-      wantedBy = [ "graphical-session.target" ];
-      wants = [ "graphical-session.target" ];
-      after = [ "graphical-session.target" ];
+      wantedBy = ["graphical-session.target"];
+      wants = ["graphical-session.target"];
+      after = ["graphical-session.target"];
       serviceConfig = {
         ExecStart = "${pkgs.kdePackages.polkit-kde-agent-1}/libexec/polkit-kde-authentication-agent-1";
         Restart = "on-failure";
@@ -778,10 +773,8 @@
     dedicatedServer.openFirewall = true;
   };
 
-
   programs.nix-ld.enable = true;
   programs.nix-ld.libraries = with pkgs; [
-
     #add any missing dynamic libraries for unpackaged programs here not in enviroment.systempackages
     xorg.libXext
     xorg.libX11
@@ -791,8 +784,6 @@
     xorg.libXxf86vm
 
     xwayland
-
-
   ];
 
   environment.sessionVariables = {
@@ -802,7 +793,6 @@
   environment.variables = {
     NIXOS_OZONE_WL = "1";
   };
-
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
@@ -822,17 +812,17 @@
     package = pkgs.mariadb;
   };
 
-  system.autoUpgrade = {
-    enable = true;
-    flake = inputs.self.outPath;
-    flags = [
-      "--update-input"
-      "nixpkgs"
-      "-L" # print build logs
-    ];
-    dates = "daily";
-    randomizedDelaySec = "45min";
-  };
+  # system.autoUpgrade = {
+  #   enable = true;
+  #   flake = inputs.self.outPath;
+  #   flags = [
+  #     "--update-input"
+  #     "nixpkgs"
+  #     "-L" # print build logs
+  #   ];
+  #   dates = "daily";
+  #   randomizedDelaySec = "45min";
+  # };
 
   # direnv
   programs.direnv.enable = true;
@@ -867,13 +857,16 @@
         {
           name = "caps unlimited caps but no caps";
           remap = {
-            "CapsLock" = { "held" = "leftctrl"; "alone" = "esc"; "alone_timeout_millis" = 200; };
+            "CapsLock" = {
+              "held" = "leftctrl";
+              "alone" = "esc";
+              "alone_timeout_millis" = 200;
+            };
           };
         }
       ];
     };
   };
-
 
   qt.enable = true;
   qt.style = "breeze";
@@ -883,8 +876,6 @@
 
   # flat
   services.flatpak.enable = true;
-
-
 
   # Open ports in the firewall.
   # networking.firewall.allowedTCPPorts = [ ... ];
@@ -899,5 +890,4 @@
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   system.stateVersion = "23.11"; # Did you read the comment?
-
 }
