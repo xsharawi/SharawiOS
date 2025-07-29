@@ -100,9 +100,11 @@
         "nm-applet --indicator &"
         "kdeconnect-indicator &"
         "waybar &"
+        "swww-daemon &"
+        "keepassxc"
         "[workspace 1 silent] obsidian"
         "[workspace 2 silent] $TERMINAL"
-        "[workspace 3 silent] chromium"
+        "[workspace 3 silent] zen"
         "[workspace 4 silent] vesktop"
       ];
 
@@ -120,8 +122,9 @@
 
       general = {
         "$mainMod" = "SUPER";
-        "$TERMINAL" = "kitty";
+        "$TERMINAL" = "ghostty";
         layout = "master";
+        allow_tearing = true;
         gaps_in = 2;
         gaps_out = 6;
         border_size = 2;
@@ -129,12 +132,21 @@
           "HYPRCURSOR_THEME,Banana"
           "HYPRCURSOR_SIZE,40"
           "XCURSOR_SIZE,40"
+          "XDG SESSION_TYPE,wayland "
+          "CLUTTER_BACKEND,wayland  "
+          "XDG_SESSION_DESKTOP, Hyprland "
+          "XDG_CURRENT_DESKTOP,Hyprland"
+          # "LIBVA_DRIVER_NAME,nvidia"
+          # "__GLX_VENDOR_LIBRARY_NAME,nvidia"
+          # "ELECTRON_OZONE_PLATFORM_HINT,auto"
+          # "NIXOS_OZONE_WL,1"
         ];
       };
 
       misc = {
         disable_hyprland_logo = true;
         animate_manual_resizes = true;
+        focus_on_activate = true;
       };
 
       decoration = {
@@ -161,7 +173,7 @@
 
       animations = {
         # just testing it out without animations
-        enabled = false;
+        enabled = true;
 
         bezier = [
           "fluent_decel, 0, 0.2, 0.4, 1"
@@ -174,7 +186,7 @@
           # Windows
           "windowsIn, 1, 3, easeOutCubic, popin 30%" # window open
           "windowsOut, 1, 3, fluent_decel, popin 70%" # window close.
-          "windowsMove, 1, 2, easeinoutsine, slide" # everything in between, moving, dragging, resizing.
+          "windowsMove, 1, 0.01, easeinoutsine, slide" # everything in between, moving, dragging, resizing.
 
           # Fade
           "fadeIn, 1, 3, easeOutCubic" # fade in (open) -> layers and windows
@@ -197,7 +209,7 @@
         "$mainMod, W, exec, swaylock --color 000000"
         "$mainMod SHIFT, Space, togglefloating"
         "$mainMod, F, Fullscreen, fullscreen, 1"
-        "$mainMod, Space, exec, pkill wofi || wofi --show drun"
+        "$mainMod, Space, exec, pkill rofi || rofi -show drun"
         "$mainMod SHIFT, e, exec, hyprctl dispatch exec '[workspace 2 silent] konsole'"
         "$mainMod SHIFT, c, exec, hyprctl dispatch exec '[workspace 3 silent] chromium'"
         "$mainMod SHIFT, d, exec, hyprctl dispatch exec '[workspace 4 silent] vesktop'"
@@ -231,6 +243,10 @@
 
         # clipboard manager
         # "$mainMod, V, exec, cliphist list | ${pkgs.rofi-wayland}/bin/rofi --dmenu | cliphist decode | ${pkgs.wl-clipboard}/bin/wl-copy"
+      ];
+
+      windowrule = [
+        "opacity 0.97, class:ghostty"
       ];
 
       # binds that can be repeated
@@ -285,8 +301,12 @@
       ];
     };
 
+    # monitor=, highres@highrr, auto, auto
     extraConfig = "
-       monitor=, highres@highrr, auto, auto
+        monitor=DP-1,1920x1080@180,1920x0,1,bitdepth
+        monitor=HDMI-A-1,1920x1080@100,0x0,1,bitdepth
+        workspace=2, monitor:DP-1
+        workspace=3, monitor:DP-1
        xwayland {
          force_zero_scaling = true
        }
@@ -313,6 +333,7 @@
   stylix.targets.kitty.enable = true;
   stylix.targets.kitty.variant256Colors = true;
   stylix.targets.kde.enable = true;
+
   programs.kitty.enable = true;
   programs.kitty.settings = {
     scroll_back = -1;

@@ -71,21 +71,37 @@ in {
   # Enable the X11 windowing system.
   services.xserver.enable = true;
 
-  # Enable the KDE Plasma Desktop Environment.
-  services.displayManager.sddm.enable = true;
-  services.displayManager.sddm.autoNumlock = true;
-  services.desktopManager.plasma6.enable = true;
-  services.envfs.enable = true;
-  programs.dconf.enable = true;
-
   programs.nvf = {
     enable = true;
 
     settings = {
       vim = {
         extraPlugins = {
+          undotree = {
+            package = pkgs.vimPlugins.undotree;
+          };
           vim-tmux-navigator = {
             package = pkgs.vimPlugins.vim-tmux-navigator;
+          };
+          cloak-nvim = {
+            package = pkgs.vimPlugins.cloak-nvim;
+            setup = ''
+                require('cloak').setup {
+                enabled = true,
+                cloak_character = '*',
+                highlight_group = 'Comment',
+                cloak_length = nil,
+                try_all_patterns = true,
+                patterns = {
+                  {
+                    file_pattern = '.env*',
+                    cloak_pattern = '=.+',
+                    replace = nil,
+                  },
+                },
+              }
+
+            '';
           };
         };
 
@@ -144,6 +160,7 @@ in {
                   "lsp"
                   "path"
                   "buffer"
+                  "cmdline"
                 ];
               };
               completion = {
@@ -158,6 +175,7 @@ in {
               next = "<C-n>";
               previous = "<C-p>";
             };
+            friendly-snippets.enable = true;
           };
         };
 
@@ -180,7 +198,7 @@ in {
           enable = true;
 
           mappings = {
-            buffers = "<leader><leader>";
+            buffers = "<leader>/";
             findFiles = "<leader>sf";
             liveGrep = "<leader>sg";
             lspDefinitions = "<leader>d";
@@ -226,6 +244,7 @@ in {
           enable = true;
           name = lib.mkForce "catppuccin";
           style = "mocha";
+          transparent = lib.mkForce true;
         };
 
         treesitter = {
@@ -246,7 +265,7 @@ in {
           enableTreesitter = true;
           enableExtraDiagnostics = true;
           assembly.enable = true;
-          tailwind.enable = true;
+          tailwind.enable = false;
 
           go = {
             enable = true;
@@ -277,6 +296,7 @@ in {
           ts.enable = true;
           zig.enable = true;
           markdown.enable = true;
+          markdown.format.enable = false;
           lua.enable = true;
 
           html = {
@@ -317,34 +337,40 @@ in {
             action = "_";
           }
 
-          {
-            key = "<C-h>";
-            mode = ["n"];
-            action = "<CMD>TmuxNavigateLeft<CR>";
-          }
-
-          {
-            key = "<C-j>";
-            mode = ["n"];
-            action = "<CMD>TmuxNavigateDown<CR>";
-          }
-
-          {
-            key = "<C-k>";
-            mode = ["n"];
-            action = "<CMD>TmuxNavigateUp<CR>";
-          }
-
-          {
-            key = "<C-l>";
-            mode = ["n"];
-            action = "<CMD>TmuxNavigateRight<CR>";
-          }
+          # {
+          #   key = "<C-h>";
+          #   mode = ["n"];
+          #   action = "<CMD>TmuxNavigateLeft<CR>";
+          # }
+          #
+          # {
+          #   key = "<C-j>";
+          #   mode = ["n"];
+          #   action = "<CMD>TmuxNavigateDown<CR>";
+          # }
+          #
+          # {
+          #   key = "<C-k>";
+          #   mode = ["n"];
+          #   action = "<CMD>TmuxNavigateUp<CR>";
+          # }
+          #
+          # {
+          #   key = "<C-l>";
+          #   mode = ["n"];
+          #   action = "<CMD>TmuxNavigateRight<CR>";
+          # }
 
           {
             key = "<leader>y";
             mode = ["n" "v"];
             action = "\"+y";
+          }
+
+          {
+            key = "<Tab>";
+            mode = ["n" "v"];
+            action = "%";
           }
 
           {
@@ -362,6 +388,18 @@ in {
             key = "k";
             mode = ["n"];
             action = "gk";
+          }
+
+          {
+            key = "<C-p>";
+            mode = ["n"];
+            action = "<cmd>cprev<CR>zz";
+          }
+
+          {
+            key = "<C-n>";
+            mode = ["n"];
+            action = "<cmd>cnext<CR>zz";
           }
 
           {
@@ -450,9 +488,92 @@ in {
         presence = {
           neocord.enable = true;
         };
+        luaConfigPost = ''
+          vim.g.undotree_WindowLayout = 3
+          vim.g.undotree_SplitWidth = 50
+          vim.g.undotree_SetFocusWhenToggle = 1
+          vim.keymap.set('n', '<leader>u', vim.cmd.UndotreeToggle)
+          -- Define a function to run the current Go file
+          local function run_go_file()
+            vim.cmd 'write' -- Save the current file
+            vim.cmd('split | terminal go run ' .. vim.fn.expand '%') -- Run Go file in a split terminal
+            vim.cmd 'startinsert'
+          end
+
+          -- Create an autocommand group for Go file mappings
+          vim.api.nvim_create_augroup('GoFileMappings', { clear = true })
+          vim.api.nvim_create_autocmd('FileType', {
+            group = 'GoFileMappings',
+            pattern = 'go',
+            callback = function()
+              vim.keymap.set('n', '<leader>rr', run_go_file, { buffer = true })
+            end,
+          })
+          vim.opt.numberwidth = 4
+          vim.o.scrolloff = 4
+          vim.o.scrolloff = 4
+          vim.keymap.set('n', '<leader>go', 'oif err != nil {<CR>}<ESC>Oreturn err<Esc>')
+          vim.keymap.set('n', 'J', 'mzJ`z')
+          vim.keymap.set('n','<leader>rn', vim.lsp.buf.rename)
+          local builtin = require 'telescope.builtin'
+          vim.keymap.set('n','gr', require('telescope.builtin').lsp_references)
+          vim.keymap.set('n', '<leader>qf', '<cmd>copen<CR>', { desc = '[f] quick fix' })
+          vim.keymap.set('n', '<leader>sw', builtin.grep_string, { desc = '[S]earch current [W]ord' })
+
+          vim.keymap.set('n', '<leader>sW', function()
+            local word = vim.fn.expand '<cWORD>'
+            require('telescope.builtin').grep_string { search = word }
+          end, { desc = '[S]earch current [W]ORD' })
+
+          local harpoon = require 'harpoon'
+          harpoon:setup({})
+
+          vim.keymap.set('n', '<leader>n', function()
+            harpoon:list():next()
+          end)
+          vim.keymap.set('n', '<leader>p', function()
+            harpoon:list():prev()
+          end)
+
+          if #vim.fn.argv() > 0 then
+            local path = vim.fn.expand(vim.fn.argv()[1])
+            local is_directory = vim.fn.isdirectory(path) == 1
+            local is_file = vim.fn.filereadable(path) == 1
+
+            if is_directory or is_file then
+              if is_file then
+              else
+                harpoon:list():select(1)
+              end
+            end
+          end
+          vim.keymap.set('n', '<leader>Q', vim.diagnostic.setloclist, { desc = 'Open diagnostic [Q]uickfix list' })
+          vim.opt.inccommand = 'split'
+
+          vim.api.nvim_create_autocmd('TextYankPost', {
+            desc = 'Highlight when yanking (copying) text',
+            group = vim.api.nvim_create_augroup('kickstart-highlight-yank', { clear = true }),
+            callback = function()
+              vim.highlight.on_yank()
+            end,
+          })
+
+          vim.keymap.set('v', 'J', ":m '>+1<CR>gv=gv")
+          vim.keymap.set('v', 'K', ":m '<-2<CR>gv=gv")
+
+
+
+        '';
       };
     };
   };
+
+  # Enable the KDE Plasma Desktop Environment.
+  services.displayManager.sddm.enable = true;
+  services.displayManager.sddm.autoNumlock = true;
+  services.desktopManager.plasma6.enable = true;
+  services.envfs.enable = true;
+  programs.dconf.enable = true;
 
   # Configure keymap in X11
   services.xserver = {
@@ -600,7 +721,6 @@ in {
     vlc
     zoom-us
     nmap
-    #lmms
     (lutris.override {
       extraPkgs = pkgs: [
         wineWowPackages.stable
@@ -609,9 +729,6 @@ in {
     })
     protonup-qt
     ksnip
-    #minecraft
-    # jdk17
-    # javaPackages.openjfx17
 
     # cpp c stuff
     clangStdenv
@@ -652,13 +769,6 @@ in {
     tokei
     docker-compose
     dolphin-emu
-    # (retroarch.override {
-    #   cores = with libretroe; [
-    #     bsnes
-    #     mgba
-    #     quicknes
-    #   ];
-    # })
     retroarchWithCores
     retroarch-assets
     retroarch-joypad-autoconfig
@@ -670,15 +780,11 @@ in {
     networkmanagerapplet
     swaylock
     swaylock-effects
-    # re enable if hyprland and once it gets fixed
-    #pamixer
     kdePackages.krfb
     kdePackages.krdc
     pipes
     xfce.thunar-archive-plugin
     libsForQt5.qt5ct
-    #sweet-folders
-    #candy-icons
     stdmanpages
     man-pages
     man-pages-posix
@@ -718,7 +824,6 @@ in {
     mangohud
     pcsx2
     kdePackages.kdenetwork-filesharing
-    syncthing
     fuse
     alsa-lib
     atk
@@ -755,21 +860,23 @@ in {
     sshfs
     entr
     libretro.gpsp
-    osu-lazer
+    osu-lazer-bin
     aseprite
     gns3-gui
     gns3-server
     rofi-wayland
+    pamixer
+    libinput
+    eza
 
     #newpackage
     wineWowPackages.stable
 
     kdePackages.kwallet-pam
     waybar
-    wofi
+    egl-wayland
     hyprpicker
     swaynotificationcenter
-    notion-app-enhanced
     cliphist
     wl-clip-persist
     wl-clipboard
@@ -788,6 +895,7 @@ in {
         ];
       }
     ))
+    swww
   ];
   security.pam.services.swaylock = {};
 
@@ -934,38 +1042,32 @@ in {
   stylix.fonts.sizes.applications = 10;
   stylix.fonts.sizes.desktop = 8;
 
-  #home-manager.backupFileExtension = "ffs just work";
-
-  # # xremap
-  # services.xremap = {
-  #   withX11 = true;
-  #   serviceMode = "user";
-  #   watch = true;
-  #   userName = "xsharawi";
-  #   config = {
-  #     modmap = [
-  #       {
-  #         name = "caps unlimited caps but no caps";
-  #         remap = {
-  #           "CapsLock" = { "held" = "leftctrl"; "alone" = "esc"; "alone_timeout_millis" = 200; };
-  #         };
-  #       }
-  #     ];
-  #   };
-  # };
-
   services.keyd = {
     enable = true;
     keyboards = {
       # The name is just the name of the configuration file, it does not really matter
       default = {
-        ids = ["*"]; # what goes into the [id] section, here we select all keyboards
+        # ids = ["*"]; # what goes into the [id] section, here we select all keyboards
+        # ids = [
+        #   "SINO WEALTH Gaming KB"
+        #   "SINO WEALTH Gaming KB  System Control"
+        #   "SINO WEALTH Gaming KB  Consumer Control"
+        #   "SINO WEALTH Gaming KB  Keyboard"
+        #   "C-Media Electronics Inc. FANTECH ALTO 7.1"
+        # ];
+        ids = [
+          "258a:002a:65e37239" # SINO WEALTH Gaming KB  Keyboard
+          "258a:002a:000c7ead" # SINO WEALTH Gaming KB  Consumer Control
+          "258a:002a:75e84400" # SINO WEALTH Gaming KB
+        ];
         # Everything but the ID section:
         settings = {
           # The main layer, if you choose to declare it in Nix
           main = {
             capslock = "overload(control, esc)"; # you might need to also enclose the key in quotes if it contains non-alphabetical symbols
             esc = "esc"; # you might need to also enclose the key in quotes if it contains non-alphabetical symbols
+            leftalt = "layer(meta)";
+            leftmeta = "layer(alt)";
           };
           otherlayer = {};
         };
@@ -986,6 +1088,27 @@ in {
 
   # flat
   services.flatpak.enable = true;
+
+  services.syncthing = {
+    enable = true;
+    openDefaultPorts = true;
+  };
+
+  # xdg mime
+  xdg.mime = {
+    enable = true;
+    defaultApplications = {
+      "text/html" = "org.chromium.chromium.desktop";
+      "x-scheme-handler/http" = "org.chromium.chromium.desktop";
+      "x-scheme-handler/https" = "org.chromium.chromium.desktop";
+      "x-scheme-handler/about" = "org.chromium.chromium.desktop";
+      "x-scheme-handler/unknown" = "org.chromium.chromium.desktop";
+      "video/mp4" = "vlc.desktop";
+      "video/x-matroska" = "vlc.desktop";
+    };
+  };
+
+  environment.sessionVariables.DEFAULT_BROWSER = "${pkgs.chromium}/bin/chromium";
 
   # Open ports in the firewall.
   networking.firewall.allowedTCPPorts = [8081 27031];

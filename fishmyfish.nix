@@ -4,12 +4,9 @@
   inputs,
   lib,
   ...
-}:
-let
+}: let
   inherit (lib) concatStrings mkAfter;
-in
-{
-
+in {
   environment.systemPackages = with pkgs; [
     fishPlugins.done
     fishPlugins.fzf-fish
@@ -25,59 +22,133 @@ in
     enable = true;
     settings = {
       format = concatStrings [
-        # begin left format
-        "$username"
-        "$hostname"
-        "$directory[](1234) "
-        "$git_branch"
-        "$git_state"
-        "$git_status"
-        "$nix_shell"
-        # end left format
+        "$directory "
+        "$nix_shell "
+        "$golang$nodejs$python$rust "
+        "$git_branch$git_status "
         "$fill"
-        # begin right format
-        # "[](${dir_bg})"
-        # "[ ](${accent_style})"
-        "$time"
-        # end right format
+        "$cmd_duration"
         "$line_break"
         "$character"
       ];
+
       add_newline = false;
+
+      username = {
+        style_user = "fg:#89b4fa";
+        show_always = true;
+      };
+
+      hostname = {
+        style = "fg:#b4befe";
+        ssh_only = false;
+      };
+
+      directory = {
+        style = "fg:#f5c2e7";
+        format = "[](fg:#f5c2e7)[ $path](fg:#11111b bg:#f5c2e7)[](fg:#f5c2e7)";
+        truncation_length = 3;
+      };
+      git_branch = {
+        symbol = "  ";
+        style = "fg:#a6e3a1";
+        format = "[$symbol$branch]($style) ";
+      };
+
+      git_status = {
+        style = "fg:#f38ba8";
+        format = "([$all_status$ahead_behind]($style))";
+        conflicted = "🏳️ ";
+        ahead = "⇡$count ";
+        behind = "⇣$count ";
+        diverged = "⇕⇡$ahead_count⇣$behind_count ";
+        untracked = "?$count ";
+        stashed = "📦 ";
+        modified = "!$count ";
+        staged = "+$count ";
+        renamed = "»$count ";
+        deleted = "✘$count ";
+      };
+
+      nix_shell = {
+        symbol = "❄️ ";
+        style = "fg:#94e2d5";
+        format = "[$symbol$name]($style)";
+      };
+
+      golang = {
+        symbol = " ";
+        style = "fg:#ffcc66";
+        format = "[$symbol$version]($style)";
+      };
+
+      nodejs = {
+        symbol = " ";
+        style = "fg:#a6e3a1";
+        format = "[$symbol$version]($style)";
+      };
+
+      python = {
+        symbol = " ";
+        style = "fg:#fab387";
+        format = "[$symbol$version]($style)";
+      };
+
+      rust = {
+        symbol = "🦀 ";
+        style = "fg:#f7768e";
+        format = "[$symbol$version]($style)";
+      };
+
+      cmd_duration = {
+        min_time = 500;
+        style = "fg:#f9e2af";
+        format = "⏱ [$duration]($style)";
+      };
+
+      character = {
+        success_symbol = "[❯](bold green)";
+        error_symbol = "[✗](bold red)";
+      };
+
       line_break = {
         disabled = false;
       };
-      command_timeout = 1300;
+
+      command_timeout = 1000;
       scan_timeout = 50;
-      character = {
-        #success_symbol = "[](bold green) ";
-        error_symbol = "[✗](bold red) ";
-      };
     };
-
   };
-
   programs.fish = {
-    # fix starship prompt to only have newlines after the first command
-    # https://github.com/starship/starship/issues/560#issuecomment-1465630645
-    shellInit = # fish
-      ''
-        # shut up welcome message
-        set fish_greeting
-
-        function prompt_newline --on-event fish_postexec
-          echo ""
-        end
-        zoxide init fish --cmd cd | source
-      '';
-    interactiveShellInit =
-      # fish
-      mkAfter ''
-        function starship_transient_prompt_func
-          starship module character
-        end
-      '';
     enable = true;
-  };
+    shellInit = ''
+      set fish_greeting
+      zoxide init fish --cmd cd | source
 
+      function prompt_newline --on-event fish_postexec
+        echo ""
+      end
+      function handle_cancel --on-event fish_cancel
+          set cmd (commandline)
+          if test -z "$cmd"
+            echo ""
+            commandline -f repaint
+          else
+            commandline -r ""
+            echo ""
+            commandline -f repaint
+          end
+      end
+    '';
+    # function handle_cancel --on-event fish_cancel
+    #     commandline -r ""      # clear current input
+    #     echo ""                # add newline for stacked ❯
+    #     commandline -f repaint # force redraw prompt
+    #     end
+    interactiveShellInit = mkAfter ''
+      function starship_transient_prompt_func
+        starship module character
+      end
+    '';
+  };
 }
