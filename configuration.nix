@@ -118,12 +118,12 @@ in {
           enable = true;
 
           mappings = {
-            file1 = "<leader>j";
-            file2 = "<leader>k";
-            file3 = "<leader>l";
-            file4 = "<leader>;";
-            listMarks = "<leader>hh";
-            markFile = "<leader>ha";
+            file1 = "<leader>n";
+            file2 = "<leader>e";
+            file3 = "<leader>i";
+            file4 = "<leader>o";
+            listMarks = "<leader>mm";
+            markFile = "<leader>ma";
           };
 
           setupOpts = {
@@ -528,10 +528,10 @@ in {
           local harpoon = require 'harpoon'
           harpoon:setup({})
 
-          vim.keymap.set('n', '<leader>n', function()
+          vim.keymap.set('n', '<leader>k', function()
             harpoon:list():next()
           end)
-          vim.keymap.set('n', '<leader>p', function()
+          vim.keymap.set('n', '<leader>j', function()
             harpoon:list():prev()
           end)
 
@@ -868,6 +868,7 @@ in {
     pamixer
     libinput
     eza
+    heroic
 
     #newpackage
     wineWowPackages.stable

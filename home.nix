@@ -109,8 +109,7 @@
       ];
 
       input = {
-        kb_layout = "us, us ,eg";
-        kb_variant = ",dvorak,";
+        kb_layout = "us,eg";
         kb_options = "grp:shifts_toggle";
         numlock_by_default = true;
         follow_mouse = 2;
