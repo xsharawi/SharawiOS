@@ -104,7 +104,7 @@
         "keepassxc"
         "[workspace 1 silent] obsidian"
         "[workspace 2 silent] $TERMINAL"
-        "[workspace 3 silent] zen"
+        "[workspace 3 silent] zen-beta"
         "[workspace 4 silent] vesktop"
       ];
 
