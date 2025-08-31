@@ -33,20 +33,12 @@ in {
 
   boot.initrd.luks.devices."luks-695f8df6-9ca9-45ab-a495-ce49f4675b37".device = "/dev/disk/by-uuid/695f8df6-9ca9-45ab-a495-ce49f4675b37";
   networking.hostName = "vim"; # Define your hostname.
-  # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
-
-  # Configure network proxy if necessary
-  # networking.proxy.default = "http://user:password@proxy:port/";
-  # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
 
   # Enable networking
   networking.networkmanager.enable = true;
 
   # flakes
-  nix.settings.experimental-features = [
-    "nix-command"
-    "flakes"
-  ];
+  nix.settings.experimental-features = ["nix-command" "flakes"];
 
   # nh
   programs.nh = {
@@ -580,17 +572,6 @@ in {
     xkb.layout = "us";
     xkb.variant = "";
     xkb.options = "caps:swapescape";
-
-    windowManager.i3 = {
-      enable = true;
-      extraPackages = with pkgs; [
-        dmenu # application launcher most people use
-        i3status # gives you the default i3 status bar
-        i3lock # default i3 screen locker
-        i3blocks # if you are planning on using i3blocks over i3status
-        nitrogen # background hehe
-      ];
-    };
   };
 
   # Enable CUPS to print documents.
@@ -624,11 +605,6 @@ in {
   # gaming stuff
   programs.gamemode.enable = true;
   programs.steam.gamescopeSession.enable = true; # gamescope
-  # hardware.opengl = {
-  #   enable = true;
-  #   driSupport = true;
-  #   driSupport32Bit = true;
-  # };
   services.xserver.videoDrivers = ["nvidia"];
   hardware.nvidia.modesetting.enable = true;
 
@@ -657,17 +633,14 @@ in {
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
 
-  # List packages installed in system profile. To search, run:
-  # $ nix search wget
   environment.systemPackages = with pkgs; [
-    vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
+    vim
     wget
     git
     keepassxc
     xclip
     firmwareLinuxNonfree
     gparted
-    # os-prober
     grub2
     clang
     rustup
@@ -687,7 +660,6 @@ in {
     chromium
     python3
     polybar
-    #rofi
     font-awesome_5
     rxvt-unicode
     alsa-utils
@@ -700,7 +672,6 @@ in {
     gtk2
     gtk3
     gtk4
-    # gtkd
     gtk2-x11
     gtk3-x11
     discord
@@ -752,7 +723,6 @@ in {
     qbittorrent
 
     yt-dlp
-    # bottles
     protonup
     dxvk
     filezilla
@@ -760,7 +730,6 @@ in {
     go
     air
     htmx-lsp
-    #gopls
     obs-studio
     bun
     veracrypt
@@ -814,10 +783,8 @@ in {
     google-chrome
     inputs.zen-browser.packages."${system}".default
     inputs.ghostty.packages."${system}".default
-    # ELIXIR MENTIONED
     elixir
     elixir-ls
-    # OCAML MENTIONED
     ocaml
     mangohud
     pcsx2
@@ -843,9 +810,7 @@ in {
     solaar
     logitech-udev-rules
     logiops
-    # godot_4
-    # godot_4-mono
-    # gdtoolkit_4
+    godot
     nerd-fonts.hack
     nerd-fonts.ubuntu
     nerd-fonts.ubuntu-mono
@@ -864,26 +829,19 @@ in {
     pamixer
     libinput
     eza
-    heroic
 
     #newpackage
-    wineWowPackages.stable
 
+    wineWowPackages.stable
     kdePackages.kwallet-pam
     waybar
     egl-wayland
-    hyprpicker
     swaynotificationcenter
     cliphist
     wl-clip-persist
     wl-clipboard
     hyprcursor
-    hyprshot
-    hyprpicker
-    shotman
-    slurp
     brightnessctl
-    grim
     grimblast
     (vesktop.overrideAttrs (
       finalAttrs: previousAttrs: {
@@ -896,8 +854,6 @@ in {
   ];
   security.pam.services.swaylock = {};
 
-  # programs.neovim.enable = true;
-  # programs.neovim.defaultEditor = true;
   programs.hyprland.enable = true;
   programs.hyprland.xwayland.enable = true;
   programs.kdeconnect.enable = true;
@@ -906,28 +862,12 @@ in {
   programs.ssh.askPassword = "";
   services.samba.enable = true;
   services.samba.usershares.enable = true;
-  # services.samba.smbd.enable = true;
 
   security.pam.services.kwallet = {
     name = "kwallet";
     enableKwallet = true;
   };
-  #systemd = {
-  #user.services.polkit-kde-agent-1= {
-  #    enable = true;
-  #    package = pkgs.kdePackages.polkit-kde-agent-1;
-  #    description = "polkit-kde-authentication-agent-1";
-  #    wantedBy = [ "graphical-session.target" ];
-  #    wants = [ "graphical-session.target" ];
-  #    after = [ "graphical-session.target" ];
-  #    serviceConfig = {
-  #      ExecStart = "${pkgs.polkit-kde-agent}/libexec/polkit-kde-authentication-agent-1";
-  #      Restart = "on-failure";
-  #      RestartSec = 1;
-  #      TimeoutStopSec = 10;
-  #    };
-  #  };
-  #};
+
   xdg = {
     portal = {
       enable = true;
@@ -990,36 +930,10 @@ in {
     STEAM_EXTRA_COMPAT_TOOLS_PATH = "/home/xsharawi/.steam/root/compatibilitytools.d";
   };
 
-  # Some programs need SUID wrappers, can be configured further or are
-  # started in user sessions.
-  # programs.mtr.enable = true;
-  # programs.gnupg.agent = {
-  #   enable = true;
-  #   enableSSHSupport = true;
-  # };
-
-  # List services that you want to enable:
-
-  # Enable the OpenSSH daemon.
-  # services.openssh.enable = true;
-
   services.mysql = {
     enable = true;
     package = pkgs.mariadb;
   };
-
-  # fuck kde
-  # system.autoUpgrade = {
-  #   enable = true;
-  #   flake = inputs.self.outPath;
-  #   flags = [
-  #     "--update-input"
-  #     "nixpkgs"
-  #     "-L" # print build logs
-  #   ];
-  #   dates = "daily";
-  #   randomizedDelaySec = "45min";
-  # };
 
   # direnv
   programs.direnv.enable = true;
@@ -1033,54 +947,15 @@ in {
   #stylix.image = ./wallpapers/zoz.png;
   stylix.base16Scheme = ./catppuccin-mocha.yaml;
   stylix.polarity = "dark";
-  # stylix.cursor.package = pkgs.banana-cursor;
-  # stylix.cursor.name = "banana-cursor";
-  # stylix.cursor.size = 40;
   stylix.fonts.sizes.applications = 10;
   stylix.fonts.sizes.desktop = 8;
-
-  services.keyd = {
-    enable = true;
-    keyboards = {
-      # The name is just the name of the configuration file, it does not really matter
-      default = {
-        # ids = ["*"]; # what goes into the [id] section, here we select all keyboards
-        # ids = [
-        #   "SINO WEALTH Gaming KB"
-        #   "SINO WEALTH Gaming KB  System Control"
-        #   "SINO WEALTH Gaming KB  Consumer Control"
-        #   "SINO WEALTH Gaming KB  Keyboard"
-        #   "C-Media Electronics Inc. FANTECH ALTO 7.1"
-        # ];
-        ids = [
-          "258a:002a:65e37239" # SINO WEALTH Gaming KB  Keyboard
-          "258a:002a:000c7ead" # SINO WEALTH Gaming KB  Consumer Control
-          "258a:002a:75e84400" # SINO WEALTH Gaming KB
-        ];
-        # Everything but the ID section:
-        settings = {
-          # The main layer, if you choose to declare it in Nix
-          main = {
-            capslock = "overload(control, esc)"; # you might need to also enclose the key in quotes if it contains non-alphabetical symbols
-            esc = "esc"; # you might need to also enclose the key in quotes if it contains non-alphabetical symbols
-            leftalt = "layer(meta)";
-            leftmeta = "layer(alt)";
-          };
-          otherlayer = {};
-        };
-        extraConfig = ''
-          # put here any extra-config, e.g. you can copy/paste here directly a configuration, just remove the ids part
-        '';
-      };
-    };
-  };
 
   nix.nixPath = ["nixpkgs=${inputs.nixpkgs}"];
 
   qt = {
     enable = true;
     style = lib.mkForce "breeze";
-    platformTheme = lib.mkForce "kde"; # "gnome", "gtk2", "kde", "lxqt", "qt5ct"
+    platformTheme = lib.mkForce "kde";
   };
   hardware.opentabletdriver.enable = true;
   hardware.opentabletdriver.daemon.enable = true;

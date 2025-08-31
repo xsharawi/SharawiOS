@@ -5,8 +5,6 @@
   inputs,
   ...
 }: {
-  # Home Manager needs a bit of information about you and the paths it should
-  # manage.
   home.username = "xsharawi";
   home.homeDirectory = "/home/xsharawi";
   imports = [
@@ -25,30 +23,16 @@
   # The home.packages option allows you to install Nix packages into your
   # environment.
   home.packages = [
-    # # Adds the 'hello' command to your environment. It prints a friendly
-    # # "Hello, world!" when run.
-    # pkgs.hello
-
-    # # It is sometimes useful to fine-tune packages, for example, by applying
-    # # overrides. You can do that directly here, just don't forget the
-    # # parentheses. Maybe you want to install Nerd Fonts with a limited number of
-    # # fonts?
-    # (pkgs.nerdfonts.override { fonts = [ "FantasqueSansMono" ]; })
-
-    # # You can also create simple shell scripts directly inside your
-    # # configuration. For example, this adds a command 'my-hello' to your
-    # # environment:
-    # (pkgs.writeShellScriptBin "my-hello" ''
-    #   echo "Hello, ${config.home.username}!"
-    # '')
     (pkgs.writeShellScriptBin "up" ''
       sudo nixos-rebuild switch --flake /etc/nixos#vim
     '')
 
+    (pkgs.writeShellScriptBin "nsh" ''
+      nh os switch /etc/nixos
+    '')
+
     inputs.hyprpicker.packages.${pkgs.system}.default
   ];
-
-  # home.file."bin/tmux-mem-cpp".source = ./tmux-mem-cpp;
 
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
   # plain files is through 'home.file'.
@@ -137,10 +121,6 @@
           "CLUTTER_BACKEND,wayland"
           "XDG_SESSION_DESKTOP,Hyprland "
           "XDG_CURRENT_DESKTOP,Hyprland"
-          # "LIBVA_DRIVER_NAME,nvidia"
-          # "__GLX_VENDOR_LIBRARY_NAME,nvidia"
-          # "ELECTRON_OZONE_PLATFORM_HINT,auto"
-          # "NIXOS_OZONE_WL,1"
         ];
       };
 
@@ -223,15 +203,6 @@
         "$mainMod, 8, workspace, 8"
         "$mainMod, 9, workspace, 9"
         "$mainMod, 0, workspace, 10"
-
-        # won't need it but it exists
-
-        # "$mainMod, E, togglegroup"
-
-        # "$mainMod CTRL, c, movetoworkspace, empty"
-
-        # clipboard manager
-        # "$mainMod, V, exec, cliphist list | ${pkgs.rofi-wayland}/bin/rofi --dmenu | cliphist decode | ${pkgs.wl-clipboard}/bin/wl-copy"
       ];
 
       windowrule = [
