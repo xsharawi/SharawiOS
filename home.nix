@@ -9,6 +9,9 @@
   # manage.
   home.username = "xsharawi";
   home.homeDirectory = "/home/xsharawi";
+  imports = [
+    ./xdgmime.nix
+  ];
 
   # This value determines the Home Manager release that your configuration is
   # compatible with. This helps avoid breakage when a new Home Manager release
@@ -109,8 +112,7 @@
       ];
 
       input = {
-        kb_layout = "us,eg";
-        kb_options = "grp:shifts_toggle";
+        kb_layout = "us";
         numlock_by_default = true;
         follow_mouse = 2;
         sensitivity = 0;
@@ -131,9 +133,9 @@
           "HYPRCURSOR_THEME,Banana"
           "HYPRCURSOR_SIZE,40"
           "XCURSOR_SIZE,40"
-          "XDG SESSION_TYPE,wayland "
-          "CLUTTER_BACKEND,wayland  "
-          "XDG_SESSION_DESKTOP, Hyprland "
+          "XDG_SESSION_TYPE,wayland"
+          "CLUTTER_BACKEND,wayland"
+          "XDG_SESSION_DESKTOP,Hyprland "
           "XDG_CURRENT_DESKTOP,Hyprland"
           # "LIBVA_DRIVER_NAME,nvidia"
           # "__GLX_VENDOR_LIBRARY_NAME,nvidia"
@@ -160,18 +162,9 @@
           passes = 3;
           ignore_opacity = true;
         };
-
-        #drop_shadow = true;
-
-        #shadow_ignore_window = true;
-        #shadow_offset = "0 2";
-        #shadow_range = 4;
-        #shadow_render_power = 3;
-        #"col.shadow" = "rgba(1a1a1aee)";
       };
 
       animations = {
-        # just testing it out without animations
         enabled = true;
 
         bezier = [
@@ -200,15 +193,12 @@
       };
 
       bind = [
-        # show keybinds list
-        # "$mainMod, S, exec, show-keybinds"
-
         "$mainMod, Q, killactive,"
         "$mainMod SHIFT , Q, exec, hyprctl dispatch exit"
         "$mainMod, W, exec, swaylock --color 000000"
         "$mainMod SHIFT, Space, togglefloating"
         "$mainMod, F, Fullscreen, fullscreen, 1"
-        "$mainMod, Space, exec, pkill rofi || rofi -show drun"
+        "$mainMod, Space, exec, pkill rofi || rofi -show drun -show-icons"
         "$mainMod SHIFT, e, exec, hyprctl dispatch exec '[workspace 2 silent] konsole'"
         "$mainMod SHIFT, c, exec, hyprctl dispatch exec '[workspace 3 silent] chromium'"
         "$mainMod SHIFT, d, exec, hyprctl dispatch exec '[workspace 4 silent] vesktop'"
@@ -344,7 +334,6 @@
 
   stylix.targets.swaylock.enable = true;
   stylix.targets.sway.enable = true;
-  stylix.targets.swaylock.useImage = true;
   stylix.targets.gtk.enable = true;
   stylix.targets.rofi.enable = true;
   stylix.base16Scheme = ./catppuccin-mocha.yaml;

@@ -705,9 +705,8 @@ in {
     gtk3-x11
     discord
     pkg-config
-    libsForQt5.kde-gtk-config
-    libsForQt5.kdeplasma-addons
-    libsForQt5.breeze-qt5
+    kdePackages.kde-gtk-config
+    kdePackages.kdeplasma-addons
     kdePackages.xdg-desktop-portal-kde
     xdg-desktop-portal-gtk
     xdg-desktop-portal
@@ -793,7 +792,6 @@ in {
     zip
     openjdk8
     openjfx
-    jre8_headless
     jre8
     jdk8
     xorg.libXext
@@ -862,8 +860,6 @@ in {
     libretro.gpsp
     osu-lazer-bin
     aseprite
-    gns3-gui
-    gns3-server
     rofi-wayland
     pamixer
     libinput
@@ -1081,9 +1077,11 @@ in {
 
   nix.nixPath = ["nixpkgs=${inputs.nixpkgs}"];
 
-  qt.enable = true;
-  #qt.style = "breeze";
-  #qt.platformTheme = "qtct";
+  qt = {
+    enable = true;
+    style = lib.mkForce "breeze";
+    platformTheme = lib.mkForce "kde"; # "gnome", "gtk2", "kde", "lxqt", "qt5ct"
+  };
   hardware.opentabletdriver.enable = true;
   hardware.opentabletdriver.daemon.enable = true;
 
@@ -1094,22 +1092,6 @@ in {
     enable = true;
     openDefaultPorts = true;
   };
-
-  # xdg mime
-  xdg.mime = {
-    enable = true;
-    defaultApplications = {
-      "text/html" = "org.chromium.chromium.desktop";
-      "x-scheme-handler/http" = "org.chromium.chromium.desktop";
-      "x-scheme-handler/https" = "org.chromium.chromium.desktop";
-      "x-scheme-handler/about" = "org.chromium.chromium.desktop";
-      "x-scheme-handler/unknown" = "org.chromium.chromium.desktop";
-      "video/mp4" = "vlc.desktop";
-      "video/x-matroska" = "vlc.desktop";
-    };
-  };
-
-  environment.sessionVariables.DEFAULT_BROWSER = "${pkgs.chromium}/bin/chromium";
 
   # Open ports in the firewall.
   networking.firewall.allowedTCPPorts = [8081 27031];
