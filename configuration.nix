@@ -529,19 +529,6 @@ in {
           vim.keymap.set('n', '<leader>j', function()
             harpoon:list():prev()
           end)
-
-          if #vim.fn.argv() > 0 then
-            local path = vim.fn.expand(vim.fn.argv()[1])
-            local is_directory = vim.fn.isdirectory(path) == 1
-            local is_file = vim.fn.filereadable(path) == 1
-
-            if is_directory or is_file then
-              if is_file then
-              else
-                harpoon:list():select(1)
-              end
-            end
-          end
           vim.keymap.set('n', '<leader>Q', vim.diagnostic.setloclist, { desc = 'Open diagnostic [Q]uickfix list' })
           vim.opt.inccommand = 'split'
 
@@ -555,6 +542,38 @@ in {
 
           vim.keymap.set('v', 'J', ":m '>+1<CR>gv=gv")
           vim.keymap.set('v', 'K', ":m '<-2<CR>gv=gv")
+
+          -- Put this in your init.lua (or a file sourced during startup)
+          vim.api.nvim_create_autocmd("VimEnter", {
+            once = true,
+            callback = function()
+              local argv = vim.fn.argv()
+              if #argv == 0 then return end
+
+              local path = vim.fn.expand(argv[1])
+              local is_dir  = vim.fn.isdirectory(path) == 1
+              local is_file = vim.fn.filereadable(path) == 1
+
+              if is_file then
+                -- Open after plugins have loaded so LSP/Treesitter can attach
+                vim.schedule(function()
+                  vim.cmd("edit " .. vim.fn.fnameescape(path))
+                end)
+              elseif is_dir then
+                -- Jump to your Harpoon entry after startup
+                vim.schedule(function()
+                  -- protect in case list is empty
+                  pcall(function() require("harpoon"):list():select(1) end)
+
+                  -- Re-edit the *current* buffer by name to fire BufRead* hooks
+                  local cur = vim.api.nvim_buf_get_name(0)
+                  if cur ~= "" then
+                    vim.cmd("edit " .. vim.fn.fnameescape(cur))
+                  end
+                end)
+              end
+            end,
+          })
 
 
 
