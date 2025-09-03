@@ -214,6 +214,8 @@ in {
           lspconfig.enable = true;
           nvim-docs-view.enable = true;
 
+          inlayHints.enable = true;
+
           trouble = {
             enable = true;
             mappings = {
@@ -290,6 +292,7 @@ in {
           markdown.enable = true;
           markdown.format.enable = false;
           lua.enable = true;
+          odin.enable = true;
 
           html = {
             enable = true;
@@ -679,6 +682,7 @@ in {
     kdePackages.kde-gtk-config
     kdePackages.kdeplasma-addons
     kdePackages.xdg-desktop-portal-kde
+    kdePackages.plasma-workspace
     xdg-desktop-portal-gtk
     xdg-desktop-portal
     xdg-desktop-portal-hyprland
@@ -829,6 +833,10 @@ in {
     pamixer
     libinput
     eza
+    xfce.thunar
+    nemo-with-extensions
+    file
+    odin
 
     #newpackage
 
@@ -869,6 +877,8 @@ in {
   };
 
   xdg = {
+    menus.enable = true;
+    mime.enable = true;
     portal = {
       enable = true;
       extraPortals = with pkgs; [
@@ -974,6 +984,7 @@ in {
   # Or disable the firewall altogether.
   # networking.firewall.enable = false;
 
+  environment.etc."/xdg/menus/plasma-applications.menu".text = builtins.readFile "${pkgs.kdePackages.plasma-workspace}/etc/xdg/menus/plasma-applications.menu";
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
   # on your system were taken. It‘s perfectly fine and recommended to leave
