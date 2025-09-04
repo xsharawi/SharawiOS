@@ -774,7 +774,6 @@ in {
     kdePackages.krfb
     kdePackages.krdc
     pipes
-    xfce.thunar-archive-plugin
     libsForQt5.qt5ct
     stdmanpages
     man-pages
@@ -852,7 +851,6 @@ in {
     pamixer
     libinput
     eza
-    xfce.thunar
     nemo-with-extensions
     file
     odin
@@ -889,6 +887,15 @@ in {
   programs.ssh.askPassword = "";
   services.samba.enable = true;
   services.samba.usershares.enable = true;
+
+  programs.thunar.enable = true;
+  programs.xfconf.enable = true;
+  programs.thunar.plugins = with pkgs.xfce; [
+    thunar-archive-plugin
+    thunar-volman
+  ];
+  services.gvfs.enable = true;
+  services.tumbler.enable = true;
 
   security.pam.services.kwallet = {
     name = "kwallet";
