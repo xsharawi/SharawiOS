@@ -448,6 +448,10 @@ in {
             leap.enable = true;
             #precognition.enable = true;
           };
+          direnv.enable = true;
+          mkdir.enable = true;
+          nix-develop.enable = true;
+          preview.markdownPreview.enable = true;
         };
 
         notes = {
