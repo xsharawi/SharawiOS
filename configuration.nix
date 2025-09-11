@@ -850,7 +850,6 @@ in {
     entr
     libretro.gpsp
     osu-lazer-bin
-    aseprite
     rofi-wayland
     pamixer
     libinput
