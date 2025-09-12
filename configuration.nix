@@ -590,6 +590,7 @@ in {
   services.displayManager.sddm.enable = true;
   services.displayManager.sddm.autoNumlock = true;
   services.desktopManager.plasma6.enable = true;
+  services.displayManager.defaultSession = "hyprland";
   services.envfs.enable = true;
   programs.dconf.enable = true;
 
