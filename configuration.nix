@@ -536,6 +536,10 @@ in {
           vim.keymap.set('n', '<leader>Q', vim.diagnostic.setloclist, { desc = 'Open diagnostic [Q]uickfix list' })
           vim.opt.inccommand = 'split'
 
+          vim.keymap.set('n', '<leader>,', function() vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled()) end , { desc = 'inlay hints toggle' })
+
+
+
           vim.api.nvim_create_autocmd('TextYankPost', {
             desc = 'Highlight when yanking (copying) text',
             group = vim.api.nvim_create_augroup('kickstart-highlight-yank', { clear = true }),
@@ -646,6 +650,7 @@ in {
       "libvirtd"
       "docker"
       "samba"
+      "syncthing"
     ];
     packages = with pkgs; [];
   };
@@ -730,8 +735,6 @@ in {
 
     # cpp c stuff
     clangStdenv
-    clang-tools_17
-    clang_17
     llvmPackages.libcxxClang
     cppcheck
     libllvm
@@ -851,13 +854,14 @@ in {
     entr
     libretro.gpsp
     osu-lazer-bin
-    rofi-wayland
+    rofi
     pamixer
     libinput
     eza
     nemo-with-extensions
     file
     odin
+    quickshell
 
     #newpackage
 

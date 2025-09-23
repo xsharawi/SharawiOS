@@ -30,8 +30,6 @@
     (pkgs.writeShellScriptBin "nsh" ''
       nh os switch /etc/nixos
     '')
-
-    inputs.hyprpicker.packages.${pkgs.system}.default
   ];
 
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
@@ -77,6 +75,10 @@
 
     settings = {
       # Autostart.
+
+      ecosystem = {
+        no_update_news = true;
+      };
 
       debug = {
         disable_logs = true;
@@ -179,9 +181,6 @@
         "$mainMod SHIFT, Space, togglefloating"
         "$mainMod, F, Fullscreen, fullscreen, 1"
         "$mainMod, Space, exec, pkill rofi || rofi -show drun -show-icons"
-        "$mainMod SHIFT, e, exec, hyprctl dispatch exec '[workspace 2 silent] konsole'"
-        "$mainMod SHIFT, c, exec, hyprctl dispatch exec '[workspace 3 silent] chromium'"
-        "$mainMod SHIFT, d, exec, hyprctl dispatch exec '[workspace 4 silent] vesktop'"
 
         "$mainMod, M, exec, pamixer --toggle-mute"
         "$mainMod SHIFT, M, movecurrentworkspacetomonitor, +1"
