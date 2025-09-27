@@ -24,7 +24,7 @@ in {
     ./hardware-configuration.nix
     inputs.home-manager.nixosModules.default
     #inputs.xremap-flake.nixosModules.default
-    ./fishmyfish.nix
+    # ./fishmyfish.nix
   ];
 
   # Bootloader.
