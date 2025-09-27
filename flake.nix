@@ -18,6 +18,7 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    dark-text.url = "github:vimjoyer/dark-text";
     stylix.url = "github:danth/stylix";
   };
 
@@ -25,6 +26,7 @@
     self,
     nixpkgs,
     nvf,
+    dark-text,
     ...
   } @ inputs: {
     nixosConfigurations.vim = nixpkgs.lib.nixosSystem {

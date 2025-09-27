@@ -862,6 +862,7 @@ in {
     file
     odin
     quickshell
+    bolt-launcher
 
     #newpackage
 
@@ -1019,6 +1020,12 @@ in {
   # networking.firewall.enable = false;
   nix.package = pkgs.nixVersions.latest;
 
+  system.userActivationScripts = {
+    splash = {
+      text = "${lib.getExe' inputs.dark-text.packages.${pkgs.system}.default "quickshell"}";
+      deps = [];
+    };
+  };
   environment.etc."/xdg/menus/plasma-applications.menu".text = builtins.readFile "${pkgs.kdePackages.plasma-workspace}/etc/xdg/menus/plasma-applications.menu";
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
