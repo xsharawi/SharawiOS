@@ -28,7 +28,7 @@
     '')
 
     (pkgs.writeShellScriptBin "nsh" ''
-      nh os switch /etc/nixos
+      nh os switch /etc/nixos && dark-text --death --text "Nixos Rebuilt"
     '')
   ];
 
@@ -147,7 +147,7 @@
       };
 
       animations = {
-        enabled = true;
+        enabled = false;
 
         bezier = [
           "fluent_decel, 0, 0.2, 0.4, 1"
@@ -331,6 +331,16 @@
 
   gtk.gtk2.configLocation = "${config.xdg.configHome}/gtk-2.0/gtkrc";
 
+  xdg.desktopEntries = {
+    # Example for a custom launcher
+    runescape-launcher = {
+      name = "runescape";
+      exec = "${pkgs.bolt-launcher}/bin/bolt-launcher";
+      icon = "bolt-launcher";
+      categories = ["Game"];
+      terminal = false;
+    };
+  };
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
 }
