@@ -1,10 +1,15 @@
-{ config, lib, pkgs, inputs, ... }:
-
 {
-  # Home Manager needs a bit of information about you and the paths it should
-  # manage.
+  config,
+  lib,
+  pkgs,
+  inputs,
+  ...
+}: {
   home.username = "xsharawi";
   home.homeDirectory = "/home/xsharawi";
+  imports = [
+    ./xdgmime.nix
+  ];
 
   # This value determines the Home Manager release that your configuration is
   # compatible with. This helps avoid breakage when a new Home Manager release
@@ -18,30 +23,14 @@
   # The home.packages option allows you to install Nix packages into your
   # environment.
   home.packages = [
-    # # Adds the 'hello' command to your environment. It prints a friendly
-    # # "Hello, world!" when run.
-    # pkgs.hello
-
-    # # It is sometimes useful to fine-tune packages, for example, by applying
-    # # overrides. You can do that directly here, just don't forget the
-    # # parentheses. Maybe you want to install Nerd Fonts with a limited number of
-    # # fonts?
-    # (pkgs.nerdfonts.override { fonts = [ "FantasqueSansMono" ]; })
-
-    # # You can also create simple shell scripts directly inside your
-    # # configuration. For example, this adds a command 'my-hello' to your
-    # # environment:
-    # (pkgs.writeShellScriptBin "my-hello" ''
-    #   echo "Hello, ${config.home.username}!"
-    # '')
     (pkgs.writeShellScriptBin "up" ''
       sudo nixos-rebuild switch --flake /etc/nixos#vim
     '')
 
-    inputs.hyprpicker.packages.${pkgs.system}.default
+    (pkgs.writeShellScriptBin "nsh" ''
+      nh os switch /etc/nixos && dark-text --death --text "Nixos Rebuilt"
+    '')
   ];
-
-  # home.file."bin/tmux-mem-cpp".source = ./tmux-mem-cpp;
 
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
   # plain files is through 'home.file'.
@@ -78,10 +67,7 @@
     # EDITOR = "emacs";
   };
 
-
-
   wayland.windowManager.hyprland = {
-
     systemd.enable = true;
 
     xwayland.enable = true;
@@ -89,6 +75,10 @@
 
     settings = {
       # Autostart.
+
+      ecosystem = {
+        no_update_news = true;
+      };
 
       debug = {
         disable_logs = true;
@@ -99,16 +89,16 @@
         "nm-applet --indicator &"
         "kdeconnect-indicator &"
         "waybar &"
+        "swww-daemon &"
+        "keepassxc"
         "[workspace 1 silent] obsidian"
         "[workspace 2 silent] $TERMINAL"
-        "[workspace 3 silent] chromium"
+        "[workspace 3 silent] zen-beta"
         "[workspace 4 silent] vesktop"
       ];
 
       input = {
-        kb_layout = "us, us ,eg";
-        kb_variant = ",dvorak,";
-        kb_options = "grp:shifts_toggle";
+        kb_layout = "us";
         numlock_by_default = true;
         follow_mouse = 2;
         sensitivity = 0;
@@ -119,8 +109,9 @@
 
       general = {
         "$mainMod" = "SUPER";
-        "$TERMINAL" = "kitty";
+        "$TERMINAL" = "ghostty";
         layout = "master";
+        allow_tearing = true;
         gaps_in = 2;
         gaps_out = 6;
         border_size = 2;
@@ -128,12 +119,17 @@
           "HYPRCURSOR_THEME,Banana"
           "HYPRCURSOR_SIZE,40"
           "XCURSOR_SIZE,40"
+          "XDG_SESSION_TYPE,wayland"
+          "CLUTTER_BACKEND,wayland"
+          "XDG_SESSION_DESKTOP,Hyprland "
+          "XDG_CURRENT_DESKTOP,Hyprland"
         ];
       };
 
       misc = {
         disable_hyprland_logo = true;
         animate_manual_resizes = true;
+        focus_on_activate = true;
       };
 
       decoration = {
@@ -148,18 +144,10 @@
           passes = 3;
           ignore_opacity = true;
         };
-
-        # drop_shadow = true;
-        #
-        # shadow_ignore_window = true;
-        #shadow_offset = "0 2";
-        # shadow_range = 4;
-        # shadow_render_power = 3;
-        #"col.shadow" = "rgba(1a1a1aee)";
       };
 
       animations = {
-        enabled = true;
+        enabled = false;
 
         bezier = [
           "fluent_decel, 0, 0.2, 0.4, 1"
@@ -172,7 +160,7 @@
           # Windows
           "windowsIn, 1, 3, easeOutCubic, popin 30%" # window open
           "windowsOut, 1, 3, fluent_decel, popin 70%" # window close.
-          "windowsMove, 1, 2, easeinoutsine, slide" # everything in between, moving, dragging, resizing.
+          "windowsMove, 1, 0.01, easeinoutsine, slide" # everything in between, moving, dragging, resizing.
 
           # Fade
           "fadeIn, 1, 3, easeOutCubic" # fade in (open) -> layers and windows
@@ -187,28 +175,21 @@
       };
 
       bind = [
-        # show keybinds list
-        # "$mainMod, S, exec, show-keybinds"
-
         "$mainMod, Q, killactive,"
         "$mainMod SHIFT , Q, exec, hyprctl dispatch exit"
         "$mainMod, W, exec, swaylock --color 000000"
         "$mainMod SHIFT, Space, togglefloating"
         "$mainMod, F, Fullscreen, fullscreen, 1"
-        "$mainMod, Space, exec, pkill wofi || wofi --show drun"
-        "$mainMod SHIFT, e, exec, hyprctl dispatch exec '[workspace 2 silent] konsole'"
-        "$mainMod SHIFT, c, exec, hyprctl dispatch exec '[workspace 3 silent] chromium'"
-        "$mainMod SHIFT, d, exec, hyprctl dispatch exec '[workspace 4 silent] vesktop'"
-
+        "$mainMod, Space, exec, pkill rofi || rofi -show drun -show-icons"
 
         "$mainMod, M, exec, pamixer --toggle-mute"
+        "$mainMod SHIFT, M, movecurrentworkspacetomonitor, +1"
 
         "$mainMod, S, exec, pkill -SIGUSR1 waybar"
 
         "$mainMod, PRINT, exec, hyprshot -m region"
         ", PRINT, exec, grimblast --freeze copysave area ~/Pictures/$(date +%Y-%m-%d_%H-%m-%s).png"
         "$mainMod, page_down , exec, grimblast --freeze copysave area ~/Pictures/$(date +%Y-%m-%d_%H-%m-%s).png"
-
 
         # switch workspace
         "$mainMod, 1, workspace, 1"
@@ -221,20 +202,14 @@
         "$mainMod, 8, workspace, 8"
         "$mainMod, 9, workspace, 9"
         "$mainMod, 0, workspace, 10"
+      ];
 
-        # won't need it but it exists
-
-        # "$mainMod, E, togglegroup"
-
-        # "$mainMod CTRL, c, movetoworkspace, empty"
-
-        # clipboard manager
-        # "$mainMod, V, exec, cliphist list | ${pkgs.rofi-wayland}/bin/rofi --dmenu | cliphist decode | ${pkgs.wl-clipboard}/bin/wl-copy"
+      windowrule = [
+        "opacity 0.97, class:ghostty"
       ];
 
       # binds that can be repeated
       binde = [
-
         # terminal open
         "$mainMod, Return, exec, $TERMINAL"
 
@@ -276,7 +251,6 @@
 
         "$mainMod, N, workspace, +1"
         "$mainMod, P, workspace, -1"
-
       ];
 
       # mouse binding
@@ -284,16 +258,14 @@
         "$mainMod, mouse:272, movewindow"
         "$mainMod, mouse:273, resizewindow"
       ];
-
     };
 
-
-
-    # old
     # monitor=, highres@highrr, auto, auto
     extraConfig = "
-        monitor = eDP-1,1366x768@60.00300,0x0,1 
-        monitor = HDMI-A-1,1920x1080@100.00000,1366x0,1
+        monitor=DP-1,1920x1080@180,1920x0,1,bitdepth
+        monitor=HDMI-A-1,1920x1080@100,0x0,1,bitdepth
+        workspace=2, monitor:DP-1
+        workspace=3, monitor:DP-1
        xwayland {
          force_zero_scaling = true
        }
@@ -303,8 +275,8 @@
   #also virt
   dconf.settings = {
     "org/virt-manager/virt-manager/connections" = {
-      autoconnect = [ "qemu:///system" ];
-      uris = [ "qemu:///system" ];
+      autoconnect = ["qemu:///system"];
+      uris = ["qemu:///system"];
     };
     # disable dconf first use warning
     "ca/desrt/dconf-editor" = {
@@ -316,17 +288,26 @@
     };
   };
 
-
   stylix.enable = true;
   stylix.targets.kitty.enable = true;
-  #stylix.targets.kde.enable = true;
   stylix.targets.kitty.variant256Colors = true;
+  stylix.targets.kde.enable = true;
+
   programs.kitty.enable = true;
+  programs.kitty.settings = {
+    scroll_back = -1;
+    mouse_hide_wait = 2.0;
+    font_family = "Hack";
+    font_size = 10;
+    remember_window_size = "yes";
+  };
 
   stylix.targets.swaylock.enable = true;
   stylix.targets.sway.enable = true;
-  stylix.targets.swaylock.useImage = true;
   stylix.targets.gtk.enable = true;
+  stylix.targets.rofi.enable = true;
+  stylix.base16Scheme = ./catppuccin-mocha.yaml;
+
   gtk = {
     enable = true;
     gtk3.extraConfig = {
@@ -338,15 +319,28 @@
   };
 
   #stylix.cursor.name = "Banana";
-  # # forceing because stylix is dumb
+
+  # forceing because stylix is dumb
   home.pointerCursor = {
     x11.enable = true;
     gtk.enable = true;
     package = lib.mkForce pkgs.banana-cursor;
-    # size = lib.mkForce 40;
-    name = lib.mkForce ("Banana");
+    size = lib.mkForce 40;
+    name = lib.mkForce "Banana";
   };
 
+  gtk.gtk2.configLocation = "${config.xdg.configHome}/gtk-2.0/gtkrc";
+
+  xdg.desktopEntries = {
+    # Example for a custom launcher
+    runescape-launcher = {
+      name = "runescape";
+      exec = "${pkgs.bolt-launcher}/bin/bolt-launcher";
+      icon = "bolt-launcher";
+      categories = ["Game"];
+      terminal = false;
+    };
+  };
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
 }

@@ -1,5 +1,4 @@
 {
-
   description = "system flake or something ig";
 
   inputs = {
@@ -8,33 +7,30 @@
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    zen-browser.url = "github:0xc000022070/zen-browser-flake";
 
-    swww = {
-      url = "github:LGFae/swww";
-      inputs.nixpkgs.follows = "nixpkgs";
+    ghostty = {
+      url = "github:ghostty-org/ghostty";
     };
-
 
     nvf = {
       url = "github:notashelf/nvf";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    zen-browser.url = "github:MarceColl/zen-browser-flake";
-
-    hyprpicker = {
-      url = "github:hyprwm/hyprpicker";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
+    dark-text.url = "github:vimjoyer/dark-text";
     stylix.url = "github:danth/stylix";
-    xremap-flake.url = "github:xremap/nix-flake";
   };
 
-  outputs = { self, nixpkgs, nvf, ... }@inputs: {
-
+  outputs = {
+    self,
+    nixpkgs,
+    nvf,
+    dark-text,
+    ...
+  } @ inputs: {
     nixosConfigurations.vim = nixpkgs.lib.nixosSystem {
-
-      specialArgs = { inherit inputs; };
+      specialArgs = {inherit inputs;};
       system = "x86_64-linux";
 
       modules = [
@@ -46,11 +42,7 @@
         }
         inputs.stylix.nixosModules.stylix
         nvf.nixosModules.default
-
       ];
-
     };
-
   };
-
 }
