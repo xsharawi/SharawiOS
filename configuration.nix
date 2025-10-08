@@ -652,6 +652,7 @@ in {
       "docker"
       "samba"
       "syncthing"
+      "input"
     ];
     packages = with pkgs; [];
   };
@@ -865,6 +866,7 @@ in {
     odin
     quickshell
     bolt-launcher
+    espanso-wayland
 
     #newpackage
 
