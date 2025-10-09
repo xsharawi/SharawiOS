@@ -708,7 +708,6 @@ in {
     gtk4
     gtk2-x11
     gtk3-x11
-    discord
     pkg-config
     kdePackages.kde-gtk-config
     kdePackages.kdeplasma-addons
@@ -747,7 +746,6 @@ in {
     binutils
     glibc
     cmake
-    ccls
     devenv
 
     winetricks
@@ -768,7 +766,7 @@ in {
     tree
     tokei
     docker-compose
-    dolphin-emu
+    # dolphin-emu
     retroarchWithCores
     retroarch-assets
     retroarch-joypad-autoconfig
@@ -858,7 +856,7 @@ in {
     libretro.gpsp
     osu-lazer-bin
     rofi
-    pamixer
+    # pamixer
     libinput
     eza
     nemo-with-extensions
