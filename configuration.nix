@@ -24,7 +24,7 @@ in {
     ./hardware-configuration.nix
     inputs.home-manager.nixosModules.default
     #inputs.xremap-flake.nixosModules.default
-    # ./fishmyfish.nix
+    ./fishmyfish.nix
     ./espanso.nix
   ];
 
@@ -1023,6 +1023,7 @@ in {
   nix.package = pkgs.nixVersions.latest;
 
   environment.etc."/xdg/menus/plasma-applications.menu".text = builtins.readFile "${pkgs.kdePackages.plasma-workspace}/etc/xdg/menus/plasma-applications.menu";
+  documentation.man.generateCaches = false;
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
   # on your system were taken. It‘s perfectly fine and recommended to leave
