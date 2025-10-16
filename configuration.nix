@@ -26,6 +26,7 @@ in {
     #inputs.xremap-flake.nixosModules.default
     ./fishmyfish.nix
     ./espanso.nix
+    ./wireshark.nix
   ];
 
   # Bootloader.
@@ -653,6 +654,7 @@ in {
       "samba"
       "syncthing"
       "input"
+      "wireshark"
     ];
     packages = with pkgs; [];
   };
