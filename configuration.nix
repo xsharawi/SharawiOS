@@ -949,7 +949,8 @@ in {
     };
   };
 
-  users.defaultUserShell = pkgs.zsh;
+  users.defaultUserShell = pkgs.fish;
+
   programs.steam = {
     enable = true;
     remotePlay.openFirewall = true;
