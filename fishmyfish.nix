@@ -47,7 +47,7 @@ in {
       directory = {
         style = "fg:#f5c2e7";
         format = "[](fg:#f5c2e7)[ $path](fg:#11111b bg:#f5c2e7)[](fg:#f5c2e7)";
-        truncation_length = 3;
+        truncation_length = 10;
       };
       git_branch = {
         symbol = "  ";
@@ -125,26 +125,7 @@ in {
       set fish_greeting
       zoxide init fish --cmd cd | source
 
-      function prompt_newline --on-event fish_postexec
-        echo ""
-      end
-      function handle_cancel --on-event fish_cancel
-          set cmd (commandline)
-          if test -z "$cmd"
-            echo ""
-            commandline -f repaint
-          else
-            commandline -r ""
-            echo ""
-            commandline -f repaint
-          end
-      end
     '';
-    # function handle_cancel --on-event fish_cancel
-    #     commandline -r ""      # clear current input
-    #     echo ""                # add newline for stacked ❯
-    #     commandline -f repaint # force redraw prompt
-    #     end
     interactiveShellInit = mkAfter ''
       function starship_transient_prompt_func
         starship module character
