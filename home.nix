@@ -9,6 +9,7 @@
   home.homeDirectory = "/home/xsharawi";
   imports = [
     ./xdgmime.nix
+    ./waybar-style.nix
   ];
 
   # This value determines the Home Manager release that your configuration is
@@ -291,6 +292,7 @@
   stylix.targets.kitty.enable = true;
   stylix.targets.kitty.variant256Colors = true;
   stylix.targets.kde.enable = true;
+  stylix.targets.waybar.enable = false;
 
   programs.kitty.enable = true;
   programs.kitty.settings = {
@@ -340,6 +342,9 @@
       terminal = false;
     };
   };
+  programs.waybar.enable = true;
+  programs.waybar.settings = import ./waybar-config.nix;
+
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
 }
