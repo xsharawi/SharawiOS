@@ -24,11 +24,10 @@
   # The home.packages option allows you to install Nix packages into your
   # environment.
   home.packages = [
-    (pkgs.writeShellScriptBin "up" ''
-      sudo nixos-rebuild switch --flake /etc/nixos#vim
-    '')
-
     (pkgs.writeShellScriptBin "nsh" ''
+      nh os switch /etc/nixos && dark-text --death --text "Nixos Rebuilt"
+    '')
+    (pkgs.writeShellScriptBin "up" ''
       nh os switch /etc/nixos --update && dark-text --death --text "Nixos Rebuilt"
     '')
   ];
