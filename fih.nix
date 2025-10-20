@@ -165,6 +165,7 @@ in {
       # Edit current command in vim with Ctrl+E
       bind ctrl-e 'commandline -e nvim'
 
+
       set -gx FZF_DEFAULT_OPTS '--cycle --height 40% --border --reverse'
 
     '';
