@@ -23,10 +23,10 @@ in {
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
     inputs.home-manager.nixosModules.default
-    #inputs.xremap-flake.nixosModules.default
     ./fih.nix
     ./espanso.nix
     ./wireshark.nix
+    ./wallpaper-random.nix
   ];
 
   # Bootloader.

@@ -119,11 +119,22 @@ in {
       scan_timeout = 50;
     };
   };
+
   programs.fish = {
     enable = true;
     shellInit = ''
       set fish_greeting
       zoxide init fish --cmd cd | source
+      fish_add_path /usr/local/sbin /usr/local/bin /usr/bin
+      fish_add_path ~/.cargo/bin ~/.local/bin ~/.bun/bin ~/bin
+      set -gx BUN_INSTALL ~/.bun
+      set -gx FZF_DEFAULT_COMMAND 'fd --exclude node_modules --hidden --exclude .git --exclude .svn --exclude .hg'
+      set -gx FZF_CTRL_T_COMMAND $FZF_DEFAULT_COMMAND
+      set -gx FZF_ALT_C_COMMAND 'fd --type d --hidden --exclude .git --exclude .svn --exclude .hg'
+
+      direnv hook fish | source
+
+
 
     '';
     interactiveShellInit = mkAfter ''
@@ -131,7 +142,31 @@ in {
         starship module character
       end
 
-      bind \cy accept-autosuggestion
+      bind -M insert ctrl-y accept-autosuggestion
+
+      alias ls='eza --icons --git'
+      alias cdd='cd -'
+      alias grep='grep --color=auto'
+      alias nd='nix develop -c $SHELL'
+      alias nr='nix run .'
+      alias ping='ping -O'
+      alias dcup='docker compose up'
+      alias dc='docker compose'
+      alias fastfetch='fastfetch --logo ~/nixos.png --logo-height 20 --logo-width 40'
+
+      function ydl
+        yt-dlp -o '/Sync/%(title)s.%(ext)s' -f 'ba' -x --audio-format mp3 $argv
+      end
+
+      function ydlp
+        yt-dlp -o '/Sync/%(playlist)s/%(playlist_index)s - %(title)s.%(ext)s' -f 'bv*[height=1080]+ba' $argv
+      end
+
+      # Edit current command in vim with Ctrl+E
+      bind ctrl-e 'commandline -e nvim'
+
+      set -gx FZF_DEFAULT_OPTS '--cycle --height 40% --border --reverse'
+
     '';
   };
 }
