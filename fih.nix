@@ -144,7 +144,8 @@ in {
 
       bind -M insert ctrl-y accept-autosuggestion
 
-      alias ls='eza --icons --git'
+      alias ls='eza -a --icons --git'
+      alias ll='eza -l -a --icons --git'
       alias cdd='cd -'
       alias grep='grep --color=auto'
       alias nd='nix develop -c $SHELL'
@@ -161,13 +162,23 @@ in {
       function ydlp
         yt-dlp -o '/Sync/%(playlist)s/%(playlist_index)s - %(title)s.%(ext)s' -f 'bv*[height=1080]+ba' $argv
       end
+      function catall
+       for file in *
+          echo
+          echo file: $file
+          cat -n $file
+              end
+      end
+
 
       # Edit current command in vim with Ctrl+E
       bind ctrl-e 'commandline -e nvim'
 
 
       set -gx FZF_DEFAULT_OPTS '--cycle --height 40% --border --reverse'
+      set -g EDITOR nvim
 
+      clear; fastfetch
     '';
   };
 }
