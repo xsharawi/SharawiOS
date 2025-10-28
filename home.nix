@@ -27,8 +27,13 @@
     (pkgs.writeShellScriptBin "nsh" ''
       nh os switch /etc/nixos && dark-text --death --text "Nixos Rebuilt" --duration 1000
     '')
+
     (pkgs.writeShellScriptBin "up" ''
       nh os switch /etc/nixos --update && dark-text --death --text "Nixos Rebuilt" --duration 1000
+    '')
+
+    (pkgs.writeShellScriptBin "fih" ''
+      ${lib.getExe pkgs.fish}
     '')
   ];
 

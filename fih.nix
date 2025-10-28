@@ -23,32 +23,44 @@ in {
     settings = {
       format = concatStrings [
         "$directory "
+        "$shell"
+        "$git_branch$git_status"
         "$nix_shell "
         "$golang$nodejs$python$rust "
-        "$git_branch$git_status "
-        "$fill"
         "$cmd_duration"
         "$line_break"
+        "$username@$hostname "
         "$character"
       ];
 
-      add_newline = false;
+      add_newline = true;
 
       username = {
         style_user = "fg:#89b4fa";
+        format = "[$user]($style)";
         show_always = true;
       };
 
       hostname = {
         style = "fg:#b4befe";
+        format = "[$ssh_symbol$hostname]($style)";
         ssh_only = false;
       };
 
       directory = {
         style = "fg:#f5c2e7";
         format = "[](fg:#f5c2e7)[ $path](fg:#11111b bg:#f5c2e7)[](fg:#f5c2e7)";
-        truncation_length = 10;
+        fish_style_pwd_dir_length = 3;
+        # truncation_length = 0;
+        truncate_to_repo = false;
+        truncation_symbol = "";
       };
+
+      shell = {
+        disabled = false;
+        fish_indicator = "🐟";
+      };
+
       git_branch = {
         symbol = "  ";
         style = "fg:#a6e3a1";
@@ -73,7 +85,7 @@ in {
       nix_shell = {
         symbol = "❄️ ";
         style = "fg:#94e2d5";
-        format = "[$symbol$name]($style)";
+        format = "[$symbol]($style)";
       };
 
       golang = {
@@ -109,6 +121,10 @@ in {
       character = {
         success_symbol = "[❯](bold green)";
         error_symbol = "[✗](bold red)";
+        vimcmd_symbol = "[❮](bold green)";
+        vimcmd_replace_one_symbol = "[❮](bold purple)";
+        vimcmd_replace_symbol = "[❮](bold purple)";
+        vimcmd_visual_symbol = "[❮](bold yellow)";
       };
 
       line_break = {
@@ -141,6 +157,8 @@ in {
       function starship_transient_prompt_func
         starship module character
       end
+      starship init fish | source
+      enable_transience
 
       bind -M insert ctrl-y accept-autosuggestion
 
@@ -177,6 +195,12 @@ in {
 
       set -gx FZF_DEFAULT_OPTS '--cycle --height 40% --border --reverse'
       set -g EDITOR nvim
+
+      set -g fish_color_comment magenta
+      set -g fish_color_command brgreen
+      set -g fish_color_param cyan
+      set -g fish_color_selection 'green'  '--bold'  '--background=brblack'
+      set -g fish_color_valid_path --underline
 
       clear; fastfetch
     '';
