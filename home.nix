@@ -91,6 +91,7 @@
 
       exec-once = [
         # "wl-clip-persist --clipboard both"
+        "xrandr --output \"DP-1\" --primary"
         "nm-applet --indicator &"
         "kdeconnect-indicator &"
         "waybar &"
@@ -187,7 +188,7 @@
         "$mainMod, Space, exec, pkill rofi || rofi -show drun -show-icons"
 
         "$mainMod, M, exec, pamixer --toggle-mute"
-        "$mainMod SHIFT, M, movecurrentworkspacetomonitor, +1"
+        "$mainMod , U, movecurrentworkspacetomonitor, +1"
 
         "$mainMod, S, exec, pkill -SIGUSR1 waybar"
 
@@ -210,6 +211,9 @@
 
       windowrule = [
         "opacity 0.97, class:ghostty"
+      ];
+      windowrulev2 = [
+        "workspace 3, class:zen-beta"
       ];
 
       # binds that can be repeated

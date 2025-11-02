@@ -57,7 +57,7 @@ in {
   hardware.enableAllFirmware = true;
 
   hardware.firmware = [
-    pkgs.firmwareLinuxNonfree
+    pkgs.linux-firmware
   ];
 
   hardware.nvidia.open = false;
@@ -675,7 +675,7 @@ in {
     git
     keepassxc
     xclip
-    firmwareLinuxNonfree
+    linux-firmware
     gparted
     grub2
     clang
@@ -755,7 +755,7 @@ in {
     qbittorrent
 
     yt-dlp
-    protonup
+    protonup-ng
     dxvk
     filezilla
 
@@ -772,7 +772,7 @@ in {
     retroarchWithCores
     retroarch-assets
     retroarch-joypad-autoconfig
-    onlyoffice-bin
+    onlyoffice-desktopeditors
     graphite-cli
     screenkey
     zig
