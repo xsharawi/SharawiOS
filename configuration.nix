@@ -791,7 +791,7 @@ in {
     unrar
     zip
     openjdk8
-    openjfx
+    # openjfx
     jre8
     jdk8
     xorg.libXext
