@@ -867,6 +867,7 @@ in {
     quickshell
     bolt-launcher
     espanso-wayland
+    busybox
 
     #newpackage
 
