@@ -4,7 +4,7 @@
   ...
 }: let
   randomWallpaper = pkgs.writeShellScriptBin "random-wallpaper" ''
-    WALLPAPER_DIR="/home/xsharawi/wallpapers"
+    WALLPAPER_DIR="$HOME/wallpapers"
     IMG=$(find "$WALLPAPER_DIR" -type f | shuf -n1)
     if [ -n "$IMG" ]; then
       ${pkgs.swww}/bin/swww img "$IMG"
@@ -14,22 +14,29 @@
   '';
 in {
   systemd.user.services.random-wallpaper = {
-    description = "Set a random wallpaper using swww (user service)";
-    serviceConfig = {
+    Unit = {
+      Description = "Set a random wallpaper using swww (user service)";
+    };
+    Service = {
       Type = "oneshot";
       ExecStart = "${randomWallpaper}/bin/random-wallpaper";
     };
-    wantedBy = ["default.target"];
+    Install = {
+      WantedBy = ["default.target"];
+    };
   };
 
   systemd.user.timers.random-wallpaper = {
-    description = "Change wallpaper periodically (user timer)";
-    wants = ["random-wallpaper.service"];
-    timerConfig = {
+    Unit = {
+      Description = "Change wallpaper periodically (user timer)";
+    };
+    Timer = {
       OnBootSec = "1min";
       OnUnitActiveSec = "30min";
       Persistent = true;
     };
-    wantedBy = ["timers.target"];
+    Install = {
+      WantedBy = ["timers.target"];
+    };
   };
 }

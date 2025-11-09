@@ -26,7 +26,6 @@ in {
     ./fih.nix
     ./espanso.nix
     ./wireshark.nix
-    ./wallpaper-random.nix
   ];
 
   # Bootloader.

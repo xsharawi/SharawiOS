@@ -10,6 +10,7 @@
   imports = [
     ./xdgmime.nix
     ./waybar-style.nix
+    ./wallpaper-random.nix
   ];
 
   # This value determines the Home Manager release that your configuration is
