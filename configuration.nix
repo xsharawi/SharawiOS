@@ -655,7 +655,7 @@ in {
       "input"
       "wireshark"
     ];
-    packages = with pkgs; [];
+    # packages = with pkgs; [];
   };
 
   home-manager = {
@@ -690,24 +690,15 @@ in {
     curl
     zsh
     openssl
-    i3
     tmux
-    chromium
     python3
-    polybar
     font-awesome_5
     rxvt-unicode
     alsa-utils
-    mate.mate-power-manager
     nodejs_22
-    picom
-    pywal
-    manrope
     libnotify
-    gtk2
     gtk3
     gtk4
-    gtk2-x11
     gtk3-x11
     pkg-config
     kdePackages.kde-gtk-config
@@ -723,7 +714,6 @@ in {
     zoxide
     zsh-powerlevel10k
     vlc
-    zoom-us
     nmap
     (lutris.override {
       extraPkgs = pkgs: [
@@ -734,6 +724,7 @@ in {
     protonup-qt
     ksnip
 
+    # i can probably remove most of these for a shell
     # cpp c stuff
     clangStdenv
     llvmPackages.libcxxClang
@@ -790,14 +781,12 @@ in {
     unrar
     zip
     openjdk8
-    # openjfx
     jre8
     jdk8
     xorg.libXext
     xorg.libXxf86vm
     yazi
     obsidian
-    firefox-bin
     emacs
     coreutils
     gimp
@@ -805,13 +794,12 @@ in {
     wl-clipboard-x11
     pulseaudioFull
     postman
-    rpcs3
+    # rpcs3
     pcsx2
     cbonsai
     ruby
     rubyPackages.solargraph
     rubyPackages.rexml
-    google-chrome
     inputs.zen-browser.packages."${system}".default
     inputs.ghostty.packages."${system}".default
     inputs.dark-text.packages.${pkgs.system}.default
@@ -819,7 +807,6 @@ in {
     elixir-ls
     ocaml
     mangohud
-    pcsx2
     kdePackages.kdenetwork-filesharing
     fuse
     alsa-lib
@@ -843,10 +830,11 @@ in {
     logitech-udev-rules
     logiops
     godot
-    nerd-fonts.hack
-    nerd-fonts.ubuntu
-    nerd-fonts.ubuntu-mono
-    nerd-fonts.ubuntu-sans
+    # nerd-fonts.hack
+    # nerd-fonts.jetbrains-mono
+    # nerd-fonts.ubuntu
+    # nerd-fonts.ubuntu-mono
+    # nerd-fonts.ubuntu-sans
     gopls
     kdePackages.qtwebsockets
     libsForQt5.qt5.qtwebsockets
@@ -930,6 +918,7 @@ in {
   nix.optimise.automatic = true;
   nix.settings.auto-optimise-store = true;
 
+  # removing soonTM
   programs = {
     zsh = {
       enable = true;
@@ -980,6 +969,8 @@ in {
     STEAM_EXTRA_COMPAT_TOOLS_PATH = "/home/xsharawi/.steam/root/compatibilitytools.d";
   };
 
+  # por que maria???
+  # TODO: check stateversion
   services.mysql = {
     enable = true;
     package = pkgs.mariadb;
@@ -987,14 +978,14 @@ in {
 
   # direnv
   programs.direnv.enable = true;
+
   # vms
   virtualisation.libvirtd.enable = true;
   programs.virt-manager.enable = true;
   virtualisation.docker.enable = true;
 
-  # # # stylix
+  # stylix
   stylix.enable = true;
-  #stylix.image = ./wallpapers/zoz.png;
   stylix.base16Scheme = ./catppuccin-mocha.yaml;
   stylix.polarity = "dark";
   stylix.fonts.sizes.applications = 10;
@@ -1019,12 +1010,22 @@ in {
   };
 
   # Open ports in the firewall.
-  networking.firewall.allowedTCPPorts = [8081 27031];
+  networking.firewall.allowedTCPPorts = [];
   # networking.firewall.allowedUDPPorts = [ ... ];
   # Or disable the firewall altogether.
   # networking.firewall.enable = false;
   nix.package = pkgs.nixVersions.latest;
 
+  fonts = {
+    packages = builtins.filter lib.attrsets.isDerivation (builtins.attrValues pkgs.nerd-fonts);
+    fontconfig = {
+      defaultFonts = {
+        serif = ["JetBrains Mono"];
+        sansSerif = ["JetBrains Mono"];
+        monospace = ["JetBrains Mono"];
+      };
+    };
+  };
   environment.etc."/xdg/menus/plasma-applications.menu".text = builtins.readFile "${pkgs.kdePackages.plasma-workspace}/etc/xdg/menus/plasma-applications.menu";
   documentation.man.generateCaches = false;
   # This value determines the NixOS release from which the default

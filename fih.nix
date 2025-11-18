@@ -189,8 +189,7 @@ in {
       end
 
 
-      # Edit current command in vim with Ctrl+E
-      bind ctrl-e 'commandline -e nvim'
+      bind -M insert ctrl-f "tmux-sessionizer"
 
 
       set -gx FZF_DEFAULT_OPTS '--cycle --height 40% --border --reverse'

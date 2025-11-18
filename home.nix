@@ -71,6 +71,7 @@
   #
   home.sessionVariables = {
     # EDITOR = "emacs";
+    EDITOR = "nvim";
   };
 
   wayland.windowManager.hyprland = {
@@ -185,7 +186,7 @@
         "$mainMod SHIFT , Q, exec, hyprctl dispatch exit"
         "$mainMod, W, exec, swaylock --color 000000"
         "$mainMod SHIFT, Space, togglefloating"
-        "$mainMod, F, Fullscreen, fullscreen, 1"
+        "$mainMod, F, exec, hyprctl dispatch fullscreen"
         "$mainMod, Space, exec, pkill rofi || rofi -show drun -show-icons"
 
         "$mainMod, M, exec, pamixer --toggle-mute"
