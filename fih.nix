@@ -4,9 +4,11 @@
   inputs,
   lib,
   ...
-}: let
+}:
+let
   inherit (lib) concatStrings mkAfter;
-in {
+in
+{
   environment.systemPackages = with pkgs; [
     fishPlugins.done
     fishPlugins.fzf-fish
@@ -201,6 +203,7 @@ in {
       set -g fish_color_selection 'green'  '--bold'  '--background=brblack'
       set -g fish_color_valid_path --underline
 
+      gsettings set org.gnome.desktop.interface toolkit-accessibility false
       clear; fastfetch
     '';
   };

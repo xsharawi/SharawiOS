@@ -4,7 +4,8 @@
   pkgs,
   inputs,
   ...
-}: {
+}:
+{
   home.username = "xsharawi";
   home.homeDirectory = "/home/xsharawi";
   imports = [
@@ -102,6 +103,7 @@
         "[workspace 1 silent] obsidian"
         "[workspace 2 silent] $TERMINAL"
         "[workspace 3 silent] zen-beta"
+        "gsettings set org.gnome.desktop.interface toolkit-accessibility false"
       ];
 
       input = {
@@ -285,8 +287,8 @@
   #also virt
   dconf.settings = {
     "org/virt-manager/virt-manager/connections" = {
-      autoconnect = ["qemu:///system"];
-      uris = ["qemu:///system"];
+      autoconnect = [ "qemu:///system" ];
+      uris = [ "qemu:///system" ];
     };
     # disable dconf first use warning
     "ca/desrt/dconf-editor" = {
@@ -295,6 +297,9 @@
     # set dark theme for gtk 4
     "org/gnome/desktop/interface" = {
       color-scheme = "prefer-dark";
+    };
+    "org/gnome/desktop/interface" = {
+      toolkit-accessibility = false;
     };
   };
 
@@ -348,7 +353,7 @@
       name = "runescape";
       exec = "${pkgs.bolt-launcher}/bin/bolt-launcher";
       icon = "bolt-launcher";
-      categories = ["Game"];
+      categories = [ "Game" ];
       terminal = false;
     };
   };

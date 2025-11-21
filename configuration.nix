@@ -7,18 +7,19 @@
   inputs,
   lib,
   ...
-}: let
+}:
+let
   retroarchWithCores = (
     pkgs.retroarch.withCores (
-      cores:
-        with cores; [
-          bsnes
-          mgba
-          quicknes
-        ]
+      cores: with cores; [
+        bsnes
+        mgba
+        quicknes
+      ]
     )
   );
-in {
+in
+{
   imports = [
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
@@ -33,14 +34,18 @@ in {
   boot.loader.efi.canTouchEfiVariables = true;
   boot.kernelPackages = pkgs.linuxPackages_xanmod_latest;
 
-  boot.initrd.luks.devices."luks-695f8df6-9ca9-45ab-a495-ce49f4675b37".device = "/dev/disk/by-uuid/695f8df6-9ca9-45ab-a495-ce49f4675b37";
+  boot.initrd.luks.devices."luks-695f8df6-9ca9-45ab-a495-ce49f4675b37".device =
+    "/dev/disk/by-uuid/695f8df6-9ca9-45ab-a495-ce49f4675b37";
   networking.hostName = "vim"; # Define your hostname.
 
   # Enable networking
   networking.networkmanager.enable = true;
 
   # flakes
-  nix.settings.experimental-features = ["nix-command" "flakes"];
+  nix.settings.experimental-features = [
+    "nix-command"
+    "flakes"
+  ];
 
   # nh
   programs.nh = {
@@ -245,7 +250,10 @@ in {
 
         treesitter = {
           enable = true;
-          indent.disable = ["nix" "clang"];
+          indent.disable = [
+            "nix"
+            "clang"
+          ];
         };
 
         binds = {
@@ -285,7 +293,7 @@ in {
           terraform.enable = true;
           yaml.enable = true;
           rust.enable = true;
-          rust.crates.enable = true;
+          rust.extensions.crates-nvim.enable = true;
           nix.enable = true;
           sql.enable = true;
           clang.enable = true;
@@ -305,32 +313,32 @@ in {
         keymaps = [
           {
             key = "jk";
-            mode = ["i"];
+            mode = [ "i" ];
             action = "<ESC>";
             desc = "Exit insert mode";
           }
           {
             key = "jj";
-            mode = ["i"];
+            mode = [ "i" ];
             action = "<ESC>";
             desc = "Exit insert mode";
           }
           {
             key = "kk";
-            mode = ["i"];
+            mode = [ "i" ];
             action = "<ESC>";
             desc = "Exit insert mode";
           }
           {
             key = "kj";
-            mode = ["i"];
+            mode = [ "i" ];
             action = "<ESC>";
             desc = "Exit insert mode";
           }
 
           {
             key = "0";
-            mode = ["n"];
+            mode = [ "n" ];
             action = "_";
           }
 
@@ -360,48 +368,54 @@ in {
 
           {
             key = "<leader>y";
-            mode = ["n" "v"];
+            mode = [
+              "n"
+              "v"
+            ];
             action = "\"+y";
           }
 
           {
             key = "<Tab>";
-            mode = ["n" "v"];
+            mode = [
+              "n"
+              "v"
+            ];
             action = "%";
           }
 
           {
             key = "<leader>x";
-            mode = ["n"];
+            mode = [ "n" ];
             action = ":bd<CR>";
           }
 
           {
             key = "j";
-            mode = ["n"];
+            mode = [ "n" ];
             action = "gj";
           }
           {
             key = "k";
-            mode = ["n"];
+            mode = [ "n" ];
             action = "gk";
           }
 
           {
             key = "<C-p>";
-            mode = ["n"];
+            mode = [ "n" ];
             action = "<cmd>cprev<CR>zz";
           }
 
           {
             key = "<C-n>";
-            mode = ["n"];
+            mode = [ "n" ];
             action = "<cmd>cnext<CR>zz";
           }
 
           {
             key = "<ESC>";
-            mode = ["n"];
+            mode = [ "n" ];
             action = ":nohl<CR><ESC>";
             desc = "no higlight esc";
           }
@@ -638,7 +652,7 @@ in {
   # gaming stuff
   programs.gamemode.enable = true;
   programs.steam.gamescopeSession.enable = true; # gamescope
-  services.xserver.videoDrivers = ["nvidia"];
+  services.xserver.videoDrivers = [ "nvidia" ];
   hardware.nvidia.modesetting.enable = true;
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
@@ -660,7 +674,7 @@ in {
   };
 
   home-manager = {
-    extraSpecialArgs = {inherit inputs;};
+    extraSpecialArgs = { inherit inputs; };
     users = {
       "xsharawi" = import ./home.nix;
     };
@@ -873,13 +887,13 @@ in {
     (vesktop.overrideAttrs (
       finalAttrs: previousAttrs: {
         desktopItems = [
-          ((builtins.elemAt previousAttrs.desktopItems 0).override {icon = "discord";})
+          ((builtins.elemAt previousAttrs.desktopItems 0).override { icon = "discord"; })
         ];
       }
     ))
     swww
   ];
-  security.pam.services.swaylock = {};
+  security.pam.services.swaylock = { };
 
   programs.hyprland.enable = true;
   programs.hyprland.xwayland.enable = true;
@@ -992,7 +1006,7 @@ in {
   stylix.fonts.sizes.applications = 10;
   stylix.fonts.sizes.desktop = 8;
 
-  nix.nixPath = ["nixpkgs=${inputs.nixpkgs}"];
+  nix.nixPath = [ "nixpkgs=${inputs.nixpkgs}" ];
 
   qt = {
     enable = true;
@@ -1011,7 +1025,7 @@ in {
   };
 
   # Open ports in the firewall.
-  networking.firewall.allowedTCPPorts = [];
+  networking.firewall.allowedTCPPorts = [ ];
   # networking.firewall.allowedUDPPorts = [ ... ];
   # Or disable the firewall altogether.
   # networking.firewall.enable = false;
@@ -1021,15 +1035,18 @@ in {
     packages = builtins.filter lib.attrsets.isDerivation (builtins.attrValues pkgs.nerd-fonts);
     fontconfig = {
       defaultFonts = {
-        serif = ["JetBrains Mono"];
-        sansSerif = ["JetBrains Mono"];
-        monospace = ["JetBrains Mono"];
+        serif = [ "JetBrains Mono" ];
+        sansSerif = [ "JetBrains Mono" ];
+        monospace = [ "JetBrains Mono" ];
       };
     };
   };
-  environment.etc."/xdg/menus/plasma-applications.menu".text = builtins.readFile "${pkgs.kdePackages.plasma-workspace}/etc/xdg/menus/plasma-applications.menu";
+  environment.etc."/xdg/menus/plasma-applications.menu".text =
+    builtins.readFile "${pkgs.kdePackages.plasma-workspace}/etc/xdg/menus/plasma-applications.menu";
   documentation.man.generateCaches = false;
+  # FUCK YOUR ACCESSIBLITY MY SYSTEM IS ALREADY ACCESSIBLE ENOUGH
   services.speechd.enable = lib.mkForce false;
+  services.orca.enable = lib.mkForce false;
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
   # on your system were taken. It‘s perfectly fine and recommended to leave
