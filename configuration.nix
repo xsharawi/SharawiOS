@@ -269,7 +269,7 @@ in
           enableTreesitter = true;
           enableExtraDiagnostics = true;
           assembly.enable = true;
-          tailwind.enable = false;
+          tailwind.enable = true;
 
           go = {
             enable = true;
@@ -307,6 +307,10 @@ in
           html = {
             enable = true;
             treesitter.autotagHtml = true;
+            lsp.servers = [
+              "superhtml"
+              "emmet-ls"
+            ];
           };
         };
 

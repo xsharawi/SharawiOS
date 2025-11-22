@@ -320,6 +320,7 @@
 
   stylix.targets.swaylock.enable = true;
   stylix.targets.sway.enable = true;
+  stylix.targets.swaync.enable = true;
   stylix.targets.gtk.enable = true;
   stylix.targets.rofi.enable = true;
   stylix.base16Scheme = ./catppuccin-mocha.yaml;
