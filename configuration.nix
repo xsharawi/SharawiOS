@@ -608,7 +608,7 @@ in {
   };
 
   # gui
-  services.displayManager.sddm.enable = true;
+  services.displayManager.cosmic-greeter.enable = true;
   services.displayManager.defaultSession = "hyprland";
   services.envfs.enable = true;
   programs.dconf.enable = true;
@@ -868,7 +868,6 @@ in {
     espanso-wayland
     busybox
     kdePackages.qt6ct
-    # inputs.sddm-sugar-candy-nix.nixosModules.default
 
     #newpackage
 
