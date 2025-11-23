@@ -4,8 +4,7 @@
   pkgs,
   inputs,
   ...
-}:
-{
+}: {
   home.username = "xsharawi";
   home.homeDirectory = "/home/xsharawi";
   imports = [
@@ -287,8 +286,8 @@
   #also virt
   dconf.settings = {
     "org/virt-manager/virt-manager/connections" = {
-      autoconnect = [ "qemu:///system" ];
-      uris = [ "qemu:///system" ];
+      autoconnect = ["qemu:///system"];
+      uris = ["qemu:///system"];
     };
     # disable dconf first use warning
     "ca/desrt/dconf-editor" = {
@@ -306,7 +305,6 @@
   stylix.enable = true;
   stylix.targets.kitty.enable = true;
   stylix.targets.kitty.variant256Colors = true;
-  stylix.targets.kde.enable = true;
   stylix.targets.waybar.enable = false;
 
   programs.kitty.enable = true;
@@ -320,10 +318,13 @@
 
   stylix.targets.swaylock.enable = true;
   stylix.targets.sway.enable = true;
+  stylix.targets.kde.enable = true;
   stylix.targets.swaync.enable = true;
   stylix.targets.gtk.enable = true;
   stylix.targets.rofi.enable = true;
   stylix.base16Scheme = ./catppuccin-mocha.yaml;
+  stylix.targets.qt.enable = true;
+  stylix.targets.qt.platform = "kde";
 
   gtk = {
     enable = true;
@@ -354,13 +355,14 @@
       name = "runescape";
       exec = "${pkgs.bolt-launcher}/bin/bolt-launcher";
       icon = "bolt-launcher";
-      categories = [ "Game" ];
+      categories = ["Game"];
       terminal = false;
     };
   };
   programs.waybar.enable = true;
   programs.waybar.settings = import ./waybar-config.nix;
 
+  xdg.configFile."mimeapps.list".force = true;
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
 }

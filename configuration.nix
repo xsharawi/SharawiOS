@@ -7,19 +7,18 @@
   inputs,
   lib,
   ...
-}:
-let
+}: let
   retroarchWithCores = (
     pkgs.retroarch.withCores (
-      cores: with cores; [
-        bsnes
-        mgba
-        quicknes
-      ]
+      cores:
+        with cores; [
+          bsnes
+          mgba
+          quicknes
+        ]
     )
   );
-in
-{
+in {
   imports = [
     # Include the results of the hardware scan.
     ./hardware-configuration.nix
@@ -34,8 +33,7 @@ in
   boot.loader.efi.canTouchEfiVariables = true;
   boot.kernelPackages = pkgs.linuxPackages_xanmod_latest;
 
-  boot.initrd.luks.devices."luks-695f8df6-9ca9-45ab-a495-ce49f4675b37".device =
-    "/dev/disk/by-uuid/695f8df6-9ca9-45ab-a495-ce49f4675b37";
+  boot.initrd.luks.devices."luks-695f8df6-9ca9-45ab-a495-ce49f4675b37".device = "/dev/disk/by-uuid/695f8df6-9ca9-45ab-a495-ce49f4675b37";
   networking.hostName = "vim"; # Define your hostname.
 
   # Enable networking
@@ -293,7 +291,6 @@ in
           terraform.enable = true;
           yaml.enable = true;
           rust.enable = true;
-          rust.extensions.crates-nvim.enable = true;
           nix.enable = true;
           sql.enable = true;
           clang.enable = true;
@@ -317,32 +314,32 @@ in
         keymaps = [
           {
             key = "jk";
-            mode = [ "i" ];
+            mode = ["i"];
             action = "<ESC>";
             desc = "Exit insert mode";
           }
           {
             key = "jj";
-            mode = [ "i" ];
+            mode = ["i"];
             action = "<ESC>";
             desc = "Exit insert mode";
           }
           {
             key = "kk";
-            mode = [ "i" ];
+            mode = ["i"];
             action = "<ESC>";
             desc = "Exit insert mode";
           }
           {
             key = "kj";
-            mode = [ "i" ];
+            mode = ["i"];
             action = "<ESC>";
             desc = "Exit insert mode";
           }
 
           {
             key = "0";
-            mode = [ "n" ];
+            mode = ["n"];
             action = "_";
           }
 
@@ -390,36 +387,36 @@ in
 
           {
             key = "<leader>x";
-            mode = [ "n" ];
+            mode = ["n"];
             action = ":bd<CR>";
           }
 
           {
             key = "j";
-            mode = [ "n" ];
+            mode = ["n"];
             action = "gj";
           }
           {
             key = "k";
-            mode = [ "n" ];
+            mode = ["n"];
             action = "gk";
           }
 
           {
             key = "<C-p>";
-            mode = [ "n" ];
+            mode = ["n"];
             action = "<cmd>cprev<CR>zz";
           }
 
           {
             key = "<C-n>";
-            mode = [ "n" ];
+            mode = ["n"];
             action = "<cmd>cnext<CR>zz";
           }
 
           {
             key = "<ESC>";
-            mode = [ "n" ];
+            mode = ["n"];
             action = ":nohl<CR><ESC>";
             desc = "no higlight esc";
           }
@@ -610,10 +607,8 @@ in
     };
   };
 
-  # Enable the KDE Plasma Desktop Environment.
+  # gui
   services.displayManager.sddm.enable = true;
-  services.displayManager.sddm.autoNumlock = true;
-  services.desktopManager.plasma6.enable = true;
   services.displayManager.defaultSession = "hyprland";
   services.envfs.enable = true;
   programs.dconf.enable = true;
@@ -656,7 +651,7 @@ in
   # gaming stuff
   programs.gamemode.enable = true;
   programs.steam.gamescopeSession.enable = true; # gamescope
-  services.xserver.videoDrivers = [ "nvidia" ];
+  services.xserver.videoDrivers = ["nvidia"];
   hardware.nvidia.modesetting.enable = true;
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
@@ -678,7 +673,7 @@ in
   };
 
   home-manager = {
-    extraSpecialArgs = { inherit inputs; };
+    extraSpecialArgs = {inherit inputs;};
     users = {
       "xsharawi" = import ./home.nix;
     };
@@ -721,9 +716,7 @@ in
     gtk3-x11
     pkg-config
     kdePackages.kde-gtk-config
-    kdePackages.kdeplasma-addons
     kdePackages.xdg-desktop-portal-kde
-    kdePackages.plasma-workspace
     xdg-desktop-portal-gtk
     xdg-desktop-portal-hyprland
     nixd
@@ -874,6 +867,8 @@ in
     bolt-launcher
     espanso-wayland
     busybox
+    kdePackages.qt6ct
+    # inputs.sddm-sugar-candy-nix.nixosModules.default
 
     #newpackage
 
@@ -891,13 +886,13 @@ in
     (vesktop.overrideAttrs (
       finalAttrs: previousAttrs: {
         desktopItems = [
-          ((builtins.elemAt previousAttrs.desktopItems 0).override { icon = "discord"; })
+          ((builtins.elemAt previousAttrs.desktopItems 0).override {icon = "discord";})
         ];
       }
     ))
     swww
   ];
-  security.pam.services.swaylock = { };
+  security.pam.services.swaylock = {};
 
   programs.hyprland.enable = true;
   programs.hyprland.xwayland.enable = true;
@@ -1010,7 +1005,7 @@ in
   stylix.fonts.sizes.applications = 10;
   stylix.fonts.sizes.desktop = 8;
 
-  nix.nixPath = [ "nixpkgs=${inputs.nixpkgs}" ];
+  nix.nixPath = ["nixpkgs=${inputs.nixpkgs}"];
 
   qt = {
     enable = true;
@@ -1029,7 +1024,7 @@ in
   };
 
   # Open ports in the firewall.
-  networking.firewall.allowedTCPPorts = [ ];
+  networking.firewall.allowedTCPPorts = [];
   # networking.firewall.allowedUDPPorts = [ ... ];
   # Or disable the firewall altogether.
   # networking.firewall.enable = false;
@@ -1039,9 +1034,9 @@ in
     packages = builtins.filter lib.attrsets.isDerivation (builtins.attrValues pkgs.nerd-fonts);
     fontconfig = {
       defaultFonts = {
-        serif = [ "JetBrains Mono" ];
-        sansSerif = [ "JetBrains Mono" ];
-        monospace = [ "JetBrains Mono" ];
+        serif = ["JetBrains Mono"];
+        sansSerif = ["JetBrains Mono"];
+        monospace = ["JetBrains Mono"];
       };
     };
   };
