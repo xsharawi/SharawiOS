@@ -599,6 +599,8 @@ in {
               end
             end,
           })
+          vim.keymap.set("n", "<C-,>", "mayyp`aj", { noremap = true, silent = true })
+
 
 
 
@@ -1045,6 +1047,8 @@ in {
   # FUCK YOUR ACCESSIBLITY MY SYSTEM IS ALREADY ACCESSIBLE ENOUGH
   services.speechd.enable = lib.mkForce false;
   services.orca.enable = lib.mkForce false;
+  services.postgresql.enable = true;
+  services.postgresql.package = pkgs.postgresql_17;
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
   # on your system were taken. It‘s perfectly fine and recommended to leave
