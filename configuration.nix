@@ -618,7 +618,6 @@ in {
   # Configure keymap in X11
   services.xserver = {
     xkb.layout = "us";
-    xkb.variant = "";
     xkb.options = "caps:swapescape";
   };
 
