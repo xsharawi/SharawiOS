@@ -26,6 +26,7 @@ in {
     ./fih.nix
     ./espanso.nix
     ./wireshark.nix
+    ./greetmytui.nix
   ];
 
   # Bootloader.
@@ -610,7 +611,6 @@ in {
   };
 
   # gui
-  services.displayManager.cosmic-greeter.enable = true;
   services.displayManager.defaultSession = "hyprland";
   services.envfs.enable = true;
   programs.dconf.enable = true;
@@ -869,6 +869,7 @@ in {
     espanso-wayland
     busybox
     kdePackages.qt6ct
+    tuigreet
 
     #newpackage
 
@@ -1048,6 +1049,12 @@ in {
   services.orca.enable = lib.mkForce false;
   services.postgresql.enable = true;
   services.postgresql.package = pkgs.postgresql_17;
+
+  nix.extraOptions = ''
+    extra-substituters = https://devenv.cachix.org
+    extra-trusted-public-keys = devenv.cachix.org-1:w1cLUi8dv3hnoSPGAuibQv+f9TZLr6cv/Hm9XgU50cw=
+  '';
+
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
   # on your system were taken. It‘s perfectly fine and recommended to leave
