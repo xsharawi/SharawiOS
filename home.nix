@@ -321,7 +321,6 @@
   stylix.targets.kde.enable = true;
   stylix.targets.swaync.enable = true;
   stylix.targets.gtk.enable = true;
-  stylix.targets.rofi.enable = true;
   stylix.base16Scheme = ./catppuccin-mocha.yaml;
   stylix.targets.qt.enable = true;
   stylix.targets.qt.platform = "kde";
@@ -347,6 +346,9 @@
     name = lib.mkForce "Banana";
   };
 
+  programs.rofi.enable = true;
+  programs.rofi.theme = "${pkgs.rofi}/share/rofi/themes/purple";
+  stylix.targets.rofi.enable = false;
   gtk.gtk2.configLocation = "${config.xdg.configHome}/gtk-2.0/gtkrc";
 
   xdg.desktopEntries = {

@@ -462,7 +462,7 @@ in {
           leetcode-nvim.enable = true;
 
           motion = {
-            hop.enable = true;
+            # hop.enable = true;
             leap.enable = true;
             #precognition.enable = true;
           };
@@ -600,7 +600,9 @@ in {
               end
             end,
           })
-          vim.keymap.set("n", "<C-,>", "mayyp`aj", { noremap = true, silent = true })
+          vim.keymap.set("n", "<leader>.", "mayyp`aj", { noremap = true, silent = true })
+          vim.o.grepprg = "rg --vimgrep --hidden --smart-case --glob '!.env' --glob '!.env.*' --glob '!*.env'"
+          vim.o.grepformat = "%f:%l:%c:%m"
 
 
 
@@ -728,12 +730,6 @@ in {
     zsh-powerlevel10k
     vlc
     nmap
-    (lutris.override {
-      extraPkgs = pkgs: [
-        wineWowPackages.stable
-        winetricks
-      ];
-    })
     protonup-qt
     ksnip
 
@@ -843,11 +839,6 @@ in {
     logitech-udev-rules
     logiops
     godot
-    # nerd-fonts.hack
-    # nerd-fonts.jetbrains-mono
-    # nerd-fonts.ubuntu
-    # nerd-fonts.ubuntu-mono
-    # nerd-fonts.ubuntu-sans
     gopls
     kdePackages.qtwebsockets
     libsForQt5.qt5.qtwebsockets
@@ -857,7 +848,6 @@ in {
     entr
     libretro.gpsp
     osu-lazer-bin
-    rofi
     # pamixer
     libinput
     eza
@@ -874,6 +864,12 @@ in {
     #newpackage
 
     wineWowPackages.stable
+    (lutris.override {
+      extraPkgs = pkgs: [
+        wineWowPackages.stable
+        winetricks
+      ];
+    })
     kdePackages.kwallet-pam
     waybar
     egl-wayland
