@@ -33,8 +33,11 @@ in {
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
   boot.kernelPackages = pkgs.linuxPackages_xanmod_latest;
-
   boot.initrd.luks.devices."luks-695f8df6-9ca9-45ab-a495-ce49f4675b37".device = "/dev/disk/by-uuid/695f8df6-9ca9-45ab-a495-ce49f4675b37";
+  boot.initrd.systemd.enable = true;
+  boot.plymouth.enable = true;
+  services.dbus.implementation = "broker";
+
   networking.hostName = "vim"; # Define your hostname.
 
   # Enable networking
@@ -421,6 +424,12 @@ in {
             action = ":nohl<CR><ESC>";
             desc = "no higlight esc";
           }
+          # {
+          #   key = "<ESC><ESC>";
+          #   mode = ["t"];
+          #   action = "<C-\><C-n>";
+          #   desc = "unterm";
+          # }
         ];
 
         diagnostics.nvim-lint.enable = true;
@@ -462,9 +471,7 @@ in {
           leetcode-nvim.enable = true;
 
           motion = {
-            # hop.enable = true;
             leap.enable = true;
-            #precognition.enable = true;
           };
           direnv.enable = true;
           mkdir.enable = true;
@@ -603,10 +610,7 @@ in {
           vim.keymap.set("n", "<leader>.", "mayyp`aj", { noremap = true, silent = true })
           vim.o.grepprg = "rg --vimgrep --hidden --smart-case --glob '!.env' --glob '!.env.*' --glob '!*.env'"
           vim.o.grepformat = "%f:%l:%c:%m"
-
-
-
-
+          vim.keymap.set('t', '<ESC><ESC>', [[<C-\><C-n>]])
         '';
       };
     };
