@@ -813,9 +813,9 @@ in {
     ruby
     rubyPackages.solargraph
     rubyPackages.rexml
-    inputs.zen-browser.packages."${system}".default
-    inputs.ghostty.packages."${system}".default
-    inputs.dark-text.packages.${pkgs.system}.default
+    inputs.zen-browser.packages."${pkgs.stdenv.hostPlatform.system}".default
+    inputs.ghostty.packages."${pkgs.stdenv.hostPlatform.system}".default
+    inputs.dark-text.packages.${pkgs.stdenv.hostPlatform.system}.default
     elixir
     elixir-ls
     ocaml
