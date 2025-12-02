@@ -611,6 +611,7 @@ in {
           vim.o.grepprg = "rg --vimgrep --hidden --smart-case --glob '!.env' --glob '!.env.*' --glob '!*.env'"
           vim.o.grepformat = "%f:%l:%c:%m"
           vim.keymap.set('t', '<ESC><ESC>', [[<C-\><C-n>]])
+          vim.keymap.set('n', '<leader>f', "<cmd>e <cfile><CR><C-W>K<C-W>j<leader>x")
         '';
       };
     };
@@ -864,6 +865,7 @@ in {
     busybox
     kdePackages.qt6ct
     tuigreet
+    swayimg
 
     #newpackage
 

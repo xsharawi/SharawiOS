@@ -36,6 +36,14 @@
     (pkgs.writeShellScriptBin "fih" ''
       ${lib.getExe pkgs.fish}
     '')
+
+    (pkgs.writeShellScriptBin "screenshot" ''
+      #!/usr/bin/env bash
+      FILE=$(mktemp /tmp/hypr-freeze-XXXX.png)
+      grimblast save output "$FILE"
+      swayimg -f "$FILE"
+      [ -f "$FILE" ] && rm "$FILE"
+    '')
   ];
 
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
@@ -210,6 +218,7 @@
         "$mainMod, 8, workspace, 8"
         "$mainMod, 9, workspace, 9"
         "$mainMod, 0, workspace, 10"
+        "$mainMod, Z, exec, screenshot"
       ];
 
       windowrule = [
