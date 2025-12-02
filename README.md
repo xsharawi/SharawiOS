@@ -1,3 +1,6 @@
+# SHARAWI OS
+![logo](./extra/sigmanificient.png)
+
 # Install:
 probably just install nixos normally and add flakes with 
 `nix.settings.experimental-features = [ "nix-command" "flakes" ];`
@@ -15,3 +18,4 @@ this setup includes flakes, home-manager, stylix, some i3wm and hyprland configs
 - [Iynaix: unlimited help](https://github.com/iynaix/)
 - [Raf: owner of Raf Inc, Founder of Rafware and creator of nvf](https://github.com/NotAShelf/)
 - [Jet: goated config filled with sauce](https://github.com/Michael-C-Buckley/)
+- [Sigmanificient: logo maker](https://github.com/Sigmanificient)
