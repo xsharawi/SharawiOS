@@ -110,7 +110,8 @@
         "[workspace 1 silent] obsidian"
         "[workspace 2 silent] $TERMINAL"
         "[workspace 3 silent] zen-beta"
-        "gsettings set org.gnome.desktop.interface toolkit-accessibility false"
+        # https://github.com/jmanc3/hyprselect/ and make a flake and 'make'
+        "hyprctl plugin load /etc/nixos/extra/hyprselect.so"
       ];
 
       input = {
