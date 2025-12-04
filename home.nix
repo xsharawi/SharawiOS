@@ -112,6 +112,7 @@
         "[workspace 3 silent] zen-beta"
         # https://github.com/jmanc3/hyprselect/ and make a flake and 'make'
         "hyprctl plugin load /etc/nixos/extra/hyprselect.so"
+        "systemctl --user start hyprpolkitagent"
       ];
 
       input = {
