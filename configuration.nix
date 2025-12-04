@@ -867,6 +867,7 @@ in {
     tuigreet
     swayimg
     hyprpolkitagent
+    tmuxPlugins.catppuccin
 
     #newpackage
 
@@ -1052,7 +1053,6 @@ in {
   services.orca.enable = lib.mkForce false;
   services.postgresql.enable = true;
   services.postgresql.package = pkgs.postgresql_17;
-  virtualisation.waydroid.enable = true;
 
   nix.extraOptions = ''
     extra-substituters = https://devenv.cachix.org
