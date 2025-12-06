@@ -767,7 +767,6 @@ in {
     air
     htmx-lsp
     obs-studio
-    bun
     veracrypt
     tree
     tokei
