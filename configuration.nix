@@ -199,7 +199,7 @@ in {
           enable = true;
 
           mappings = {
-            buffers = "<leader>/";
+            buffers = "<leader><leader>";
             findFiles = "<leader>sf";
             liveGrep = "<leader>sg";
             lspDefinitions = "<leader>d";
