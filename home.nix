@@ -128,7 +128,7 @@
       general = {
         "$mainMod" = "SUPER";
         "$TERMINAL" = "ghostty";
-        layout = "master";
+        layout = "dwindle";
         allow_tearing = true;
         gaps_in = 2;
         gaps_out = 6;
@@ -148,6 +148,7 @@
         disable_hyprland_logo = true;
         animate_manual_resizes = true;
         focus_on_activate = true;
+        font_family = "JetBrains Mono";
       };
 
       decoration = {
