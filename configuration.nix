@@ -867,6 +867,13 @@ in {
     swayimg
     hyprpolkitagent
     tmuxPlugins.catppuccin
+    kdePackages.ark
+    font-awesome
+    kdePackages.gwenview
+    net-tools
+    noto-fonts
+    kdePackages.okular
+    openvpn
 
     #newpackage
 
