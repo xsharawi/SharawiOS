@@ -317,6 +317,11 @@ in {
 
         keymaps = [
           {
+            key = "<F1>";
+            mode = ["n" "i" "v"];
+            action = "<Nop>";
+          }
+          {
             key = "jk";
             mode = ["i"];
             action = "<ESC>";
