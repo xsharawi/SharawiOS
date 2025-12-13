@@ -1,6 +1,3 @@
-# Edit this configuration file to define what should be installed on
-# your system.  Help is available in the configuration.nix(5) man page
-# and in the NixOS manual (accessible by running ‘nixos-help’).
 {
   config,
   pkgs,
@@ -20,7 +17,6 @@
   );
 in {
   imports = [
-    # Include the results of the hardware scan.
     ./hardware-configuration.nix
     inputs.home-manager.nixosModules.default
     ./fih.nix
@@ -285,9 +281,6 @@ in {
           css.enable = true;
           elixir.enable = true;
 
-          # this breaks shit
-          # hcl.enable = true;
-
           ocaml.enable = true;
           php.enable = true;
           python.enable = true;
@@ -352,30 +345,6 @@ in {
             action = "_";
           }
 
-          # {
-          #   key = "<C-h>";
-          #   mode = ["n"];
-          #   action = "<CMD>TmuxNavigateLeft<CR>";
-          # }
-          #
-          # {
-          #   key = "<C-j>";
-          #   mode = ["n"];
-          #   action = "<CMD>TmuxNavigateDown<CR>";
-          # }
-          #
-          # {
-          #   key = "<C-k>";
-          #   mode = ["n"];
-          #   action = "<CMD>TmuxNavigateUp<CR>";
-          # }
-          #
-          # {
-          #   key = "<C-l>";
-          #   mode = ["n"];
-          #   action = "<CMD>TmuxNavigateRight<CR>";
-          # }
-
           {
             key = "<leader>y";
             mode = [
@@ -429,12 +398,6 @@ in {
             action = ":nohl<CR><ESC>";
             desc = "no higlight esc";
           }
-          # {
-          #   key = "<ESC><ESC>";
-          #   mode = ["t"];
-          #   action = "<C-\><C-n>";
-          #   desc = "unterm";
-          # }
         ];
 
         diagnostics.nvim-lint.enable = true;
@@ -618,6 +581,17 @@ in {
           vim.keymap.set('t', '<ESC><ESC>', [[<C-\><C-n>]])
           vim.keymap.set('n', '<leader>f', "<cmd>e <cfile><CR><C-W>K<C-W>j<leader>x")
         '';
+        autocmds = [
+          {
+            desc = "Preserve last editing position";
+            event = ["BufReadPost"];
+            pattern = ["*"];
+            callback =
+              lib.generators.mkLuaInline # lua
+              
+              ''function() if vim.fn.line("'\"") > 1 and vim.fn.line("'\"") <= vim.fn.line("$") then vim.cmd("normal! g'\"") end end'';
+          }
+        ];
       };
     };
   };
@@ -653,12 +627,6 @@ in {
     alsa.enable = true;
     alsa.support32Bit = true;
     pulse.enable = true;
-    # If you want to use JACK applications, uncomment this
-    # jack.enable = true;
-
-    # use the example session manager (no others are packaged yet so this is enabled by default,
-    # no need to redefine it in your config for now)
-    # media-session.enable = true;
   };
 
   # gaming stuff
@@ -682,7 +650,6 @@ in {
       "input"
       "wireshark"
     ];
-    # packages = with pkgs; [];
   };
 
   home-manager = {
@@ -743,8 +710,6 @@ in {
     protonup-qt
     ksnip
 
-    # i can probably remove most of these for a shell
-    # cpp c stuff
     clangStdenv
     llvmPackages.libcxxClang
     cppcheck
@@ -776,7 +741,6 @@ in {
     tree
     tokei
     docker-compose
-    # dolphin-emu
     retroarchWithCores
     retroarch-assets
     retroarch-joypad-autoconfig
@@ -812,7 +776,6 @@ in {
     wl-clipboard-x11
     pulseaudioFull
     postman
-    # rpcs3
     pcsx2
     cbonsai
     ruby
@@ -857,7 +820,7 @@ in {
     entr
     libretro.gpsp
     osu-lazer-bin
-    # pamixer
+    pamixer
     libinput
     eza
     nemo-with-extensions
@@ -879,6 +842,7 @@ in {
     noto-fonts
     kdePackages.okular
     openvpn
+    heroic
 
     #newpackage
 
@@ -948,7 +912,6 @@ in {
   nix.optimise.automatic = true;
   nix.settings.auto-optimise-store = true;
 
-  # removing soonTM
   programs = {
     zsh = {
       enable = true;
@@ -978,7 +941,6 @@ in {
 
   programs.nix-ld.enable = true;
   programs.nix-ld.libraries = with pkgs; [
-    #add any missing dynamic libraries for unpackaged programs here not in enviroment.systempackages
     xorg.libXext
     xorg.libX11
     xorg.libXrender
@@ -1000,7 +962,6 @@ in {
   };
 
   # por que maria???
-  # TODO: check stateversion
   services.mysql = {
     enable = true;
     package = pkgs.mariadb;
