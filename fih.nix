@@ -4,11 +4,9 @@
   inputs,
   lib,
   ...
-}:
-let
+}: let
   inherit (lib) concatStrings mkAfter;
-in
-{
+in {
   environment.systemPackages = with pkgs; [
     fishPlugins.done
     fishPlugins.fzf-fish
@@ -31,7 +29,7 @@ in
         "$golang$nodejs$python$rust "
         "$cmd_duration"
         "$line_break"
-        "$username@$hostname "
+        "~> $username@$hostname "
         "$character"
       ];
 
