@@ -29,6 +29,14 @@
     dark-text,
     ...
   } @ inputs: let
+    systems = [
+      "x86_64-linux"
+      "aarch64-linux"
+      "x86_64-darwin"
+      "aarch64-darwin"
+    ];
+
+    forAllSystems = nixpkgs.lib.genAttrs systems;
     system = "x86_64-linux";
     pkgs = nixpkgs.legacyPackages.${system};
 
@@ -57,10 +65,33 @@
         nvf.nixosModules.default
       ];
     };
-    packages.${system}.vimrawi = myNVF.neovim;
-    apps.${system}.vimrawi = {
-      type = "app";
-      program = "${myNVF.neovim}/bin/nvim";
-    };
+    packages = forAllSystems (
+      system: let
+        pkgs = nixpkgs.legacyPackages.${system};
+        myNvf = nvf.lib.neovimConfiguration {
+          inherit pkgs;
+          modules = [./nvf.nix];
+        };
+      in {
+        vimrawi = myNVF.neovim;
+      }
+    );
+
+    apps = forAllSystems (
+      system: let
+        pkg = self.packages.${system}.vimrawi;
+      in {
+        vimrawi = {
+          type = "app";
+          program = "${pkg}/bin/nvim";
+        };
+      }
+    );
+
+    # packages.${system}.vimrawi = myNVF.neovim;
+    # apps.${system}.vimrawi = {
+    #   type = "app";
+    #   program = "${myNVF.neovim}/bin/nvim";
+    # };
   };
 }
