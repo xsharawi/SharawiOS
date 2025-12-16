@@ -28,9 +28,22 @@
     nvf,
     dark-text,
     ...
-  } @ inputs: {
+  } @ inputs: let
+    system = "x86_64-linux";
+    pkgs = nixpkgs.legacyPackages.${system};
+
+    myNVF = nvf.lib.neovimConfiguration {
+      inherit pkgs;
+      modules = [
+        ./nvf.nix
+      ];
+    };
+  in {
     nixosConfigurations.vim = nixpkgs.lib.nixosSystem {
-      specialArgs = {inherit inputs;};
+      specialArgs = {
+        inherit inputs;
+        inherit nvf;
+      };
       system = "x86_64-linux";
 
       modules = [
@@ -43,6 +56,11 @@
         inputs.stylix.nixosModules.stylix
         nvf.nixosModules.default
       ];
+    };
+    packages.${system}.vimrawi = myNVF.neovim;
+    apps.${system}.vimrawi = {
+      type = "app";
+      program = "${myNVF.neovim}/bin/nvim";
     };
   };
 }
