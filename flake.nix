@@ -73,8 +73,8 @@
           modules = [./nvf.nix];
         };
       in {
-        vimrawi = myNVF.neovim;
-        default = myNVF.neovim;
+        vimrawi = myNvf.neovim;
+        default = myNvf.neovim;
       }
     );
 
