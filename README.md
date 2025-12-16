@@ -10,7 +10,9 @@ then just simply do the same thing in updating.
 `sudo nix flake update` -> `up` (or `sudo nixos-rebuild switch --flake /etc/nixos#vim`)
 
 # current setup:
-this setup includes flakes, home-manager, stylix, some i3wm and hyprland configs, zsh and auto updates!
+this setup includes flakes, home-manager, stylix and hyprland configs, zsh and fih!!!!
+additionally you can run my nvim config with:
+`nix run github:xsharawi/sharawios#vimrawi`
 
 # shoutouts
 
