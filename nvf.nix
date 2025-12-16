@@ -249,7 +249,7 @@
       {
         key = "<F1>";
         mode = ["n" "i" "v"];
-        action = "<Nop>";
+        action = "<ESC>";
       }
       {
         key = "jk";
@@ -495,6 +495,9 @@
       local builtin = require 'telescope.builtin'
       vim.keymap.set('n','gr', require('telescope.builtin').lsp_references)
       vim.keymap.set('n', '<leader>qf', '<cmd>copen<CR>', { desc = '[f] quick fix' })
+      vim.keymap.set('n', '<leader>qw', function()
+                                          vim.diagnostic.setqflist()
+        end, { desc = "quickfill" })
       vim.keymap.set('n', '<leader>sw', builtin.grep_string, { desc = '[S]earch current [W]ord' })
 
       vim.keymap.set('n', '<leader>sW', function()
@@ -565,6 +568,7 @@
       vim.o.grepformat = "%f:%l:%c:%m"
       vim.keymap.set('t', '<ESC><ESC>', [[<C-\><C-n>]])
       vim.keymap.set('n', '<leader>f', "<cmd>e <cfile><CR><C-W>K<C-W>j<leader>x")
+
     '';
     autocmds = [
       {
