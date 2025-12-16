@@ -74,6 +74,7 @@
         };
       in {
         vimrawi = myNVF.neovim;
+        default = myNVF.neovim;
       }
     );
 
@@ -85,6 +86,7 @@
           type = "app";
           program = "${pkg}/bin/nvim";
         };
+        default = self.apps.${system}.vimrawi;
       }
     );
 
