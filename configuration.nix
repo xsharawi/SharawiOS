@@ -146,7 +146,9 @@ in {
           smartcase = true;
         };
 
+        bell = "on";
         autocomplete = {
+          enableSharedCmpSources = true;
           blink-cmp = {
             enable = true;
             setupOpts = {
@@ -288,10 +290,14 @@ in {
           terraform.enable = true;
           yaml.enable = true;
           rust.enable = true;
+          qml.enable = true;
           nix.enable = true;
+          nix.lsp.servers = ["nil" "nixd"];
           sql.enable = true;
           clang.enable = true;
           ts.enable = true;
+          # one day soonTM
+          # ts.lsp.servers = ["ts_ls" "emmet-ls"];
           zig.enable = true;
           markdown.enable = true;
           markdown.format.enable = false;
