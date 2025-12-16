@@ -404,6 +404,54 @@ in {
             action = ":nohl<CR><ESC>";
             desc = "no higlight esc";
           }
+          {
+            key = "<A-h>";
+            mode = ["n"];
+            action = "<C-w>h";
+            desc = "Move to left split";
+          }
+          {
+            key = "<A-j>";
+            mode = ["n"];
+            action = "<C-w>j";
+            desc = "Move to lower split";
+          }
+          {
+            key = "<A-k>";
+            mode = ["n"];
+            action = "<C-w>k";
+            desc = "Move to upper split";
+          }
+          {
+            key = "<A-l>";
+            mode = ["n"];
+            action = "<C-w>l";
+            desc = "Move to right split";
+          }
+          {
+            key = "<A-s>";
+            mode = ["n"];
+            action = "<C-w>s";
+            desc = "Horizontal split";
+          }
+          {
+            key = "<A-v>";
+            mode = ["n"];
+            action = "<C-w>v";
+            desc = "Vertical split";
+          }
+          {
+            key = "<A-q>";
+            mode = ["n"];
+            action = "<C-w>q";
+            desc = "Close split";
+          }
+          {
+            key = "<A-o>";
+            mode = ["n"];
+            action = "<C-w>o";
+            desc = "Close other splits";
+          }
         ];
 
         diagnostics.nvim-lint.enable = true;
