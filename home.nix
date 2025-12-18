@@ -229,6 +229,14 @@
       ];
       windowrulev2 = [
         "workspace 3, class:zen-beta"
+        # fixing android shitio
+        "nofocus,class:^jetbrains-studio,floating:1,title:^win\d+$"
+        "focusonactivate on,class:^(jetbrains-studio)$"
+        "dimaround,class:^(jetbrains-studio)$,floating:1,title:^(?!win)"
+        "center,class:^(jetbrains-studio)$,floating:1,title:^(?!win)"
+        "noanim,class:^(jetbrains-studio)$,title:^(win.*)$"
+        "noinitialfocus,class:^(jetbrains-studio)$,title:^(win.*)$"
+        "rounding 0,class:^(jetbrains-studio)$,title:^(win.*)$"
       ];
 
       # binds that can be repeated

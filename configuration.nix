@@ -136,6 +136,7 @@ in {
 
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
+  nixpkgs.config.android_sdk.accept_license = true;
 
   environment.systemPackages = with pkgs; [
     vim
@@ -318,6 +319,8 @@ in {
     kdePackages.okular
     openvpn
     heroic
+    android-studio
+    android-studio-tools
 
     #newpackage
 
@@ -476,7 +479,7 @@ in {
   };
 
   # Open ports in the firewall.
-  networking.firewall.allowedTCPPorts = [];
+  networking.firewall.allowedTCPPorts = [8081 27031];
   # networking.firewall.allowedUDPPorts = [ ... ];
   # Or disable the firewall altogether.
   # networking.firewall.enable = false;

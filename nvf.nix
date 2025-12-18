@@ -227,6 +227,7 @@
       sql.enable = true;
       clang.enable = true;
       ts.enable = true;
+      kotlin.enable = true;
       # one day soonTM
       # ts.lsp.servers = ["ts_ls" "emmet-ls"];
       zig.enable = true;
