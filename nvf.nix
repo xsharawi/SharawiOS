@@ -119,7 +119,6 @@
     statusline = {
       lualine = {
         enable = true;
-        # theme = lib.mkForce "onedark";
         theme = lib.mkForce "catppuccin";
       };
     };
@@ -569,6 +568,7 @@
       vim.o.grepformat = "%f:%l:%c:%m"
       vim.keymap.set('t', '<ESC><ESC>', [[<C-\><C-n>]])
       vim.keymap.set('n', '<leader>f', "<cmd>e <cfile><CR><C-W>K<C-W>j<leader>x")
+      vim.opt.shortmess:append("S")
 
     '';
     autocmds = [
