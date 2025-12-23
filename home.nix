@@ -2,85 +2,97 @@
   config,
   lib,
   pkgs,
-  inputs,
   ...
 }: {
-  home.username = "xsharawi";
-  home.homeDirectory = "/home/xsharawi";
+  home = {
+    username = "xsharawi";
+    homeDirectory = "/home/xsharawi";
+
+    # This value determines the Home Manager release that your configuration is
+    # compatible with. This helps avoid breakage when a new Home Manager release
+    # introduces backwards incompatible changes.
+    #
+    # You should not change this value, even if you update Home Manager. If you do
+    # want to update the value, then make sure to first check the Home Manager
+    # release notes.
+    stateVersion = "24.05"; # Please read the comment before changing.
+
+    # The home.packages option allows you to install Nix packages into your
+    # environment.
+    packages = [
+      (pkgs.writeShellScriptBin "nsh" ''
+        nh os switch /etc/nixos && dark-text --death --text "Nixos Rebuilt" --duration 1000
+      '')
+
+      (pkgs.writeShellScriptBin "up" ''
+        nh os switch /etc/nixos --update && dark-text --death --text "Nixos Rebuilt" --duration 1000
+      '')
+
+      (pkgs.writeShellScriptBin "fih" ''
+        ${lib.getExe pkgs.fish}
+      '')
+
+      (pkgs.writeShellScriptBin "screenshot" ''
+        #!/usr/bin/env bash
+        FILE=$(mktemp /tmp/hypr-freeze-XXXX.png)
+        grimblast save output "$FILE"
+        swayimg -f "$FILE"
+        [ -f "$FILE" ] && rm "$FILE"
+      '')
+    ];
+
+    # Home Manager is pretty good at managing dotfiles. The primary way to manage
+    # plain files is through 'home.file'.
+    file = {
+      # # Building this configuration will create a copy of 'dotfiles/screenrc' in
+      # # the Nix store. Activating the configuration will then make '~/.screenrc' a
+      # # symlink to the Nix store copy.
+      # ".screenrc".source = dotfiles/screenrc;
+
+      # # You can also set the file content immediately.
+      # ".gradle/gradle.properties".text = ''
+      #   org.gradle.console=verbose
+      #   org.gradle.daemon.idletimeout=3600000
+      # '';
+    };
+
+    # Home Manager can also manage your environment variables through
+    # 'home.sessionVariables'. These will be explicitly sourced when using a
+    # shell provided by Home Manager. If you don't want to manage your shell
+    # through Home Manager then you have to manually source 'hm-session-vars.sh'
+    # located at either
+    #
+    #  ~/.nix-profile/etc/profile.d/hm-session-vars.sh
+    #
+    # or
+    #
+    #  ~/.local/state/nix/profiles/profile/etc/profile.d/hm-session-vars.sh
+    #
+    # or
+    #
+    #  /etc/profiles/per-user/xsharawi/etc/profile.d/hm-session-vars.sh
+    #
+    sessionVariables = {
+      # EDITOR = "emacs";
+      EDITOR = "nvim";
+    };
+
+    #stylix.cursor.name = "Banana";
+
+    # forceing because stylix is dumb
+    pointerCursor = {
+      x11.enable = true;
+      gtk.enable = true;
+      package = lib.mkForce pkgs.banana-cursor;
+      size = lib.mkForce 40;
+      name = lib.mkForce "Banana";
+    };
+  };
   imports = [
     ./xdgmime.nix
     ./waybar-style.nix
     ./wallpaper-random.nix
   ];
-
-  # This value determines the Home Manager release that your configuration is
-  # compatible with. This helps avoid breakage when a new Home Manager release
-  # introduces backwards incompatible changes.
-  #
-  # You should not change this value, even if you update Home Manager. If you do
-  # want to update the value, then make sure to first check the Home Manager
-  # release notes.
-  home.stateVersion = "24.05"; # Please read the comment before changing.
-
-  # The home.packages option allows you to install Nix packages into your
-  # environment.
-  home.packages = [
-    (pkgs.writeShellScriptBin "nsh" ''
-      nh os switch /etc/nixos && dark-text --death --text "Nixos Rebuilt" --duration 1000
-    '')
-
-    (pkgs.writeShellScriptBin "up" ''
-      nh os switch /etc/nixos --update && dark-text --death --text "Nixos Rebuilt" --duration 1000
-    '')
-
-    (pkgs.writeShellScriptBin "fih" ''
-      ${lib.getExe pkgs.fish}
-    '')
-
-    (pkgs.writeShellScriptBin "screenshot" ''
-      #!/usr/bin/env bash
-      FILE=$(mktemp /tmp/hypr-freeze-XXXX.png)
-      grimblast save output "$FILE"
-      swayimg -f "$FILE"
-      [ -f "$FILE" ] && rm "$FILE"
-    '')
-  ];
-
-  # Home Manager is pretty good at managing dotfiles. The primary way to manage
-  # plain files is through 'home.file'.
-  home.file = {
-    # # Building this configuration will create a copy of 'dotfiles/screenrc' in
-    # # the Nix store. Activating the configuration will then make '~/.screenrc' a
-    # # symlink to the Nix store copy.
-    # ".screenrc".source = dotfiles/screenrc;
-
-    # # You can also set the file content immediately.
-    # ".gradle/gradle.properties".text = ''
-    #   org.gradle.console=verbose
-    #   org.gradle.daemon.idletimeout=3600000
-    # '';
-  };
-
-  # Home Manager can also manage your environment variables through
-  # 'home.sessionVariables'. These will be explicitly sourced when using a
-  # shell provided by Home Manager. If you don't want to manage your shell
-  # through Home Manager then you have to manually source 'hm-session-vars.sh'
-  # located at either
-  #
-  #  ~/.nix-profile/etc/profile.d/hm-session-vars.sh
-  #
-  # or
-  #
-  #  ~/.local/state/nix/profiles/profile/etc/profile.d/hm-session-vars.sh
-  #
-  # or
-  #
-  #  /etc/profiles/per-user/xsharawi/etc/profile.d/hm-session-vars.sh
-  #
-  home.sessionVariables = {
-    # EDITOR = "emacs";
-    EDITOR = "nvim";
-  };
 
   wayland.windowManager.hyprland = {
     systemd.enable = true;
@@ -321,29 +333,41 @@
       toolkit-accessibility = false;
     };
   };
+  stylix = {
+    enable = true;
+    targets = {
+      kitty.enable = true;
+      kitty.variant256Colors = true;
+      waybar.enable = false;
 
-  stylix.enable = true;
-  stylix.targets.kitty.enable = true;
-  stylix.targets.kitty.variant256Colors = true;
-  stylix.targets.waybar.enable = false;
-
-  programs.kitty.enable = true;
-  programs.kitty.settings = {
-    scroll_back = -1;
-    mouse_hide_wait = 2.0;
-    font_family = "Hack";
-    font_size = 10;
-    remember_window_size = "yes";
+      swaylock.enable = true;
+      sway.enable = true;
+      kde.enable = true;
+      swaync.enable = true;
+      gtk.enable = true;
+      qt.enable = true;
+      qt.platform = "kde";
+      rofi.enable = false;
+    };
+    base16Scheme = ./catppuccin-mocha.yaml;
   };
+  programs = {
+    kitty.enable = true;
+    kitty.settings = {
+      scroll_back = -1;
+      mouse_hide_wait = 2.0;
+      font_family = "Hack";
+      font_size = 10;
+      remember_window_size = "yes";
+    };
 
-  stylix.targets.swaylock.enable = true;
-  stylix.targets.sway.enable = true;
-  stylix.targets.kde.enable = true;
-  stylix.targets.swaync.enable = true;
-  stylix.targets.gtk.enable = true;
-  stylix.base16Scheme = ./catppuccin-mocha.yaml;
-  stylix.targets.qt.enable = true;
-  stylix.targets.qt.platform = "kde";
+    rofi.enable = true;
+    rofi.theme = "${pkgs.rofi}/share/rofi/themes/purple";
+    waybar.enable = true;
+    waybar.settings = import ./waybar-config.nix;
+    # Let Home Manager install and manage itself.
+    home-manager.enable = true;
+  };
 
   gtk = {
     enable = true;
@@ -354,21 +378,6 @@
       gtk-application-prefer-dark-theme = 1;
     };
   };
-
-  #stylix.cursor.name = "Banana";
-
-  # forceing because stylix is dumb
-  home.pointerCursor = {
-    x11.enable = true;
-    gtk.enable = true;
-    package = lib.mkForce pkgs.banana-cursor;
-    size = lib.mkForce 40;
-    name = lib.mkForce "Banana";
-  };
-
-  programs.rofi.enable = true;
-  programs.rofi.theme = "${pkgs.rofi}/share/rofi/themes/purple";
-  stylix.targets.rofi.enable = false;
   gtk.gtk2.configLocation = "${config.xdg.configHome}/gtk-2.0/gtkrc";
 
   xdg.desktopEntries = {
@@ -381,10 +390,6 @@
       terminal = false;
     };
   };
-  programs.waybar.enable = true;
-  programs.waybar.settings = import ./waybar-config.nix;
 
   xdg.configFile."mimeapps.list".force = true;
-  # Let Home Manager install and manage itself.
-  programs.home-manager.enable = true;
 }

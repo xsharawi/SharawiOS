@@ -37,15 +37,6 @@
     ];
 
     forAllSystems = nixpkgs.lib.genAttrs systems;
-    system = "x86_64-linux";
-    pkgs = nixpkgs.legacyPackages.${system};
-
-    myNVF = nvf.lib.neovimConfiguration {
-      inherit pkgs;
-      modules = [
-        ./nvf.nix
-      ];
-    };
   in {
     nixosConfigurations.vim = nixpkgs.lib.nixosSystem {
       specialArgs = {

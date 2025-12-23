@@ -1,20 +1,16 @@
 {
-  config,
   pkgs,
   inputs,
-  nvf,
   lib,
   ...
 }: let
-  retroarchWithCores = (
-    pkgs.retroarch.withCores (
-      cores:
-        with cores; [
-          bsnes
-          mgba
-          quicknes
-        ]
-    )
+  retroarchWithCores = pkgs.retroarch.withCores (
+    cores:
+      with cores; [
+        bsnes
+        mgba
+        quicknes
+      ]
   );
 in {
   imports = [
@@ -25,33 +21,176 @@ in {
     ./wireshark.nix
     ./greetmytui.nix
   ];
-  programs.nvf.enable = true;
-  programs.nvf.settings = import ./nvf.nix;
+  programs = {
+    nvf = {
+      enable = true;
+      settings = import ./nvf.nix;
+    };
 
-  # Bootloader.
-  boot.loader.systemd-boot.enable = true;
-  boot.loader.efi.canTouchEfiVariables = true;
-  boot.kernelPackages = pkgs.linuxPackages_xanmod_latest;
-  boot.initrd.luks.devices."luks-695f8df6-9ca9-45ab-a495-ce49f4675b37".device = "/dev/disk/by-uuid/695f8df6-9ca9-45ab-a495-ce49f4675b37";
-  boot.initrd.systemd.enable = true;
-  boot.plymouth.enable = true;
-  services.dbus.implementation = "broker";
+    # nh
+    nh = {
+      enable = true;
+      flake = "/etc/nixos";
+    };
+    dconf.enable = true;
 
-  networking.hostName = "vim"; # Define your hostname.
+    # gaming stuff
+    gamemode.enable = true;
+    steam.gamescopeSession.enable = true;
 
-  # Enable networking
-  networking.networkmanager.enable = true;
+    hyprland.enable = true;
+    hyprland.xwayland.enable = true;
+    kdeconnect.enable = true;
+    ssh.askPassword = "";
 
-  # flakes
-  nix.settings.experimental-features = [
-    "nix-command"
-    "flakes"
-  ];
+    thunar.enable = true;
+    xfconf.enable = true;
+    thunar.plugins = with pkgs.xfce; [
+      thunar-archive-plugin
+      thunar-volman
+    ];
 
-  # nh
-  programs.nh = {
-    enable = true;
-    flake = "/etc/nixos";
+    zsh = {
+      enable = true;
+      autosuggestions.enable = true;
+      promptInit = "source ${pkgs.zsh-powerlevel10k}/share/zsh-powerlevel10k/powerlevel10k.zsh-theme";
+      syntaxHighlighting.enable = true;
+      ohMyZsh = {
+        enable = true;
+        theme = "robbyrussell";
+        plugins = [
+          "sudo"
+          "terraform"
+          "systemadmin"
+          "vi-mode"
+        ];
+      };
+    };
+
+    steam = {
+      enable = true;
+      remotePlay.openFirewall = true;
+      dedicatedServer.openFirewall = true;
+    };
+
+    nix-ld.enable = true;
+    nix-ld.libraries = with pkgs; [
+      xorg.libXext
+      xorg.libX11
+      xorg.libXrender
+      xorg.libXtst
+      xorg.libXi
+      xorg.libXxf86vm
+      xorg.libxcb
+      xorg.libXcomposite
+      xorg.libXcursor
+      xorg.libXdamage
+      xorg.libXfixes
+      xorg.libXrandr
+      xorg.libXScrnSaver
+      xwayland
+    ];
+
+    # direnv
+    direnv.enable = true;
+    virt-manager.enable = true;
+  };
+  boot = {
+    # Bootloader.
+    loader.systemd-boot.enable = true;
+    loader.efi.canTouchEfiVariables = true;
+    kernelPackages = pkgs.linuxPackages_xanmod_latest;
+    initrd.luks.devices."luks-695f8df6-9ca9-45ab-a495-ce49f4675b37".device = "/dev/disk/by-uuid/695f8df6-9ca9-45ab-a495-ce49f4675b37";
+    initrd.systemd.enable = true;
+    plymouth.enable = true;
+  };
+  services = {
+    dbus.implementation = "broker";
+    xserver = {
+      # Enable the X11 windowing system.
+      enable = true;
+      xkb.layout = "us";
+      xkb.options = "caps:swapescape";
+      videoDrivers = ["nvidia"];
+    };
+
+    # gui
+    displayManager.defaultSession = "hyprland";
+    envfs.enable = true;
+
+    # Enable CUPS to print documents.
+    printing.enable = false;
+    # Enable sound with pipewire.
+    pipewire = {
+      enable = true;
+      wireplumber = {
+        enable = true;
+        extraConfig = {
+          "10-disable-camera" = {
+            "wireplumber.profiles" = {
+              main."monitor.libcamera" = "disabled";
+            };
+          };
+        };
+      };
+      alsa.enable = true;
+      alsa.support32Bit = true;
+      pulse.enable = true;
+    };
+
+    openssh.allowSFTP = true;
+    samba.enable = true;
+    samba.usershares.enable = true;
+    gvfs.enable = true;
+    tumbler.enable = true;
+
+    # por que maria???
+    mysql = {
+      enable = true;
+      package = pkgs.mariadb;
+    };
+
+    # flat
+    flatpak.enable = true;
+
+    syncthing = {
+      enable = true;
+      openDefaultPorts = true;
+    };
+
+    # FUCK YOUR ACCESSIBLITY MY SYSTEM IS ALREADY ACCESSIBLE ENOUGH
+    speechd.enable = lib.mkForce false;
+    orca.enable = lib.mkForce false;
+    postgresql.enable = true;
+    postgresql.package = pkgs.postgresql_17;
+  };
+  networking = {
+    hostName = "vim"; # Define your hostname.
+    # Enable networking
+    networkmanager.enable = true;
+    # Open ports in the firewall.
+    firewall.allowedTCPPorts = [8081 27031];
+    # networking.firewall.allowedUDPPorts = [ ... ];
+    # Or disable the firewall altogether.
+    # networking.firewall.enable = false;
+  };
+  nix = {
+    # flakes
+    settings.experimental-features = [
+      "nix-command"
+      "flakes"
+    ];
+
+    optimise.automatic = true;
+    settings.auto-optimise-store = true;
+
+    nixPath = ["nixpkgs=${inputs.nixpkgs}"];
+    package = pkgs.nixVersions.latest;
+
+    extraOptions = ''
+      extra-substituters = https://devenv.cachix.org
+      extra-trusted-public-keys = devenv.cachix.org-1:w1cLUi8dv3hnoSPGAuibQv+f9TZLr6cv/Hm9XgU50cw=
+    '';
   };
 
   # Set your time zone.
@@ -59,56 +198,27 @@ in {
 
   # Select internationalisation properties.
   i18n.defaultLocale = "en_US.UTF-8";
+  hardware = {
+    enableAllFirmware = true;
 
-  hardware.enableAllFirmware = true;
+    firmware = [
+      pkgs.linux-firmware
+    ];
 
-  hardware.firmware = [
-    pkgs.linux-firmware
-  ];
-
-  hardware.nvidia.open = false;
-
-  # Enable the X11 windowing system.
-  services.xserver.enable = true;
-
-  # gui
-  services.displayManager.defaultSession = "hyprland";
-  services.envfs.enable = true;
-  programs.dconf.enable = true;
-
-  # Configure keymap in X11
-  services.xserver = {
-    xkb.layout = "us";
-    xkb.options = "caps:swapescape";
+    nvidia.open = false;
+    nvidia.modesetting.enable = true;
+    opentabletdriver.enable = true;
+    opentabletdriver.daemon.enable = true;
   };
+  security = {
+    rtkit.enable = true;
+    pam.services.swaylock = {};
 
-  # Enable CUPS to print documents.
-  services.printing.enable = false;
-
-  # Enable sound with pipewire.
-  security.rtkit.enable = true;
-  services.pipewire = {
-    enable = true;
-    wireplumber = {
-      enable = true;
-      extraConfig = {
-        "10-disable-camera" = {
-          "wireplumber.profiles" = {
-            main."monitor.libcamera" = "disabled";
-          };
-        };
-      };
+    pam.services.kwallet = {
+      name = "kwallet";
+      enableKwallet = true;
     };
-    alsa.enable = true;
-    alsa.support32Bit = true;
-    pulse.enable = true;
   };
-
-  # gaming stuff
-  programs.gamemode.enable = true;
-  programs.steam.gamescopeSession.enable = true; # gamescope
-  services.xserver.videoDrivers = ["nvidia"];
-  hardware.nvidia.modesetting.enable = true;
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.xsharawi = {
@@ -327,8 +437,8 @@ in {
     wineWowPackages.stable
     (lutris.override {
       extraPkgs = pkgs: [
-        wineWowPackages.stable
-        winetricks
+        pkgs.wineWowPackages.stable
+        pkgs.winetricks
       ];
     })
     kdePackages.kwallet-pam
@@ -341,39 +451,9 @@ in {
     hyprcursor
     brightnessctl
     grimblast
-    (vesktop.overrideAttrs (
-      finalAttrs: previousAttrs: {
-        desktopItems = [
-          ((builtins.elemAt previousAttrs.desktopItems 0).override {icon = "discord";})
-        ];
-      }
-    ))
+    vesktop
     swww
   ];
-  security.pam.services.swaylock = {};
-
-  programs.hyprland.enable = true;
-  programs.hyprland.xwayland.enable = true;
-  programs.kdeconnect.enable = true;
-
-  services.openssh.allowSFTP = true;
-  programs.ssh.askPassword = "";
-  services.samba.enable = true;
-  services.samba.usershares.enable = true;
-
-  programs.thunar.enable = true;
-  programs.xfconf.enable = true;
-  programs.thunar.plugins = with pkgs.xfce; [
-    thunar-archive-plugin
-    thunar-volman
-  ];
-  services.gvfs.enable = true;
-  services.tumbler.enable = true;
-
-  security.pam.services.kwallet = {
-    name = "kwallet";
-    enableKwallet = true;
-  };
 
   xdg = {
     menus.enable = true;
@@ -387,103 +467,29 @@ in {
     };
   };
 
-  nix.optimise.automatic = true;
-  nix.settings.auto-optimise-store = true;
-
-  programs = {
-    zsh = {
-      enable = true;
-      autosuggestions.enable = true;
-      promptInit = "source ${pkgs.zsh-powerlevel10k}/share/zsh-powerlevel10k/powerlevel10k.zsh-theme";
-      syntaxHighlighting.enable = true;
-      ohMyZsh = {
-        enable = true;
-        theme = "robbyrussell";
-        plugins = [
-          "sudo"
-          "terraform"
-          "systemadmin"
-          "vi-mode"
-        ];
-      };
-    };
-  };
-
   users.defaultUserShell = pkgs.fish;
-
-  programs.steam = {
-    enable = true;
-    remotePlay.openFirewall = true;
-    dedicatedServer.openFirewall = true;
-  };
-
-  programs.nix-ld.enable = true;
-  programs.nix-ld.libraries = with pkgs; [
-    xorg.libXext
-    xorg.libX11
-    xorg.libXrender
-    xorg.libXtst
-    xorg.libXi
-    xorg.libXxf86vm
-    xorg.libxcb
-    xorg.libXcomposite
-    xorg.libXcursor
-    xorg.libXdamage
-    xorg.libXfixes
-    xorg.libXrandr
-    xorg.libXScrnSaver
-    xwayland
-  ];
 
   environment.sessionVariables = {
     STEAM_EXTRA_COMPAT_TOOLS_PATH = "/home/xsharawi/.steam/root/compatibilitytools.d";
   };
 
-  # por que maria???
-  services.mysql = {
-    enable = true;
-    package = pkgs.mariadb;
-  };
-
-  # direnv
-  programs.direnv.enable = true;
-
   # vms
   virtualisation.libvirtd.enable = true;
-  programs.virt-manager.enable = true;
   virtualisation.docker.enable = true;
-
   # stylix
-  stylix.enable = true;
-  stylix.base16Scheme = ./catppuccin-mocha.yaml;
-  stylix.polarity = "dark";
-  stylix.fonts.sizes.applications = 10;
-  stylix.fonts.sizes.desktop = 8;
-
-  nix.nixPath = ["nixpkgs=${inputs.nixpkgs}"];
+  stylix = {
+    enable = true;
+    base16Scheme = ./catppuccin-mocha.yaml;
+    polarity = "dark";
+    fonts.sizes.applications = 10;
+    fonts.sizes.desktop = 8;
+  };
 
   qt = {
     enable = true;
     style = lib.mkForce "breeze";
     platformTheme = lib.mkForce "kde";
   };
-  hardware.opentabletdriver.enable = true;
-  hardware.opentabletdriver.daemon.enable = true;
-
-  # flat
-  services.flatpak.enable = true;
-
-  services.syncthing = {
-    enable = true;
-    openDefaultPorts = true;
-  };
-
-  # Open ports in the firewall.
-  networking.firewall.allowedTCPPorts = [8081 27031];
-  # networking.firewall.allowedUDPPorts = [ ... ];
-  # Or disable the firewall altogether.
-  # networking.firewall.enable = false;
-  nix.package = pkgs.nixVersions.latest;
 
   fonts = {
     packages = builtins.filter lib.attrsets.isDerivation (builtins.attrValues pkgs.nerd-fonts);
@@ -497,16 +503,6 @@ in {
   };
 
   documentation.man.generateCaches = false;
-  # FUCK YOUR ACCESSIBLITY MY SYSTEM IS ALREADY ACCESSIBLE ENOUGH
-  services.speechd.enable = lib.mkForce false;
-  services.orca.enable = lib.mkForce false;
-  services.postgresql.enable = true;
-  services.postgresql.package = pkgs.postgresql_17;
-
-  nix.extraOptions = ''
-    extra-substituters = https://devenv.cachix.org
-    extra-trusted-public-keys = devenv.cachix.org-1:w1cLUi8dv3hnoSPGAuibQv+f9TZLr6cv/Hm9XgU50cw=
-  '';
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
