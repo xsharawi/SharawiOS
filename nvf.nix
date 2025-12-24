@@ -8,9 +8,6 @@
       undotree = {
         package = pkgs.vimPlugins.undotree;
       };
-      vim-tmux-navigator = {
-        package = pkgs.vimPlugins.vim-tmux-navigator;
-      };
       cloak-nvim = {
         package = pkgs.vimPlugins.cloak-nvim;
         setup = ''
