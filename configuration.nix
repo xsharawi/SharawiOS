@@ -431,6 +431,7 @@ in {
     heroic
     android-studio
     android-studio-tools
+    kubernetes
 
     #newpackage
 
