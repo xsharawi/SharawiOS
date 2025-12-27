@@ -9,10 +9,6 @@
     };
     zen-browser.url = "github:0xc000022070/zen-browser-flake";
 
-    ghostty = {
-      url = "github:ghostty-org/ghostty";
-    };
-
     nvf = {
       url = "github:NotAShelf/nvf";
       inputs.nixpkgs.follows = "nixpkgs";

@@ -368,7 +368,6 @@ in {
     rubyPackages.solargraph
     rubyPackages.rexml
     inputs.zen-browser.packages."${pkgs.stdenv.hostPlatform.system}".default
-    inputs.ghostty.packages."${pkgs.stdenv.hostPlatform.system}".default
     inputs.dark-text.packages.${pkgs.stdenv.hostPlatform.system}.default
     elixir
     elixir-ls
@@ -496,9 +495,9 @@ in {
     packages = builtins.filter lib.attrsets.isDerivation (builtins.attrValues pkgs.nerd-fonts);
     fontconfig = {
       defaultFonts = {
-        serif = ["JetBrains Mono"];
-        sansSerif = ["JetBrains Mono"];
-        monospace = ["JetBrains Mono"];
+        serif = ["JetBrainsMono Nerd Font"];
+        sansSerif = ["JetBrainsMono Nerd Font"];
+        monospace = ["JetBrainsMono Nerd Font"];
       };
     };
   };

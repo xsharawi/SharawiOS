@@ -139,7 +139,7 @@
 
       general = {
         "$mainMod" = "SUPER";
-        "$TERMINAL" = "ghostty";
+        "$TERMINAL" = "kitty";
         layout = "dwindle";
         allow_tearing = true;
         gaps_in = 2;
@@ -160,7 +160,7 @@
         disable_hyprland_logo = true;
         animate_manual_resizes = true;
         focus_on_activate = true;
-        font_family = "JetBrains Mono";
+        font_family = "JetBrainsMono Nerd Font";
       };
 
       decoration = {
@@ -237,18 +237,18 @@
       ];
 
       windowrule = [
-        "opacity 0.97, class:ghostty"
+        "opacity 0.97, class:kitty"
       ];
       windowrulev2 = [
         "workspace 3, class:zen-beta"
         # fixing android shitio
-        "nofocus,class:^jetbrains-studio,floating:1,title:^win\d+$"
-        "focusonactivate on,class:^(jetbrains-studio)$"
-        "dimaround,class:^(jetbrains-studio)$,floating:1,title:^(?!win)"
-        "center,class:^(jetbrains-studio)$,floating:1,title:^(?!win)"
-        "noanim,class:^(jetbrains-studio)$,title:^(win.*)$"
-        "noinitialfocus,class:^(jetbrains-studio)$,title:^(win.*)$"
-        "rounding 0,class:^(jetbrains-studio)$,title:^(win.*)$"
+        # "nofocus,class:^jetbrains-studio,floating:1,title:^win\d+$"
+        # "focusonactivate on,class:^(jetbrains-studio)$"
+        # "dimaround,class:^(jetbrains-studio)$,floating:1,title:^(?!win)"
+        # "center,class:^(jetbrains-studio)$,floating:1,title:^(?!win)"
+        # "noanim,class:^(jetbrains-studio)$,title:^(win.*)$"
+        # "noinitialfocus,class:^(jetbrains-studio)$,title:^(win.*)$"
+        # "rounding 0,class:^(jetbrains-studio)$,title:^(win.*)$"
       ];
 
       # binds that can be repeated
@@ -303,10 +303,9 @@
       ];
     };
 
-    # monitor=, highres@highrr, auto, auto
     extraConfig = "
-        monitor=DP-1,1920x1080@180,1920x0,1,bitdepth
-        monitor=HDMI-A-1,1920x1080@100,0x0,1,bitdepth
+        monitor=DP-1,1920x1080@180,1920x0,1,bitdepth,10
+        monitor=HDMI-A-1,1920x1080@100,0x0,1,bitdepth,10
         workspace=2, monitor:DP-1
         workspace=3, monitor:DP-1
        xwayland {
@@ -356,8 +355,8 @@
     kitty.settings = {
       scroll_back = -1;
       mouse_hide_wait = 2.0;
-      font_family = "Hack";
-      font_size = 10;
+      font_family = "JetBrainsMono Nerd Font";
+      font_size = 11;
       remember_window_size = "yes";
     };
 
