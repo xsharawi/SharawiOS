@@ -237,18 +237,19 @@
       ];
 
       windowrule = [
-        "opacity 0.97, class:kitty"
-      ];
-      windowrulev2 = [
-        "workspace 3, class:zen-beta"
-        # fixing android shitio
-        # "nofocus,class:^jetbrains-studio,floating:1,title:^win\d+$"
-        # "focusonactivate on,class:^(jetbrains-studio)$"
-        # "dimaround,class:^(jetbrains-studio)$,floating:1,title:^(?!win)"
-        # "center,class:^(jetbrains-studio)$,floating:1,title:^(?!win)"
-        # "noanim,class:^(jetbrains-studio)$,title:^(win.*)$"
-        # "noinitialfocus,class:^(jetbrains-studio)$,title:^(win.*)$"
-        # "rounding 0,class:^(jetbrains-studio)$,title:^(win.*)$"
+        "opacity 0.97, class:^kitty$"
+        "workspace 3, class:^zen-beta$"
+        # JetBrains Studio – Android / emulator windows (title starts with win)
+        "nofocus, noanim, noinitialfocus, rounding 0, class:^jetbrains-studio$, title:^win.*$"
+
+        # JetBrains Studio – floating non-emulator dialogs
+        "dimaround, center, class:^jetbrains-studio$, floating:1"
+
+        # JetBrains Studio – general behavior
+        "focusonactivate on, class:^jetbrains-studio$"
+        # Center all floating windows on the focused monitor
+        "center, floating:1"
+        "center, floating:1, class:^jetbrains-studio$"
       ];
 
       # binds that can be repeated

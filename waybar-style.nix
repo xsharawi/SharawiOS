@@ -47,11 +47,12 @@
         margin: 5px;
         background-color: @surface0;
         margin-left: 1rem;
+        padding-right: 5px;
       }
 
       #workspaces button {
         color: @lavender;
-        border-radius: 1rem;
+        border-radius: 2rem;
         padding: 0.4rem;
         border-bottom: 3px solid transparent; /* Stylix underline base */
       }
