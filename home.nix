@@ -237,7 +237,6 @@
       ];
 
       windowrule = [
-        "opacity 0.97, class:^kitty$"
         "workspace 3, class:^zen-beta$"
         # JetBrains Studio – Android / emulator windows (title starts with win)
         "nofocus, noanim, noinitialfocus, rounding 0, class:^jetbrains-studio$, title:^win.*$"
@@ -352,13 +351,19 @@
     base16Scheme = ./catppuccin-mocha.yaml;
   };
   programs = {
-    kitty.enable = true;
-    kitty.settings = {
-      scroll_back = -1;
-      mouse_hide_wait = 2.0;
-      font_family = "JetBrainsMono Nerd Font";
-      font_size = 11;
-      remember_window_size = "yes";
+    kitty = {
+      enable = true;
+      settings = {
+        scroll_back = -1;
+        mouse_hide_wait = 2.0;
+        font_family = "JetBrainsMono Nerd Font";
+        font_size = 11;
+        enable_audio_bell = true;
+        cursor_trail = 3;
+        remember_window_size = "yes";
+        allow_hyperlinks = "yes";
+        shell_integration = "enabled";
+      };
     };
 
     rofi.enable = true;

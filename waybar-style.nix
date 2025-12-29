@@ -47,7 +47,7 @@
         margin: 5px;
         background-color: @surface0;
         margin-left: 1rem;
-        padding-right: 5px;
+        padding-right: 0.4rem;
       }
 
       #workspaces button {
