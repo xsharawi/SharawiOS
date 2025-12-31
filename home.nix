@@ -247,7 +247,6 @@
         # JetBrains Studio – general behavior
         "focusonactivate on, class:^jetbrains-studio$"
         # Center all floating windows on the focused monitor
-        "center, floating:1"
         "center, floating:1, class:^jetbrains-studio$"
       ];
 
@@ -332,6 +331,32 @@
       toolkit-accessibility = false;
     };
   };
+
+  programs = {
+    kitty = {
+      enable = true;
+      settings = {
+        scroll_back = -1;
+        mouse_hide_wait = 2.0;
+        font_family = "JetBrainsMono Nerd Font";
+        font_size = 11;
+        enable_audio_bell = true;
+        cursor_trail = 3;
+        remember_window_size = "yes";
+        allow_hyperlinks = "yes";
+        shell_integration = "enabled";
+      };
+      shellIntegration.enableFishIntegration = true;
+    };
+
+    rofi.enable = true;
+    rofi.theme = "${pkgs.rofi}/share/rofi/themes/purple";
+    waybar.enable = true;
+    waybar.settings = import ./waybar-config.nix;
+    # Let Home Manager install and manage itself.
+    home-manager.enable = true;
+  };
+
   stylix = {
     enable = true;
     targets = {
@@ -349,29 +374,6 @@
       rofi.enable = false;
     };
     base16Scheme = ./catppuccin-mocha.yaml;
-  };
-  programs = {
-    kitty = {
-      enable = true;
-      settings = {
-        scroll_back = -1;
-        mouse_hide_wait = 2.0;
-        font_family = "JetBrainsMono Nerd Font";
-        font_size = 11;
-        enable_audio_bell = true;
-        cursor_trail = 3;
-        remember_window_size = "yes";
-        allow_hyperlinks = "yes";
-        shell_integration = "enabled";
-      };
-    };
-
-    rofi.enable = true;
-    rofi.theme = "${pkgs.rofi}/share/rofi/themes/purple";
-    waybar.enable = true;
-    waybar.settings = import ./waybar-config.nix;
-    # Let Home Manager install and manage itself.
-    home-manager.enable = true;
   };
 
   gtk = {

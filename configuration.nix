@@ -431,6 +431,7 @@ in {
     android-studio
     android-studio-tools
     kubernetes
+    zed-editor
 
     #newpackage
 
