@@ -336,6 +336,12 @@
     kitty = {
       enable = true;
       settings = {
+        confirm_os_window_close = 0;
+
+        dynamic_background_opacity = true;
+        background_opacity = lib.mkForce "0.98";
+        background_blur = lib.mkForce 5;
+
         scroll_back = -1;
         mouse_hide_wait = 2.0;
         font_family = "JetBrainsMono Nerd Font";
