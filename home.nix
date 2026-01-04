@@ -211,6 +211,7 @@
         "$mainMod, W, exec, swaylock --color 000000"
         "$mainMod SHIFT, Space, togglefloating"
         "$mainMod, F, exec, hyprctl dispatch fullscreen"
+        "$mainMod SHIFT, F,tagwindow, fakefs"
         "$mainMod, Space, exec, pkill rofi || rofi -show drun -show-icons"
 
         "$mainMod, M, exec, pamixer --toggle-mute"
@@ -237,17 +238,24 @@
       ];
 
       windowrule = [
-        "workspace 3, class:^zen-beta$"
-        # JetBrains Studio – Android / emulator windows (title starts with win)
-        "nofocus, noanim, noinitialfocus, rounding 0, class:^jetbrains-studio$, title:^win.*$"
+        # Zen Browser → open on workspace 3
+        "match:class ^zen-beta$, workspace 3"
+
+        # JetBrains Studio – Android emulator windows (title starts with win)
+        "match:class ^jetbrains-studio$, match:title ^win.*$, no_focus on, no_anim on, no_initial_focus on, rounding 0"
 
         # JetBrains Studio – floating non-emulator dialogs
-        "dimaround, center, class:^jetbrains-studio$, floating:1"
+        "match:class ^jetbrains-studio$, match:float true, dim_around on, center on"
 
-        # JetBrains Studio – general behavior
-        "focusonactivate on, class:^jetbrains-studio$"
-        # Center all floating windows on the focused monitor
-        "center, floating:1, class:^jetbrains-studio$"
+        # JetBrains Studio – focus behavior
+        "match:class ^jetbrains-studio$, focus_on_activate on"
+
+        # Center all floating JetBrains Studio windows
+        "match:class ^jetbrains-studio$, match:float true, center on"
+        "fullscreen_state 0 2, match:tag fakefs"
+
+        # Restore normal windowed state
+        "fullscreen_state 0 0, match:tag !fakefs"
       ];
 
       # binds that can be repeated

@@ -220,7 +220,7 @@
       qml.enable = true;
       nix.enable = true;
       nix.lsp.servers = ["nil" "nixd"];
-      sql.enable = true;
+      # sql.enable = true;
       clang.enable = true;
       ts.enable = true;
       kotlin.enable = true;

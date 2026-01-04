@@ -432,6 +432,7 @@ in {
     android-studio-tools
     kubernetes
     zed-editor
+    linux-wallpaperengine
 
     #newpackage
 
