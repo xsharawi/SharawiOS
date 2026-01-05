@@ -125,6 +125,7 @@
         # https://github.com/jmanc3/hyprselect/ and make a flake and 'make'
         "hyprctl plugin load /etc/nixos/extra/hyprselect.so"
         "systemctl --user start hyprpolkitagent"
+        "linux-wallpaperengine --silent --fps 60 --screen-root DP-1 --screen-root HDMI-A-1 --bg 1182650930 &"
       ];
 
       input = {
@@ -346,9 +347,7 @@
       settings = {
         confirm_os_window_close = 0;
 
-        dynamic_background_opacity = true;
-        background_opacity = lib.mkForce "0.98";
-        background_blur = lib.mkForce 5;
+        dynamic_background_opacity = false;
 
         scroll_back = -1;
         mouse_hide_wait = 2.0;
