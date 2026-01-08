@@ -9,7 +9,7 @@
       };
       # All other sessions
       default_session = {
-        command = "tuigreet --cmd hyprland";
+        command = "tuigreet --cmd start-hyprland";
         user = "greeter";
       };
     };
