@@ -177,10 +177,6 @@
 
     treesitter = {
       enable = true;
-      indent.disable = [
-        "nix"
-        "clang"
-      ];
     };
 
     binds = {
@@ -392,6 +388,23 @@
       nvim-dap = {
         enable = true;
         ui.enable = true;
+        mappings = {
+          continue = "dc";
+          goDown = "dvi";
+          goUp = "dvo";
+          hover = "dh";
+          restart = "dR";
+          runLast = "d.";
+          runToCursor = "dgc";
+          stepBack = "dgk";
+          stepInto = "dgi";
+          stepOut = "dgo";
+          stepOver = "dgj";
+          terminate = "dq";
+          toggleBreakpoint = "db";
+          toggleDapUI = "du";
+          toggleRepl = "dr";
+        };
       };
     };
 

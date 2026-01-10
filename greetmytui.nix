@@ -1,15 +1,17 @@
-{
+let
+  cmd = "start-hyprland";
+in {
   services.greetd = {
     enable = true;
     settings = {
       # Session on first login which would use auto-login
       initial_session = {
         user = "xsharawi";
-        command = "hyprland";
+        command = cmd;
       };
       # All other sessions
       default_session = {
-        command = "tuigreet --cmd start-hyprland";
+        command = "tuigreet --cmd ${cmd}";
         user = "greeter";
       };
     };

@@ -138,9 +138,9 @@
         };
       };
 
+      "$mainMod" = "SUPER";
+      "$TERMINAL" = "kitty";
       general = {
-        "$mainMod" = "SUPER";
-        "$TERMINAL" = "kitty";
         layout = "dwindle";
         allow_tearing = true;
         gaps_in = 2;
