@@ -223,8 +223,11 @@
       # one day soonTM
       # ts.lsp.servers = ["ts_ls" "emmet-ls"];
       zig.enable = true;
-      markdown.enable = true;
-      markdown.format.enable = false;
+      markdown = {
+        enable = true;
+        format.enable = true;
+        extensions.markview-nvim.enable = true;
+      };
       lua.enable = true;
       odin.enable = true;
 

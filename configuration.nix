@@ -433,6 +433,7 @@ in {
     kubernetes
     zed-editor
     linux-wallpaperengine
+    binaryninja-free
 
     #newpackage
 
