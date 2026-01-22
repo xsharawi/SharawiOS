@@ -263,7 +263,6 @@ in {
     gcc
     fzf
     fd
-    fzf-zsh
     ripgrep
     gnumake
     unzip
