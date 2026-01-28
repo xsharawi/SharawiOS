@@ -354,7 +354,6 @@ in {
     xorg.libXxf86vm
     yazi
     obsidian
-    emacs
     coreutils
     gimp
     jq

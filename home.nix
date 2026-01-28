@@ -73,7 +73,6 @@
     #  /etc/profiles/per-user/xsharawi/etc/profile.d/hm-session-vars.sh
     #
     sessionVariables = {
-      # EDITOR = "emacs";
       EDITOR = "nvim";
     };
 
