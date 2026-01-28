@@ -280,8 +280,6 @@ in {
     gtk4
     gtk3-x11
     pkg-config
-    kdePackages.kde-gtk-config
-    kdePackages.xdg-desktop-portal-kde
     xdg-desktop-portal-gtk
     xdg-desktop-portal-hyprland
     nixd
@@ -337,8 +335,6 @@ in {
     networkmanagerapplet
     swaylock
     swaylock-effects
-    kdePackages.krfb
-    kdePackages.krdc
     pipes
     libsForQt5.qt5ct
     stdmanpages
@@ -371,7 +367,6 @@ in {
     elixir-ls
     ocaml
     mangohud
-    kdePackages.kdenetwork-filesharing
     fuse
     alsa-lib
     atk
@@ -395,7 +390,6 @@ in {
     logiops
     godot
     gopls
-    kdePackages.qtwebsockets
     libsForQt5.qt5.qtwebsockets
     playerctl
     pavucontrol
@@ -443,7 +437,6 @@ in {
         pkgs.winetricks
       ];
     })
-    kdePackages.kwallet-pam
     waybar
     egl-wayland
     swaynotificationcenter
