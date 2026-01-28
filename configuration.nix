@@ -286,7 +286,7 @@ in {
     xdg-desktop-portal-hyprland
     nixd
     nixdoc
-    nixfmt-rfc-style
+    nixfmt
     fastfetch
     zoxide
     zsh-powerlevel10k
@@ -433,6 +433,7 @@ in {
     zed-editor
     linux-wallpaperengine
     binaryninja-free
+    st
 
     #newpackage
 
