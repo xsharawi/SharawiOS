@@ -408,6 +408,13 @@
       categories = ["Game"];
       terminal = false;
     };
+    st = {
+      name = "st";
+      exec = "${pkgs.st}/bin/st";
+      icon = "st";
+      # categories = ["terminal"];
+      terminal = false;
+    };
   };
 
   xdg.configFile."mimeapps.list".force = true;
