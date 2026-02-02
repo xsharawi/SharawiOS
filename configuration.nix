@@ -427,6 +427,7 @@ in {
     linux-wallpaperengine
     binaryninja-free
     st
+    rpcs3
 
     #newpackage
 
