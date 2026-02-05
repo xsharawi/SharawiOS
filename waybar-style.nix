@@ -78,16 +78,33 @@
       #battery,
       #pulseaudio,
       #custom-lock,
+      #custom-capslock,
       #custom-power {
         background-color: @surface0;
-        padding: 0.5rem 1rem;
+        padding: 0.5rem 0.7rem;
         margin: 5px 0;
       }
+      #custom-capslock {
+          background-color: @surface0;
+          margin-right: 0.5rem;
+          margin-left: 0rem;
+          border-radius: 0rem 1rem 1rem 0rem;
+      }
+
+        /* Caps OFF */
+       #custom-capslock.off {
+          color: @green;
+        }
+
+        /* Caps ON */
+       #custom-capslock.on {
+          color: @red;
+        }
 
       #clock {
         color: @blue;
-        border-radius: 0px 1rem 1rem 0px;
-        margin-right: 1rem;
+        background-color: @surface0;
+        margin-right: 0rem;
       }
 
       #cpu {

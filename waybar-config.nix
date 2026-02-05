@@ -8,10 +8,10 @@
     modules-center = ["custom/music"];
     modules-right = [
       "pulseaudio"
-      "battery"
       "memory"
       "cpu"
       "clock"
+      "custom/capslock"
       "tray"
       "custom/lock"
       "custom/power"
@@ -41,6 +41,13 @@
       exec = "playerctl metadata --format='{{ title }}'";
       on-click = "playerctl play-pause";
       max-length = 50;
+    };
+
+    "custom/capslock" = {
+      exec = "${./extra/capslockstatus.sh}";
+      interval = 1;
+      tooltip = "Caps Lock";
+      return-type = "json";
     };
 
     clock = {
