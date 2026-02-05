@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
-status=$(head -1 /sys/class/leds/input3::capslock/brightness)
+status=$(cat /sys/class/leds/input*::capslock/brightness)
+status=${status:0:1}
 
 if [[ "$status" -eq "0" ]]; then
     echo '{"text":"󰘲","class":"off"}'
