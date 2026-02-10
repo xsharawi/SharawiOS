@@ -75,19 +75,19 @@ in {
 
     nix-ld.enable = true;
     nix-ld.libraries = with pkgs; [
-      xorg.libXext
-      xorg.libX11
-      xorg.libXrender
-      xorg.libXtst
-      xorg.libXi
-      xorg.libXxf86vm
-      xorg.libxcb
-      xorg.libXcomposite
-      xorg.libXcursor
-      xorg.libXdamage
-      xorg.libXfixes
-      xorg.libXrandr
-      xorg.libXScrnSaver
+      libXext
+      libX11
+      libXrender
+      libXtst
+      libXi
+      libXxf86vm
+      libxcb
+      libXcomposite
+      libXcursor
+      libXdamage
+      libXfixes
+      libXrandr
+      libXScrnSaver
       xwayland
     ];
 
@@ -331,7 +331,6 @@ in {
     graphite-cli
     screenkey
     zig
-    zls
     networkmanagerapplet
     swaylock
     swaylock-effects
@@ -346,8 +345,8 @@ in {
     openjdk8
     jre8
     jdk8
-    xorg.libXext
-    xorg.libXxf86vm
+    libXext
+    libXxf86vm
     yazi
     obsidian
     coreutils

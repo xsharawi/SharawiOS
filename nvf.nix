@@ -222,7 +222,7 @@
       kotlin.enable = true;
       # one day soonTM
       # ts.lsp.servers = ["ts_ls" "emmet-ls"];
-      zig.enable = true;
+      # zig.enable = true;
       markdown = {
         enable = true;
         format.enable = true;
@@ -235,7 +235,7 @@
         enable = true;
         treesitter.autotagHtml = true;
         lsp.servers = [
-          "superhtml"
+          # "superhtml"
           "emmet-ls"
         ];
       };
