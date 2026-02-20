@@ -430,10 +430,10 @@ in {
 
     #newpackage
 
-    wineWowPackages.stable
+    wineWow64Packages.stable
     (lutris.override {
       extraPkgs = pkgs: [
-        pkgs.wineWowPackages.stable
+        pkgs.wineWow64Packages.stable
         pkgs.winetricks
       ];
     })
