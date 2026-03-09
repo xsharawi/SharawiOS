@@ -229,7 +229,7 @@
         extensions.markview-nvim.enable = true;
       };
       lua.enable = true;
-      odin.enable = true;
+      # odin.enable = true;
 
       html = {
         enable = true;
@@ -378,6 +378,14 @@
         mode = ["n"];
         action = "<C-w>o";
         desc = "Close other splits";
+      }
+      {
+        key = "<leader>g";
+        mode = [
+          "n"
+          "v"
+        ];
+        action = "\"+y";
       }
     ];
 
