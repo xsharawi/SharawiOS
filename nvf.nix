@@ -380,12 +380,9 @@
         desc = "Close other splits";
       }
       {
-        key = "<leader>g";
-        mode = [
-          "n"
-          "v"
-        ];
-        action = "\"+y";
+        key = "<leader>ga";
+        mode = ["n"];
+        action = "<cmd>Git<CR>";
       }
     ];
 
