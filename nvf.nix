@@ -116,7 +116,7 @@
     statusline = {
       lualine = {
         enable = true;
-        theme = lib.mkForce "catppuccin";
+        theme = lib.mkForce "auto";
       };
     };
 
