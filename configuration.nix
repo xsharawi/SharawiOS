@@ -433,6 +433,7 @@ in {
     binaryninja-free
     st
     rpcs3
+    bun
 
     #newpackage
 
