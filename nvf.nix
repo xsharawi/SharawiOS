@@ -177,6 +177,8 @@
 
     treesitter = {
       enable = true;
+      context.enable = true;
+      indent.enable = true;
     };
 
     binds = {
@@ -235,7 +237,7 @@
         enable = true;
         treesitter.autotagHtml = true;
         lsp.servers = [
-          # "superhtml"
+          "superhtml"
           "emmet-ls"
         ];
       };
@@ -429,8 +431,6 @@
 
     snippets.luasnip.enable = true;
 
-    treesitter.context.enable = true;
-
     projects = {
       project-nvim.enable = true;
     };
@@ -612,6 +612,12 @@
     '';
     # vim.keymap.set('n', '<leader>f', "<cmd>e <cfile><CR><C-W>K<C-W>j<leader>x")
     autocmds = [
+      {
+        enable = true;
+        event = ["BufEnter"];
+        pattern = ["*"];
+        command = "setlocal indentexpr=nvim_treesitter#indent()";
+      }
       {
         desc = "Preserve last editing position";
         event = ["BufReadPost"];
