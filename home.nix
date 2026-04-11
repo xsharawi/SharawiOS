@@ -93,7 +93,7 @@
         "nm-applet --indicator &"
         "kdeconnect-indicator &"
         "waybar &"
-        "swww-daemon &"
+        "awww-daemon &"
         "keepassxc"
         "[workspace 1 silent] obsidian"
         "[workspace 2 silent] $TERMINAL"

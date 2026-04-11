@@ -7,7 +7,7 @@
     WALLPAPER_DIR="$HOME/wallpapers"
     IMG=$(find "$WALLPAPER_DIR" -type f | shuf -n1)
     if [ -n "$IMG" ]; then
-      ${pkgs.swww}/bin/swww img "$IMG"
+      ${pkgs.awww}/bin/swww img "$IMG"
     else
       echo "No wallpaper found in $WALLPAPER_DIR" >&2
     fi
@@ -15,7 +15,7 @@
 in {
   systemd.user.services.random-wallpaper = {
     Unit = {
-      Description = "Set a random wallpaper using swww (user service)";
+      Description = "Set a random wallpaper using awww (user service)";
     };
     Service = {
       Type = "oneshot";

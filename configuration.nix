@@ -454,7 +454,7 @@ in {
     brightnessctl
     grimblast
     vesktop
-    swww
+    awww
   ];
 
   xdg = {

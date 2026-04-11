@@ -171,7 +171,7 @@
     theme = {
       enable = true;
       name = lib.mkForce "catppuccin";
-      style = "mocha";
+      style = "macchiato";
       transparent = lib.mkForce true;
     };
 
@@ -485,112 +485,129 @@
       neocord.enable = true;
     };
     luaConfigPost = ''
-          vim.g.undotree_WindowLayout = 3
-          vim.g.undotree_SplitWidth = 50
-          vim.g.undotree_SetFocusWhenToggle = 1
-          vim.keymap.set('n', '<leader>u', vim.cmd.UndotreeToggle)
-          -- Define a function to run the current Go file
-          local function run_go_file()
-          vim.cmd 'write' -- Save the current file
-          vim.cmd('split | terminal go run ' .. vim.fn.expand '%') -- Run Go file in a split terminal
-          vim.cmd 'startinsert'
-          end
+      vim.g.undotree_WindowLayout = 3
+      vim.g.undotree_SplitWidth = 50
+      vim.g.undotree_SetFocusWhenToggle = 1
+      vim.keymap.set('n', '<leader>u', vim.cmd.UndotreeToggle)
+      -- Define a function to run the current Go file
+      local function run_go_file()
+      vim.cmd 'write' -- Save the current file
+      vim.cmd('split | terminal go run ' .. vim.fn.expand '%') -- Run Go file in a split terminal
+      vim.cmd 'startinsert'
+      end
 
-          -- Create an autocommand group for Go file mappings
-          vim.api.nvim_create_augroup('GoFileMappings', { clear = true })
-          vim.api.nvim_create_autocmd('FileType', {
-                  group = 'GoFileMappings',
-                  pattern = 'go',
-                  callback = function()
-                  vim.keymap.set('n', '<leader>rr', run_go_file, { buffer = true })
-                  end,
-                  })
+      -- Create an autocommand group for Go file mappings
+      vim.api.nvim_create_augroup('GoFileMappings', { clear = true })
+      vim.api.nvim_create_autocmd('FileType', {
+              group = 'GoFileMappings',
+              pattern = 'go',
+              callback = function()
+              vim.keymap.set('n', '<leader>rr', run_go_file, { buffer = true })
+              end,
+              })
       vim.opt.numberwidth = 4
-          vim.o.scrolloff = 4
-          vim.o.scrolloff = 4
-          vim.keymap.set('n', '<leader>go', 'oif err != nil {<CR>}<ESC>Oreturn err<Esc>')
-          vim.keymap.set('n', 'J', 'mzJ`z')
-          vim.keymap.set('n','<leader>rn', vim.lsp.buf.rename)
-          local builtin = require 'telescope.builtin'
-          vim.keymap.set('n','gr', require('telescope.builtin').lsp_references)
-          vim.keymap.set('n', '<leader>qf', '<cmd>copen<CR>', { desc = '[f] quick fix' })
-          vim.keymap.set('n', '<leader>qw', function()
-                  vim.diagnostic.setqflist()
-                  end, { desc = "quickfill" })
-          vim.keymap.set('n', '<leader>sw', builtin.grep_string, { desc = '[S]earch current [W]ord' })
+      vim.o.scrolloff = 4
+      vim.keymap.set('n', '<leader>go', 'oif err != nil {<CR>}<ESC>Oreturn err<Esc>')
+      vim.keymap.set('n', 'J', 'mzJ`z')
+      vim.keymap.set('n','<leader>rn', vim.lsp.buf.rename)
+      local builtin = require 'telescope.builtin'
+      vim.keymap.set('n', '<leader>qf', '<cmd>copen<CR>', { desc = '[f] quick fix' })
+      vim.keymap.set('n', '<leader>qw', function()
+              vim.diagnostic.setqflist()
+              end, { desc = "quickfill" })
+      vim.keymap.set('n', '<leader>sw', builtin.grep_string, { desc = '[S]earch current [W]ord' })
 
-          vim.keymap.set('n', '<leader>sW', function()
-                  local word = vim.fn.expand '<cWORD>'
-                  require('telescope.builtin').grep_string { search = word }
-                  end, { desc = '[S]earch current [W]ORD' })
+      vim.keymap.set('n', '<leader>sW', function()
+              local word = vim.fn.expand '<cWORD>'
+              require('telescope.builtin').grep_string { search = word }
+              end, { desc = '[S]earch current [W]ORD' })
 
-          local harpoon = require 'harpoon'
-          harpoon:setup({})
+      local harpoon = require 'harpoon'
 
-          vim.keymap.set('n', '<leader>k', function()
-                  harpoon:list():next()
-                  end)
-                      vim.keymap.set('n', '<leader>j', function()
-                              harpoon:list():prev()
-                              end)
-                                  vim.keymap.set('n', '<leader>Q', vim.diagnostic.setloclist, { desc = 'Open diagnostic [Q]uickfix list' })
-                                  vim.opt.inccommand = 'split'
+      vim.keymap.set('n', '<leader>k', function()
+              harpoon:list():next()
+              end)
+      vim.keymap.set('n', '<leader>j', function()
+              harpoon:list():prev()
+              end)
+      vim.keymap.set('n', '<leader>Q', vim.diagnostic.setloclist, { desc = 'Open diagnostic [Q]uickfix list' })
+      vim.opt.inccommand = 'split'
 
-                                  vim.keymap.set('n', '<leader>,', function() vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled()) end , { desc = 'inlay hints toggle' })
+      vim.keymap.set('n', '<leader>,', function() vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled()) end , { desc = 'inlay hints toggle' })
+      vim.keymap.set('n', '<leader>tt', '<cmd>ToggleTerm direction=float<CR>')
+      vim.keymap.set('n', '<leader>rx', function()
+        vim.cmd('!chmod +x %')
+        vim.cmd('split | terminal ./%')
+      end)
 
-
-
-                                  vim.api.nvim_create_autocmd('TextYankPost', {
-                                          desc = 'Highlight when yanking (copying) text',
-                                          group = vim.api.nvim_create_augroup('kickstart-highlight-yank', { clear = true }),
-                                          callback = function()
-                                          vim.highlight.on_yank()
-                                          end,
-                                          })
+      vim.api.nvim_create_autocmd('TextYankPost', {
+              desc = 'Highlight when yanking (copying) text',
+              group = vim.api.nvim_create_augroup('kickstart-highlight-yank', { clear = true }),
+              callback = function()
+              vim.highlight.on_yank()
+              end,
+              })
 
       vim.keymap.set('v', 'J', ":m '>+1<CR>gv=gv")
-          vim.keymap.set('v', 'K', ":m '<-2<CR>gv=gv")
+      vim.keymap.set('v', 'K', ":m '<-2<CR>gv=gv")
 
-          -- Put this in your init.lua (or a file sourced during startup)
-          vim.api.nvim_create_autocmd("VimEnter", {
-                  once = true,
-                  callback = function()
-                  local argv = vim.fn.argv()
-                  if #argv == 0 then return end
+      -- Put this in your init.lua (or a file sourced during startup)
+      vim.api.nvim_create_autocmd("VimEnter", {
+              once = true,
+              callback = function()
+              local argv = vim.fn.argv()
+              if #argv == 0 then return end
 
-                  local path = vim.fn.expand(argv[1])
-                  local is_dir  = vim.fn.isdirectory(path) == 1
-                  local is_file = vim.fn.filereadable(path) == 1
+              local path = vim.fn.expand(argv[1])
+              local is_dir  = vim.fn.isdirectory(path) == 1
+              local is_file = vim.fn.filereadable(path) == 1
 
-                  if is_file then
-                  -- Open after plugins have loaded so LSP/Treesitter can attach
-                  vim.schedule(function()
-                          vim.cmd("edit " .. vim.fn.fnameescape(path))
-                          end)
-                  elseif is_dir then
-                  -- Jump to your Harpoon entry after startup
-                  vim.schedule(function()
-                          pcall(function() require("mini.files").close() end)
+              if is_file then
+              -- Open after plugins have loaded so LSP/Treesitter can attach
+              vim.schedule(function()
+                      vim.cmd("edit " .. vim.fn.fnameescape(path))
+                      end)
+              elseif is_dir then
+              -- Jump to your Harpoon entry after startup
+              vim.schedule(function()
+                      pcall(function() require("mini.files").close() end)
 
-                          -- protect in case list is empty
-                          pcall(function() require("harpoon"):list():select(1) end)
+                      -- protect in case list is empty
+                      pcall(function() require("harpoon"):list():select(1) end)
 
-                          -- Re-edit the *current* buffer by name to fire BufRead* hooks
-                          local cur = vim.api.nvim_buf_get_name(0)
-                          if cur ~= "" then
-                          vim.cmd("edit " .. vim.fn.fnameescape(cur))
-                          end
-                          end)
-                  end
-                  end,
-          })
+                      -- Re-edit the *current* buffer by name to fire BufRead* hooks
+                      local cur = vim.api.nvim_buf_get_name(0)
+                      if cur ~= "" then
+                      vim.cmd("edit " .. vim.fn.fnameescape(cur))
+                      end
+                      end)
+              end
+              end,
+      })
       vim.keymap.set("n", "<leader>.", "mayyp`aj", { noremap = true, silent = true })
-          vim.o.grepprg = "rg --vimgrep --hidden --smart-case --glob '!.env' --glob '!.env.*' --glob '!*.env'"
-          vim.o.grepformat = "%f:%l:%c:%m"
-          vim.keymap.set('t', '<ESC><ESC>', [[<C-\><C-n>]])
-          vim.keymap.set('n', '<leader>w', "<cmd>MCstart<CR>")
-          vim.keymap.set('n', '<leader>ff', "<cmd>lua MiniFiles.open(vim.api.nvim_buf_get_name(0))<CR>")
-          vim.opt.shortmess:append("S")
+      vim.o.grepprg = "rg --vimgrep --hidden --smart-case --glob '!.env' --glob '!.env.*' --glob '!*.env'"
+      vim.o.grepformat = "%f:%l:%c:%m"
+      vim.keymap.set('t', '<ESC><ESC>', [[<C-\><C-n>]])
+      vim.keymap.set('n', '<leader>w', "<cmd>MCstart<CR>")
+      vim.keymap.set('n', '<leader>ff', "<cmd>lua MiniFiles.open(vim.api.nvim_buf_get_name(0))<CR>")
+      vim.opt.shortmess:append("S")
+
+      vim.g.last_compile_command = "make"
+
+      vim.api.nvim_create_user_command('Compile', function(opts)
+          if opts.args ~= "" then
+              vim.g.last_compile_command = opts.args
+          end
+      vim.cmd("cexpr system('" .. vim.g.last_compile_command .. "')")
+      vim.cmd("copen")
+        end, { nargs = "*" })
+
+      vim.keymap.set('n', '<leader>cr', function()
+        vim.cmd("cexpr system('" .. vim.g.last_compile_command .. "')")
+        vim.cmd("copen")
+      end, { desc = "Re-run compile" })
+      vim.keymap.set('n', '<leader>cc', ':Compile<CR>', { desc = "Compile project" })
+      vim.opt.errorformat = "%f:%l:%c: %m"
 
     '';
     # vim.keymap.set('n', '<leader>f', "<cmd>e <cfile><CR><C-W>K<C-W>j<leader>x")
