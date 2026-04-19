@@ -434,6 +434,7 @@ in {
     st
     rpcs3
     bun
+    sqlite
 
     #newpackage
 

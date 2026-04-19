@@ -7,7 +7,7 @@
     WALLPAPER_DIR="$HOME/wallpapers"
     IMG=$(find "$WALLPAPER_DIR" -type f | shuf -n1)
     if [ -n "$IMG" ]; then
-      ${pkgs.awww}/bin/swww img "$IMG"
+      ${pkgs.awww}/bin/awww img "$IMG"
     else
       echo "No wallpaper found in $WALLPAPER_DIR" >&2
     fi
