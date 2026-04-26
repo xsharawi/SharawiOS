@@ -435,6 +435,7 @@ in {
     rpcs3
     bun
     sqlite
+    ghidra
 
     #newpackage
 
