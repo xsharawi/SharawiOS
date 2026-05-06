@@ -101,7 +101,6 @@
         # https://github.com/jmanc3/hyprselect/ and make a flake and 'make'
         "hyprctl plugin load /etc/nixos/extra/hyprselect.so"
         "systemctl --user start hyprpolkitagent"
-        "linux-wallpaperengine --silent --fps 60 --screen-root DP-1 --screen-root HDMI-A-1 --bg 1182650930 &"
       ];
 
       input = {
