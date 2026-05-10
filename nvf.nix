@@ -627,6 +627,29 @@
           
           ''function() if vim.fn.line("'\"") > 1 and vim.fn.line("'\"") <= vim.fn.line("$") then vim.cmd("normal! g'\"") end end'';
       }
+      {
+        desc = "Append newline to printf format strings";
+        event = ["BufWritePre"];
+        pattern = ["*.c" "*.cpp"];
+        callback =
+          lib.generators.mkLuaInline
+          ''
+            function()
+              local lines = vim.api.nvim_buf_get_lines(0, 0, -1, false)
+
+              for i, line in ipairs(lines) do
+                lines[i] = line:gsub('printf%s*%((%s*)"([^"]-)"', function(space, fmt)
+                  if fmt:sub(-2) == "\\n" then
+                    return string.format('printf(%s"%s"', space, fmt)
+                  end
+                  return string.format('printf(%s"%s\\n"', space, fmt)
+                end)
+              end
+
+              vim.api.nvim_buf_set_lines(0, 0, -1, false, lines)
+            end
+          '';
+      }
     ];
     mini = {
       ai.enable = true;
