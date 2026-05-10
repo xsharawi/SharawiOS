@@ -325,6 +325,7 @@
           setCursor = "%";
           expansion = "git commit -am \"%\"";
         };
+        gp = "git push";
       };
     };
     kitty = {
