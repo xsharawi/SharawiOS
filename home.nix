@@ -317,6 +317,16 @@
   };
 
   programs = {
+    fish = {
+      enable = true;
+      shellAbbrs = {
+        gc = {
+          position = "anywhere";
+          setCursor = "%";
+          expansion = "git commit -am \"%\"";
+        };
+      };
+    };
     kitty = {
       enable = true;
       settings = {

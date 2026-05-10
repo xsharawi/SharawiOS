@@ -149,9 +149,6 @@ in {
       set -gx FZF_ALT_C_COMMAND 'fd --type d --hidden --exclude .git --exclude .svn --exclude .hg'
 
       direnv hook fish | source
-
-
-
     '';
     interactiveShellInit = mkAfter ''
       function starship_transient_prompt_func
