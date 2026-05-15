@@ -71,7 +71,6 @@
   ];
 
   wayland.windowManager.hyprland = {
-    configType = "lua";
     systemd.enable = true;
 
     xwayland.enable = true;
@@ -122,16 +121,16 @@
         gaps_in = 2;
         gaps_out = 6;
         border_size = 2;
-        env = [
-          "HYPRCURSOR_THEME,Banana"
-          "HYPRCURSOR_SIZE,40"
-          "XCURSOR_SIZE,40"
-          "XDG_SESSION_TYPE,wayland"
-          "CLUTTER_BACKEND,wayland"
-          "XDG_SESSION_DESKTOP,Hyprland "
-          "XDG_CURRENT_DESKTOP,Hyprland"
-        ];
       };
+      env = [
+        "HYPRCURSOR_THEME,Banana"
+        "HYPRCURSOR_SIZE,40"
+        "XCURSOR_SIZE,40"
+        "XDG_SESSION_TYPE,wayland"
+        "CLUTTER_BACKEND,wayland"
+        "XDG_SESSION_DESKTOP,Hyprland "
+        "XDG_CURRENT_DESKTOP,Hyprland"
+      ];
 
       misc = {
         disable_hyprland_logo = true;
@@ -381,8 +380,11 @@
     gtk3.extraConfig = {
       gtk-application-prefer-dark-theme = 1;
     };
-    gtk4.extraConfig = {
-      gtk-application-prefer-dark-theme = 1;
+    gtk4 = {
+      extraConfig = {
+        gtk-application-prefer-dark-theme = 1;
+      };
+      theme = null;
     };
   };
   gtk.gtk2.configLocation = "${config.xdg.configHome}/gtk-2.0/gtkrc";

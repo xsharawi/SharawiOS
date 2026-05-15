@@ -147,6 +147,7 @@
       lightbulb.enable = false;
       lspconfig.enable = true;
       nvim-docs-view.enable = true;
+      presets.tailwindcss-language-server.enable = true;
 
       inlayHints.enable = true;
 
@@ -194,7 +195,6 @@
       enableTreesitter = true;
       enableExtraDiagnostics = true;
       assembly.enable = true;
-      tailwind.enable = true;
 
       go = {
         enable = true;
@@ -220,7 +220,7 @@
       nix.lsp.servers = ["nil" "nixd"];
       # sql.enable = true;
       clang.enable = true;
-      ts.enable = true;
+      typescript.enable = true;
       kotlin.enable = true;
       # one day soonTM
       # ts.lsp.servers = ["ts_ls" "emmet-ls"];
