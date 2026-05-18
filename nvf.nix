@@ -218,20 +218,20 @@
       qml.enable = true;
       nix.enable = true;
       nix.lsp.servers = ["nil" "nixd"];
-      # sql.enable = true;
+      sql.enable = true;
       clang.enable = true;
       typescript.enable = true;
       kotlin.enable = true;
       # one day soonTM
-      # ts.lsp.servers = ["ts_ls" "emmet-ls"];
-      # zig.enable = true;
+      typescript.lsp.servers = ["typescript-language-server" "emmet-ls"];
+      zig.enable = true;
       markdown = {
         enable = true;
         format.enable = true;
         extensions.markview-nvim.enable = true;
       };
       lua.enable = true;
-      # odin.enable = true;
+      odin.enable = true;
 
       html = {
         enable = true;
