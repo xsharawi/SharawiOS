@@ -82,6 +82,7 @@ in {
 
       gsettings set org.gnome.desktop.interface toolkit-accessibility false
       clear; fastfetch
+      devenv hook fish | source
     '';
   };
 }

@@ -4,6 +4,18 @@
   ...
 }: {
   vim = {
+    formatter.conform-nvim = {
+      enable = true;
+      setupOpts = {
+        format_on_save = {
+          lsp_format = "fallback";
+        };
+        formatters_by_ft = {
+          c = ["clang_format"];
+          cpp = ["clang_format"];
+        };
+      };
+    };
     extraPlugins = {
       undotree = {
         package = pkgs.vimPlugins.undotree;
@@ -66,7 +78,7 @@
       softtabstop = 4;
       expandtab = true;
       autoindent = true;
-      smartindent = true;
+      smartindent = false;
       breakindent = true;
       hlsearch = true;
       incsearch = true;
@@ -179,7 +191,7 @@
     treesitter = {
       enable = true;
       context.enable = true;
-      indent.enable = true;
+      indent.enable = false;
     };
 
     binds = {
@@ -217,13 +229,25 @@
       rust.enable = true;
       qml.enable = true;
       nix.enable = true;
-      nix.lsp.servers = ["nil" "nixd"];
+      nix.lsp.servers = [
+        "nil"
+        "nixd"
+      ];
       sql.enable = true;
-      clang.enable = true;
+      clang = {
+        enable = true;
+        format.enable = false;
+        format.type = [
+          "clang-format"
+          "indent"
+        ];
+      };
       typescript.enable = true;
       kotlin.enable = true;
-      # one day soonTM
-      typescript.lsp.servers = ["typescript-language-server" "emmet-ls"];
+      typescript.lsp.servers = [
+        "typescript-language-server"
+        "emmet-ls"
+      ];
       zig.enable = true;
       markdown = {
         enable = true;
@@ -246,7 +270,11 @@
     keymaps = [
       {
         key = "<F1>";
-        mode = ["n" "i" "v"];
+        mode = [
+          "n"
+          "i"
+          "v"
+        ];
         action = "<ESC>";
       }
       {
@@ -611,12 +639,12 @@
     '';
     # vim.keymap.set('n', '<leader>f', "<cmd>e <cfile><CR><C-W>K<C-W>j<leader>x")
     autocmds = [
-      {
-        enable = true;
-        event = ["BufEnter"];
-        pattern = ["*"];
-        command = "setlocal indentexpr=nvim_treesitter#indent()";
-      }
+      # {
+      #   enable = true;
+      #   event = ["BufEnter"];
+      #   pattern = ["*"];
+      #   command = "setlocal indentexpr=nvim_treesitter#indent()";
+      # }
       {
         desc = "Preserve last editing position";
         event = ["BufReadPost"];
@@ -629,25 +657,39 @@
       {
         desc = "Append newline to printf format strings";
         event = ["BufWritePre"];
-        pattern = ["*.c" "*.cpp"];
-        callback =
-          lib.generators.mkLuaInline
-          ''
-            function()
-              local lines = vim.api.nvim_buf_get_lines(0, 0, -1, false)
+        pattern = [
+          "*.c"
+          "*.cpp"
+        ];
+        callback = lib.generators.mkLuaInline ''
+          function()
+            local buf = 0
+            local lines = vim.api.nvim_buf_get_lines(buf, 0, -1, false)
 
-              for i, line in ipairs(lines) do
-                lines[i] = line:gsub('printf%s*%((%s*)"([^"]-)"', function(space, fmt)
+            for i, line in ipairs(lines) do
+              local new_line = line:gsub(
+                'printf%s*%((%s*)"([^"]-)"',
+                function(space, fmt)
                   if fmt:sub(-2) == "\\n" then
                     return string.format('printf(%s"%s"', space, fmt)
                   end
-                  return string.format('printf(%s"%s\\n"', space, fmt)
-                end)
-              end
 
-              vim.api.nvim_buf_set_lines(0, 0, -1, false, lines)
+                  return string.format('printf(%s"%s\\n"', space, fmt)
+                end
+              )
+
+              if new_line ~= line then
+                vim.api.nvim_buf_set_lines(
+                  buf,
+                  i - 1,
+                  i,
+                  false,
+                  { new_line }
+                )
+              end
             end
-          '';
+          end
+        '';
       }
     ];
     mini = {

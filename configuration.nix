@@ -435,6 +435,7 @@ in {
     bun
     sqlite
     ghidra
+    drawy
 
     #newpackage
 
