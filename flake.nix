@@ -19,7 +19,7 @@
     };
 
     dark-text.url = "github:vimjoyer/dark-text";
-    stylix.url = "github:danth/stylix/pull/2337/head";
+    stylix.url = "github:danth/stylix";
   };
 
   outputs = {

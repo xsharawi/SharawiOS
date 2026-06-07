@@ -470,6 +470,7 @@ in {
     grimblast
     vesktop
     awww
+    emacs
   ];
 
   xdg = {
