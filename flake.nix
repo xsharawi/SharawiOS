@@ -13,10 +13,6 @@
       url = "github:NotAShelf/nvf";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    noctalia = {
-      url = "github:noctalia-dev/noctalia-shell";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
 
     dark-text.url = "github:vimjoyer/dark-text";
     stylix.url = "github:danth/stylix";
@@ -54,7 +50,6 @@
         }
         inputs.stylix.nixosModules.stylix
         nvf.nixosModules.default
-        ./noctalia.nix
       ];
     };
     packages = forAllSystems (

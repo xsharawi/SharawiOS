@@ -431,7 +431,6 @@ in {
     linux-wallpaperengine
     binaryninja-free
     st
-    rpcs3
     bun
     sqlite
     ghidra
