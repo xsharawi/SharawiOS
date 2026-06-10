@@ -75,12 +75,11 @@ in {
   wayland.windowManager.hyprland = {
     systemd.enable = true;
 
+    configType = "hyprlang";
     xwayland.enable = true;
     enable = true;
 
     settings = {
-      # Autostart.
-
       ecosystem = {
         no_update_news = true;
       };

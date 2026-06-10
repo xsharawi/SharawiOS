@@ -263,9 +263,12 @@ in {
     gparted
     grub2
     clang
+    clang-tools
+    c-for-go
     rustup
     cargo
     gcc
+    ccacheWrapper
     fzf
     fd
     ripgrep
@@ -519,7 +522,7 @@ in {
     };
   };
 
-  documentation.man.generateCaches = false;
+  documentation.man.cache.enable = false;
 
   # This value determines the NixOS release from which the default
   # settings for stateful data, like file locations and database versions
