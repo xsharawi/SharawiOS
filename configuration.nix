@@ -438,6 +438,8 @@ in {
     sqlite
     ghidra
     drawy
+    dolphin-emu
+    gopher64
 
     #newpackage
 

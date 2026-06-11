@@ -539,8 +539,10 @@ in {
         vim = "nvim";
       };
     };
+
     carapace.enable = true;
     carapace.enableNushellIntegration = true;
+
     zoxide.enableNushellIntegration = true;
     zoxide.enable = true;
     kitty = {
