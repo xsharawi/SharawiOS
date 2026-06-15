@@ -18,6 +18,7 @@ in {
     # want to update the value, then make sure to first check the Home Manager
     # release notes.
     stateVersion = "24.05"; # Please read the comment before changing.
+    file.".tmux.conf".source = ./extra/.tmux.conf;
 
     # The home.packages option allows you to install Nix packages into your
     # environment.
@@ -29,7 +30,6 @@ in {
       (pkgs.writeShellScriptBin "up" ''
         nh os switch /etc/nixos --update && dark-text --death --text "Nixos Rebuilt" --duration 1000
       '')
-
       (pkgs.writeShellScriptBin "fih" ''
         ${lib.getExe pkgs.fish}
       '')
@@ -38,6 +38,69 @@ in {
       # goated get and iynaix as always
       (pkgs.writeShellScriptBin "ns" ''
         ${pkgs.nix-search-tv.src}/nixpkgs.sh $@
+      '')
+
+      (pkgs.writeShellScriptBin "tmux-save-layout" ''
+        set -euo pipefail
+        state_dir="$HOME/.local/state/tmux"
+        mkdir -p "$state_dir"
+
+        tmux list-sessions -F "#{session_path}" 2>/dev/null | sort -u | while read -r session_path; do
+            [[ -d "$session_path" ]] || continue
+
+            session_name=$(basename "$session_path" | tr . _)
+
+            # find pane count in the "main" window (if exists)
+            pane_count=1
+
+            if tmux has-session -t "$session_name" 2>/dev/null; then
+                pane_count=$( tmux list-panes -t "$session_name:1" 2>/dev/null | wc -l)
+            fi
+
+            echo "$session_path|$pane_count"
+        done > "$state_dir/layout"
+      '')
+
+      (pkgs.writeShellScriptBin "tmux-restore-layout" ''
+        set -euo pipefail
+        state_dir="$HOME/.local/state/tmux"
+        file="$state_dir/layout"
+
+        [[ -f "$file" ]] || exit 0
+
+        while IFS='|' read -r session_path pane_count; do
+          [[ -d "$session_path" ]] || continue
+
+          session_name=$(basename "$session_path" | tr . _)
+
+          # create session via your existing logic
+          tmux-sessionizer "$session_path"
+
+          # ensure main window exists
+          if ! tmux has-session -t "$session_name" 2>/dev/null; then
+            continue
+          fi
+
+          window="$session_name:1"
+
+          # normalize pane count
+          current=$(tmux list-panes -t "$window" 2>/dev/null | wc -l)
+
+          if (( pane_count <= 1 )); then
+            continue
+          fi
+
+          # add missing panes
+          while (( current < pane_count )); do
+            tmux split-window -t "$window" -c "$session_path"
+            current=$((current + 1))
+          done
+
+          # optional: clean layout
+          tmux select-layout -t "$window" tiled >/dev/null 2>&1 || true
+
+        done < "$file"
+
       '')
     ];
 
