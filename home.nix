@@ -34,12 +34,10 @@ in {
         ${lib.getExe pkgs.fish}
       '')
 
-      (pkgs.writeShellScriptBin "screenshot" ''
-        #!/usr/bin/env bash
-        FILE=$(mktemp /tmp/hypr-freeze-XXXX.png)
-        grimblast save output "$FILE"
-        swayimg -f "$FILE"
-        [ -f "$FILE" ] && rm "$FILE"
+      # prevent IFD, thanks @Michael-C-Buckley
+      # goated get and iynaix as always
+      (pkgs.writeShellScriptBin "ns" ''
+        ${pkgs.nix-search-tv.src}/nixpkgs.sh $@
       '')
     ];
 
@@ -90,7 +88,7 @@ in {
 
       exec-once = [
         # "wl-clip-persist --clipboard both"
-        "xrandr --output \"DP-1\" --primary"
+        "xrandr --output DP-1 --primary"
         "nm-applet --indicator &"
         "kdeconnect-indicator &"
         "waybar &"
@@ -211,7 +209,7 @@ in {
         "$mainMod, 8, workspace, 8"
         "$mainMod, 9, workspace, 9"
         "$mainMod, 0, workspace, 10"
-        "$mainMod, Z, exec, screenshot"
+        "$mainMod, Z, exec, woomer --monitor DP-1"
       ];
 
       windowrule = [

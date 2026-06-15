@@ -244,6 +244,14 @@
       };
       typescript.enable = true;
       kotlin.enable = true;
+      tsx = {
+        enable = true;
+        format.enable = true;
+        lsp.servers = [
+          "typescript-language-server"
+          "emmet-ls"
+        ];
+      };
       typescript.lsp.servers = [
         "typescript-language-server"
         "emmet-ls"

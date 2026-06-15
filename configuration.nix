@@ -7,9 +7,23 @@
   retroarchWithCores = pkgs.retroarch.withCores (
     cores:
       with cores; [
+        mesen
         bsnes
+        sameboy
+        gambatte
         mgba
-        quicknes
+        parallel-n64
+        melonds
+        citra
+        dolphin
+        genesis-plus-gx
+        flycast
+        beetle-psx
+        pcsx2
+        ppsspp
+        fbneo
+        beetle-vb
+        gw
       ]
   );
 in {
@@ -343,7 +357,6 @@ in {
     swaylock
     swaylock-effects
     pipes
-    libsForQt5.qt5ct
     stdmanpages
     man-pages
     man-pages-posix
@@ -397,7 +410,6 @@ in {
     logiops
     godot
     gopls
-    libsForQt5.qt5.qtwebsockets
     playerctl
     pavucontrol
     sshfs
@@ -440,6 +452,9 @@ in {
     drawy
     dolphin-emu
     gopher64
+    scrcpy
+    woomer
+    nix-search-tv
 
     #newpackage
 
