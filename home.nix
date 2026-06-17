@@ -37,69 +37,97 @@ in {
       # prevent IFD, thanks @Michael-C-Buckley
       # goated get and iynaix as always
       (pkgs.writeShellScriptBin "ns" ''
-        ${pkgs.nix-search-tv.src}/nixpkgs.sh $@
+        export FZF_DEFAULT_OPTS="--cycle --height 100% --border --reverse"
+
+         ${pkgs.nix-search-tv.src}/nixpkgs.sh $@
       '')
 
       (pkgs.writeShellScriptBin "tmux-save-layout" ''
         set -euo pipefail
+
         state_dir="$HOME/.local/state/tmux"
         mkdir -p "$state_dir"
 
-        tmux list-sessions -F "#{session_path}" 2>/dev/null | sort -u | while read -r session_path; do
+        tmux list-sessions -F "#{session_name} #{session_path}" 2>/dev/null | while read -r session_name session_path; do
             [[ -d "$session_path" ]] || continue
 
-            session_name=$(basename "$session_path" | tr . _)
+            window=$(tmux list-windows -t "$session_name" -F "#{window_index}" | head -n1)
+            window_ref="$session_name:$window"
 
-            # find pane count in the "main" window (if exists)
-            pane_count=1
+            pane_count=$(tmux list-panes -t "$window_ref" -F "#{pane_index}" | wc -l)
 
-            if tmux has-session -t "$session_name" 2>/dev/null; then
-                pane_count=$( tmux list-panes -t "$session_name:1" 2>/dev/null | wc -l)
-            fi
+            cmds=""
 
-            echo "$session_path|$pane_count"
-        done > "$state_dir/layout"
+            while read -r cmd; do
+              case "$cmd" in
+                nvim|vim)
+                  cmds+="nvim;"
+                  ;;
+                *)
+                  cmds+="shell;"
+                  ;;
+              esac
+            done < <(tmux list-panes -t "$window_ref" -F "#{pane_current_command}")
+
+
+        cmds=$(echo "$cmds" | sed 's/;$//')
+            echo "$session_path|$pane_count|$cmds"
+          done > "$state_dir/layout"
       '')
 
       (pkgs.writeShellScriptBin "tmux-restore-layout" ''
         set -euo pipefail
+
         state_dir="$HOME/.local/state/tmux"
         file="$state_dir/layout"
 
         [[ -f "$file" ]] || exit 0
 
-        while IFS='|' read -r session_path pane_count; do
+        while IFS='|' read -r session_path pane_count cmds; do
           [[ -d "$session_path" ]] || continue
 
-          session_name=$(basename "$session_path" | tr . _)
+          session_name=$(basename "$session_path")
 
-          # create session via your existing logic
           tmux-sessionizer "$session_path"
 
-          # ensure main window exists
-          if ! tmux has-session -t "$session_name" 2>/dev/null; then
-            continue
-          fi
+          tmux has-session -t "$session_name" 2>/dev/null || continue
 
-          window="$session_name:1"
+          window=$(tmux list-windows -t "$session_name" -F "#{window_index}" | head -n1)
+          window_ref="$session_name:$window"
 
-          # normalize pane count
-          current=$(tmux list-panes -t "$window" 2>/dev/null | wc -l)
+          IFS=';' read -ra cmd_array <<< "$cmds"
 
-          if (( pane_count <= 1 )); then
-            continue
-          fi
+          current=$(tmux list-panes -t "$window_ref" -F "#{pane_index}" | wc -l)
 
-          # add missing panes
+          # ensure pane count
           while (( current < pane_count )); do
-            tmux split-window -t "$window" -c "$session_path"
+            tmux split-window -v -t "$window_ref" -c "$session_path"
             current=$((current + 1))
           done
 
-          # optional: clean layout
-          tmux select-layout -t "$window" tiled >/dev/null 2>&1 || true
+          tmux select-layout -t "$window_ref" even-vertical >/dev/null 2>&1 || true
+
+          # restore commands per pane
+          pane_idx=0
+          for cmd in "$${cmd_array[@]}"; do
+            target="$window_ref.$pane_idx"
+
+            case "$cmd" in
+              nvim)
+                tmux send-keys -t "$target" "nvim ." C-m
+                ;;
+              *)
+                # leave shell as-is
+                ;;
+            esac
+
+            pane_idx=$((pane_idx + 1))
+          done
 
         done < "$file"
+
+        # kill default session "0"
+        tmux has-session -t "0" 2>/dev/null && tmux kill-session -t "0"
 
       '')
     ];

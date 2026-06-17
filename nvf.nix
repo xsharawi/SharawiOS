@@ -244,6 +244,14 @@
       };
       typescript.enable = true;
       kotlin.enable = true;
+      svelte = {
+        enable = true;
+        format.enable = true;
+        lsp.servers = [
+          "svelte-language-server"
+          "emmet-ls"
+        ];
+      };
       tsx = {
         enable = true;
         format.enable = true;
