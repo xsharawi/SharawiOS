@@ -101,11 +101,11 @@ in {
 
           # ensure pane count
           while (( current < pane_count )); do
-            tmux split-window -v -t "$window_ref" -c "$session_path"
+            tmux split-window -h -t "$window_ref" -c "$session_path"
             current=$((current + 1))
           done
 
-          tmux select-layout -t "$window_ref" even-vertical >/dev/null 2>&1 || true
+          tmux select-layout -t "$window_ref" >/dev/null 2>&1 || true
 
           # restore commands per pane
           pane_idx=0
@@ -301,6 +301,7 @@ in {
         "$mainMod, 9, workspace, 9"
         "$mainMod, 0, workspace, 10"
         "$mainMod, Z, exec, woomer --monitor DP-1"
+        "$mainMod, Tab, cyclenext"
       ];
 
       windowrule = [
