@@ -30,10 +30,13 @@ in {
   imports = [
     ./hardware-configuration.nix
     inputs.home-manager.nixosModules.default
+    inputs.mangowm.nixosModules.mango
     ./fih.nix
     ./greetmytui.nix
+    ./espanso.nix
   ];
   programs = {
+    mango.enable = true;
     nvf = {
       enable = true;
       settings = import ./nvf.nix;
@@ -423,7 +426,6 @@ in {
     odin
     quickshell
     bolt-launcher
-    espanso-wayland
     busybox
     kdePackages.qt6ct
     tuigreet
