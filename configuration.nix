@@ -31,7 +31,6 @@ in {
     ./hardware-configuration.nix
     inputs.home-manager.nixosModules.default
     ./fih.nix
-    ./espanso.nix
     ./greetmytui.nix
   ];
   programs = {
@@ -481,9 +480,7 @@ in {
     waybar
     egl-wayland
     swaynotificationcenter
-    cliphist
     wl-clip-persist
-    wl-clipboard
     hyprcursor
     brightnessctl
     grimblast

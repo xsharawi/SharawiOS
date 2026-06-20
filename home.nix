@@ -178,7 +178,7 @@ in {
       };
 
       exec-once = [
-        # "wl-clip-persist --clipboard both"
+        "wl-clip-persist --clipboard regular"
         "xrandr --output DP-1 --primary"
         "nm-applet --indicator &"
         "kdeconnect-indicator &"
