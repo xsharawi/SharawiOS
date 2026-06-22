@@ -30,11 +30,13 @@ in {
   imports = [
     ./hardware-configuration.nix
     inputs.home-manager.nixosModules.default
+    inputs.mangowm.nixosModules.mango
     ./fih.nix
     ./greetmytui.nix
     ./espanso.nix
   ];
   programs = {
+    mango.enable = true;
     nvf = {
       enable = true;
       settings = import ./nvf.nix;
