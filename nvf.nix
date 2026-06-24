@@ -236,10 +236,9 @@
       sql.enable = true;
       clang = {
         enable = true;
-        format.enable = false;
+        format.enable = true;
         format.type = [
           "clang-format"
-          "indent"
         ];
       };
       typescript.enable = true;
@@ -433,6 +432,7 @@
     ];
 
     diagnostics.nvim-lint.enable = true;
+    diagnostics.presets.cpplint.enable = lib.mkForce false;
 
     spellcheck = {
       enable = true;
