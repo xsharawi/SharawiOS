@@ -458,6 +458,7 @@ in {
     nix-search-tv
     nnd
     neovide
+    terraform
 
     #newpackage
 
