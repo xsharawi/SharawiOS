@@ -652,8 +652,12 @@
       vim.keymap.set('n', '<leader>cc', ':Compile<CR>', { desc = "Compile project" })
       vim.opt.errorformat = "%f:%l:%c: %m"
 
+      vim.o.guifont="JetBrainsMonoNL Nerd Font:h13"
+      if vim.g.neovide then
+          vim.g['neovide_cursor_vfx_mode'] = 'railgun'
+          vim.cmd("highlight Normal guibg=#1e2030")
+      end
     '';
-    # vim.keymap.set('n', '<leader>f', "<cmd>e <cfile><CR><C-W>K<C-W>j<leader>x")
     autocmds = [
       # {
       #   enable = true;

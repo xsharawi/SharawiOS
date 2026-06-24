@@ -456,6 +456,8 @@ in {
     scrcpy
     woomer
     nix-search-tv
+    nnd
+    neovide
 
     #newpackage
 

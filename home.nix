@@ -645,7 +645,7 @@ in {
         scroll_back = -1;
         mouse_hide_wait = 2.0;
         font_family = "JetBrainsMono Nerd Font";
-        font_size = 11;
+        font_size = 13;
         enable_audio_bell = true;
         cursor_trail = 3;
         remember_window_size = "yes";
