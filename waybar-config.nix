@@ -56,31 +56,6 @@
       format = "⏲ {:%I:%M %p 🗓 %d-%m}";
     };
 
-    battery = {
-      states = {
-        warning = 30;
-        critical = 15;
-      };
-      format = "{icon}";
-      format-charging = "";
-      format-plugged = "";
-      format-alt = "{icon}";
-      format-icons = [
-        ""
-        ""
-        ""
-        ""
-        ""
-        ""
-        ""
-        ""
-        ""
-        ""
-        ""
-        ""
-      ];
-    };
-
     pulseaudio = {
       format = "{icon} {volume}%";
       format-muted = "🔇";
