@@ -114,6 +114,7 @@ in {
     # Bootloader.
     loader.systemd-boot.enable = true;
     loader.efi.canTouchEfiVariables = true;
+    kernelModules = ["kvm-intel" "kvm-nvidia"];
     kernelPackages = pkgs.linuxPackages_xanmod_latest;
     initrd.luks.devices."luks-695f8df6-9ca9-45ab-a495-ce49f4675b37".device = "/dev/disk/by-uuid/695f8df6-9ca9-45ab-a495-ce49f4675b37";
     initrd.systemd.enable = true;
@@ -190,6 +191,7 @@ in {
     # networking.firewall.allowedUDPPorts = [ ... ];
     # Or disable the firewall altogether.
     # networking.firewall.enable = false;
+    firewall.trustedInterfaces = ["virbr0"];
   };
   nix = {
     # flakes
@@ -198,8 +200,6 @@ in {
         "nix-command"
         "flakes"
       ];
-      extra-substituters = ["https://noctalia.cachix.org"];
-      extra-trusted-public-keys = ["noctalia.cachix.org-1:pCOR47nnMEo5thcxNDtzWpOxNFQsBRglJzxWPp3dkU4="];
     };
 
     optimise.automatic = true;
@@ -207,11 +207,6 @@ in {
 
     nixPath = ["nixpkgs=${inputs.nixpkgs}"];
     package = pkgs.nixVersions.latest;
-
-    extraOptions = ''
-      extra-substituters = https://devenv.cachix.org
-      extra-trusted-public-keys = devenv.cachix.org-1:w1cLUi8dv3hnoSPGAuibQv+f9TZLr6cv/Hm9XgU50cw=
-    '';
   };
 
   # Set your time zone.
@@ -459,6 +454,10 @@ in {
     nnd
     neovide
     terraform
+    terraform-providers.dmacvicar_libvirt
+    dnsmasq
+    libvirt
+    cdrkit
 
     #newpackage
 
@@ -513,8 +512,17 @@ in {
   };
 
   # vms
-  virtualisation.libvirtd.enable = true;
   virtualisation.docker.enable = true;
+  virtualisation.kvmgt.enable = true;
+  virtualisation.libvirtd = {
+    enable = true;
+    qemu = {
+      package = pkgs.qemu_kvm;
+      runAsRoot = true;
+      swtpm.enable = true;
+      vhostUserPackages = [pkgs.virtiofsd];
+    };
+  };
   # stylix
   stylix = {
     enable = true;
