@@ -459,6 +459,7 @@ in {
     libvirt
     cdrkit
     mommy
+    gf
 
     #newpackage
 
