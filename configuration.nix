@@ -458,7 +458,6 @@ in {
     dnsmasq
     libvirt
     cdrkit
-    mommy
     gf
 
     #newpackage
