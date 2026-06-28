@@ -380,8 +380,8 @@ in {
     rubyPackages.rexml
     inputs.zen-browser.packages."${pkgs.stdenv.hostPlatform.system}".default
     inputs.dark-text.packages.${pkgs.stdenv.hostPlatform.system}.default
-    elixir
-    elixir-ls
+    beamPackages.elixir
+    beamPackages.elixir-ls
     ocaml
     mangohud
     fuse
