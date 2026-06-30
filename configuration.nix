@@ -36,6 +36,14 @@ in {
     ./espanso.nix
   ];
   programs = {
+    git = {
+      enable = true;
+      config = {
+        init = {
+          defaultBranch = "master";
+        };
+      };
+    };
     mango.enable = true;
     nvf = {
       enable = true;
@@ -267,7 +275,6 @@ in {
   environment.systemPackages = with pkgs; [
     vim
     wget
-    git
     keepassxc
     xclip
     linux-firmware
