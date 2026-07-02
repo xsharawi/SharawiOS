@@ -204,7 +204,7 @@ in {
       };
 
       "$mainMod" = "SUPER";
-      "$TERMINAL" = "kitty";
+      "$TERMINAL" = "ghostty";
       general = {
         layout = "dwindle";
         allow_tearing = true;

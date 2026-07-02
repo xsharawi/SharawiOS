@@ -466,6 +466,10 @@ in {
     libvirt
     cdrkit
     gf
+    dina-font
+    ghostty
+    jujutsu
+    jj-fzf
 
     #newpackage
 
@@ -496,7 +500,8 @@ in {
     hyprcursor
     brightnessctl
     grimblast
-    vesktop
+    # vesktop
+    discord
     awww
     emacs
   ];
