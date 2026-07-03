@@ -194,7 +194,8 @@ in {
       ];
 
       input = {
-        kb_layout = "us";
+        kb_layout = "us,ara";
+        kb_options = "grp:alt_shift_toggle";
         numlock_by_default = true;
         follow_mouse = 2;
         sensitivity = 0;
