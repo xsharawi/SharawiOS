@@ -42,7 +42,7 @@ in {
       bind -M insert ctrl-y accept-autosuggestion
 
       alias ls='eza -a --icons --git'
-      alias ll='eza -l -a --icons --git'
+      alias ll='eza -l -h -a --icons --git'
       alias cdd='cd -'
       alias grep='grep --color=auto'
       alias nd='nix develop -c $SHELL'

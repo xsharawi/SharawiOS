@@ -195,7 +195,6 @@ in {
 
       input = {
         kb_layout = "us,ara";
-        kb_options = "grp:alt_shift_toggle";
         numlock_by_default = true;
         follow_mouse = 2;
         sensitivity = 0;
@@ -303,6 +302,7 @@ in {
         "$mainMod, 0, workspace, 10"
         "$mainMod, Z, exec, woomer --monitor DP-1"
         "$mainMod, Tab, cyclenext"
+        "ctrl, escape, exec, hyprctl switchxkblayout moergo-glove80-left-keyboard next"
       ];
 
       windowrule = [
