@@ -126,7 +126,6 @@ in {
     kernelPackages = pkgs.linuxPackages_xanmod_latest;
     initrd.luks.devices."luks-695f8df6-9ca9-45ab-a495-ce49f4675b37".device = "/dev/disk/by-uuid/695f8df6-9ca9-45ab-a495-ce49f4675b37";
     initrd.systemd.enable = true;
-    plymouth.enable = true;
   };
   services = {
     power-profiles-daemon.enable = true;
