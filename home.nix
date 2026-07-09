@@ -531,11 +531,14 @@ in {
       enable = true;
       shellAbbrs = {
         gc = {
-          position = "anywhere";
+          position = "command";
           setCursor = "%";
           expansion = "git commit -am \"%\"";
         };
-        gp = "git push";
+        gp = {
+          expansion = "git push";
+          position = "command";
+        };
       };
     };
     nushell = {

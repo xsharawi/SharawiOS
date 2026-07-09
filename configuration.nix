@@ -128,6 +128,7 @@ in {
     initrd.systemd.enable = true;
   };
   services = {
+    ratbagd.enable = true;
     power-profiles-daemon.enable = true;
     upower.enable = true;
     dbus.implementation = "broker";
@@ -469,6 +470,7 @@ in {
     ghostty
     jujutsu
     jj-fzf
+    piper
 
     #newpackage
 
