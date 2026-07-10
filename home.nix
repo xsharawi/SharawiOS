@@ -148,6 +148,8 @@ in {
 
     # forceing because stylix is dumb
     pointerCursor = {
+      enable = true;
+
       x11.enable = true;
       gtk.enable = true;
       package = lib.mkForce pkgs.banana-cursor;
@@ -666,6 +668,9 @@ in {
     # Let Home Manager install and manage itself.
     home-manager.enable = true;
   };
+
+  services.walker.enable = true;
+  services.elephant.enable = true;
 
   stylix = {
     enable = true;
