@@ -471,7 +471,6 @@ in {
     jujutsu
     jj-fzf
     piper
-    rr
 
     #newpackage
 
