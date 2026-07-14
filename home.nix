@@ -184,7 +184,7 @@ in {
         "xrandr --output DP-1 --primary"
         "nm-applet --indicator &"
         "kdeconnect-indicator &"
-        "waybar &"
+        "noctalia"
         "awww-daemon &"
         "keepassxc"
         "[workspace 1 silent] obsidian"

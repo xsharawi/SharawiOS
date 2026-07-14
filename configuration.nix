@@ -31,6 +31,7 @@ in {
     ./hardware-configuration.nix
     inputs.home-manager.nixosModules.default
     inputs.mangowm.nixosModules.mango
+    inputs.noctalia.nixosModules.default
     ./fih.nix
     ./greetmytui.nix
     ./espanso.nix
@@ -117,6 +118,12 @@ in {
     # direnv
     direnv.enable = true;
     virt-manager.enable = true;
+
+    noctalia = {
+      enable = true;
+      recommendedServices.enable = true;
+      systemd.enable = true;
+    };
   };
   boot = {
     # Bootloader.
@@ -208,6 +215,8 @@ in {
         "nix-command"
         "flakes"
       ];
+      extra-substituters = ["https://noctalia.cachix.org"];
+      extra-trusted-public-keys = ["noctalia.cachix.org-1:pCOR47nnMEo5thcxNDtzWpOxNFQsBRglJzxWPp3dkU4="];
     };
 
     optimise.automatic = true;
