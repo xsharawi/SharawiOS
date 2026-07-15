@@ -182,7 +182,6 @@ in {
       exec-once = [
         "wl-clip-persist --clipboard regular"
         "xrandr --output DP-1 --primary"
-        "nm-applet --indicator &"
         "kdeconnect-indicator &"
         "noctalia"
         "awww-daemon &"
@@ -276,11 +275,11 @@ in {
       bind = [
         "$mainMod, Q, killactive,"
         "$mainMod SHIFT , Q, exec, hyprctl dispatch exit"
-        "$mainMod, W, exec, swaylock --color 000000"
+        "$mainMod, W, exec, noctalia msg session lock"
         "$mainMod SHIFT, Space, togglefloating"
         "$mainMod, F, exec, hyprctl dispatch fullscreen"
         "$mainMod SHIFT, F,tagwindow, fakefs"
-        "$mainMod, Space, exec, pkill rofi || rofi -show drun -show-icons"
+        "$mainMod, Space, exec, noctalia msg panel-open launcher"
 
         "$mainMod, M, exec, pamixer --toggle-mute"
         "$mainMod , U, movecurrentworkspacetomonitor, +1"
@@ -682,7 +681,6 @@ in {
       swaylock.enable = true;
       sway.enable = true;
       kde.enable = true;
-      swaync.enable = true;
       gtk.enable = true;
       qt.enable = true;
       qt.platform = "kde";

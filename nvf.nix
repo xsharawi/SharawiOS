@@ -206,6 +206,7 @@
       enableFormat = true;
       enableTreesitter = true;
       enableExtraDiagnostics = true;
+
       assembly.enable = true;
 
       go = {
@@ -221,19 +222,18 @@
       elixir.enable = true;
 
       ocaml.enable = true;
-      php.enable = true;
       python.enable = true;
-      ruby.enable = true;
       terraform.enable = true;
       yaml.enable = true;
       rust.enable = true;
-      qml.enable = true;
       nix.enable = true;
       nix.lsp.servers = [
         "nil"
         "nixd"
       ];
+
       sql.enable = true;
+
       clang = {
         enable = true;
         format.enable = true;
@@ -241,8 +241,13 @@
           "clang-format"
         ];
       };
+
       typescript.enable = true;
-      kotlin.enable = true;
+      typescript.lsp.servers = [
+        "typescript-go"
+        "emmet-ls"
+      ];
+
       svelte = {
         enable = true;
         format.enable = true;
@@ -255,20 +260,17 @@
         enable = true;
         format.enable = true;
         lsp.servers = [
-          "typescript-language-server"
+          "typescript-go"
           "emmet-ls"
         ];
       };
-      typescript.lsp.servers = [
-        "typescript-language-server"
-        "emmet-ls"
-      ];
-      zig.enable = true;
+
       markdown = {
         enable = true;
         format.enable = true;
         extensions.markview-nvim.enable = true;
       };
+
       lua.enable = true;
       odin.enable = true;
 
@@ -285,11 +287,7 @@
     keymaps = [
       {
         key = "<F1>";
-        mode = [
-          "n"
-          "i"
-          "v"
-        ];
+        mode = ["n" "i" "v"];
         action = "<ESC>";
       }
       {
@@ -657,6 +655,8 @@
           vim.g['neovide_cursor_vfx_mode'] = 'railgun'
           vim.cmd("highlight Normal guibg=#1e2030")
       end
+      local leap = require 'leap'
+      vim.keymap.set({ 'n', 'x', 'o' }, '<leader>sa', '<Plug>(leap)')
     '';
     autocmds = [
       # {

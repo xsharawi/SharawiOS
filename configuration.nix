@@ -480,6 +480,7 @@ in {
     jujutsu
     jj-fzf
     piper
+    ddccontrol
 
     #newpackage
 
@@ -505,7 +506,6 @@ in {
     })
     waybar
     egl-wayland
-    swaynotificationcenter
     wl-clip-persist
     hyprcursor
     brightnessctl

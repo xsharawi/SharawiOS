@@ -65,7 +65,7 @@
 
     "custom/lock" = {
       tooltip = false;
-      on-click = "sh -c '(sleep 0.5s; swaylock --color 000000)' & disown";
+      on-click = "sh -c '(sleep 0.5s; noctalia msg session lock)' & disown";
       format = "";
     };
 
