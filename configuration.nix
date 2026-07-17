@@ -51,11 +51,11 @@ in {
       settings = import ./nvf.nix;
     };
 
-    # nh
     nh = {
       enable = true;
       flake = "/etc/nixos";
     };
+
     dconf.enable = true;
 
     # gaming stuff
@@ -115,7 +115,6 @@ in {
       xwayland
     ];
 
-    # direnv
     direnv.enable = true;
     virt-manager.enable = true;
 
@@ -125,8 +124,8 @@ in {
       systemd.enable = true;
     };
   };
+
   boot = {
-    # Bootloader.
     loader.systemd-boot.enable = true;
     loader.efi.canTouchEfiVariables = true;
     kernelModules = ["kvm-intel" "kvm-nvidia"];
@@ -134,11 +133,15 @@ in {
     initrd.luks.devices."luks-695f8df6-9ca9-45ab-a495-ce49f4675b37".device = "/dev/disk/by-uuid/695f8df6-9ca9-45ab-a495-ce49f4675b37";
     initrd.systemd.enable = true;
   };
+
   services = {
     ratbagd.enable = true;
+
     power-profiles-daemon.enable = true;
     upower.enable = true;
+
     dbus.implementation = "broker";
+
     xserver = {
       # Enable the X11 windowing system.
       enable = true;
@@ -147,13 +150,11 @@ in {
       videoDrivers = ["nvidia"];
     };
 
-    # gui
     displayManager.defaultSession = "hyprland";
     envfs.enable = true;
 
-    # Enable CUPS to print documents.
     printing.enable = false;
-    # Enable sound with pipewire.
+
     pipewire = {
       enable = true;
       wireplumber = {
@@ -183,7 +184,6 @@ in {
       package = pkgs.mariadb;
     };
 
-    # flat
     flatpak.enable = true;
 
     syncthing = {
@@ -194,22 +194,20 @@ in {
     # FUCK YOUR ACCESSIBLITY MY SYSTEM IS ALREADY ACCESSIBLE ENOUGH
     speechd.enable = lib.mkForce false;
     orca.enable = lib.mkForce false;
+
     postgresql.enable = true;
     postgresql.package = pkgs.postgresql_17;
   };
+
   networking = {
-    hostName = "vim"; # Define your hostname.
-    # Enable networking
+    hostName = "vim";
     networkmanager.enable = true;
-    # Open ports in the firewall.
+
     firewall.allowedTCPPorts = [8081 27031];
-    # networking.firewall.allowedUDPPorts = [ ... ];
-    # Or disable the firewall altogether.
-    # networking.firewall.enable = false;
     firewall.trustedInterfaces = ["virbr0"];
   };
+
   nix = {
-    # flakes
     settings = {
       experimental-features = [
         "nix-command"
@@ -226,11 +224,10 @@ in {
     package = pkgs.nixVersions.latest;
   };
 
-  # Set your time zone.
   time.timeZone = "Asia/Hebron";
 
-  # Select internationalisation properties.
   i18n.defaultLocale = "en_US.UTF-8";
+
   hardware = {
     enableAllFirmware = true;
 
@@ -240,9 +237,11 @@ in {
 
     nvidia.open = false;
     nvidia.modesetting.enable = true;
+
     opentabletdriver.enable = true;
     opentabletdriver.daemon.enable = true;
   };
+
   security = {
     rtkit.enable = true;
     pam.services.swaylock = {};
@@ -253,7 +252,6 @@ in {
     };
   };
 
-  # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.xsharawi = {
     isNormalUser = true;
     description = "xsharawi";
@@ -277,7 +275,6 @@ in {
     };
   };
 
-  # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
   nixpkgs.config.android_sdk.accept_license = true;
 
@@ -510,7 +507,6 @@ in {
     hyprcursor
     brightnessctl
     grimblast
-    # vesktop
     discord
     awww
     emacs
@@ -534,19 +530,21 @@ in {
     STEAM_EXTRA_COMPAT_TOOLS_PATH = "/home/xsharawi/.steam/root/compatibilitytools.d";
   };
 
-  # vms
-  virtualisation.docker.enable = true;
-  virtualisation.kvmgt.enable = true;
-  virtualisation.libvirtd = {
-    enable = true;
-    qemu = {
-      package = pkgs.qemu_kvm;
-      runAsRoot = true;
-      swtpm.enable = true;
-      vhostUserPackages = [pkgs.virtiofsd];
+  virtualisation = {
+    docker.enable = true;
+    kvmgt.enable = true;
+
+    libvirtd = {
+      enable = true;
+      qemu = {
+        package = pkgs.qemu_kvm;
+        runAsRoot = true;
+        swtpm.enable = true;
+        vhostUserPackages = [pkgs.virtiofsd];
+      };
     };
   };
-  # stylix
+
   stylix = {
     enable = true;
     base16Scheme = ./catppuccin-mocha.yaml;
@@ -577,11 +575,6 @@ in {
   # make a symlink of flake within the generation (e.g. /run/current-system/src)
   system.systemBuilderCommands = "ln -s ${inputs.self.sourceInfo.outPath} $out/src";
 
-  # This value determines the NixOS release from which the default
-  # settings for stateful data, like file locations and database versions
-  # on your system were taken. It‘s perfectly fine and recommended to leave
-  # this value at the release version of the first install of this system.
-  # Before changing this value read the documentation for this option
-  # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
-  system.stateVersion = "23.11"; # Did you read the comment?
+  # something something don't change unless new install something something
+  system.stateVersion = "23.11";
 }

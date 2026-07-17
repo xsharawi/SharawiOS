@@ -10,18 +10,10 @@ in {
     username = "xsharawi";
     homeDirectory = "/home/xsharawi";
 
-    # This value determines the Home Manager release that your configuration is
-    # compatible with. This helps avoid breakage when a new Home Manager release
-    # introduces backwards incompatible changes.
-    #
-    # You should not change this value, even if you update Home Manager. If you do
-    # want to update the value, then make sure to first check the Home Manager
-    # release notes.
-    stateVersion = "24.05"; # Please read the comment before changing.
+    # something something don't change unless new install something something
+    stateVersion = "24.05";
     file.".tmux.conf".source = ./extra/.tmux.conf;
 
-    # The home.packages option allows you to install Nix packages into your
-    # environment.
     packages = [
       (pkgs.writeShellScriptBin "nsh" ''
         nh os switch /etc/nixos && dark-text --death --text "Nixos Rebuilt" --duration 1000
@@ -157,6 +149,7 @@ in {
       name = lib.mkForce "Banana";
     };
   };
+
   imports = [
     ./xdgmime.nix
     ./waybar-style.nix
@@ -390,7 +383,6 @@ in {
     ";
   };
 
-  #also virt
   dconf.settings = {
     "org/virt-manager/virt-manager/connections" = {
       autoconnect = ["qemu:///system"];
@@ -528,6 +520,7 @@ in {
         scan_timeout = 50;
       };
     };
+
     fish = {
       enable = true;
       shellAbbrs = {
@@ -542,6 +535,7 @@ in {
         };
       };
     };
+
     nushell = {
       enable = true;
       # for editing directly to config.nu
@@ -640,6 +634,7 @@ in {
 
     zoxide.enableNushellIntegration = true;
     zoxide.enable = true;
+
     kitty = {
       enable = true;
       settings = {
@@ -662,14 +657,13 @@ in {
 
     rofi.enable = true;
     rofi.theme = "${pkgs.rofi}/share/rofi/themes/purple";
+
     waybar.enable = true;
     waybar.settings = import ./waybar-config.nix;
+
     # Let Home Manager install and manage itself.
     home-manager.enable = true;
   };
-
-  services.walker.enable = true;
-  services.elephant.enable = true;
 
   stylix = {
     enable = true;

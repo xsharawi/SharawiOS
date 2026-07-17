@@ -16,10 +16,12 @@
         };
       };
     };
+
     extraPlugins = {
       undotree = {
         package = pkgs.vimPlugins.undotree;
       };
+
       cloak-nvim = {
         package = pkgs.vimPlugins.cloak-nvim;
         setup = ''
@@ -35,15 +37,14 @@
                               cloak_pattern = '=.+',
                               replace = nil,
                           },
-                      },
-          }
-
+                      }, }
         '';
       };
     };
 
     viAlias = true;
     vimAlias = true;
+
     globals = {
       mapleader = " ";
       maplocalleader = " ";
@@ -197,6 +198,7 @@
     binds = {
       whichKey.enable = true;
     };
+
     notify = {
       nvim-notify.enable = true;
     };
@@ -247,7 +249,6 @@
         "typescript-go"
         "emmet-ls"
       ];
-
       svelte = {
         enable = true;
         format.enable = true;
@@ -361,7 +362,6 @@
         mode = ["n"];
         action = "<cmd>cprev<CR>zz";
       }
-
       {
         key = "<C-n>";
         mode = ["n"];
@@ -481,16 +481,15 @@
       diffview-nvim.enable = true;
       icon-picker.enable = true;
       surround.enable = true;
-      leetcode-nvim.enable = true;
-
-      motion = {
-        leap.enable = true;
-      };
       direnv.enable = true;
       mkdir.enable = true;
       nix-develop.enable = true;
       preview.markdownPreview.enable = true;
       multicursors.enable = true;
+
+      motion = {
+        leap.enable = true;
+      };
     };
 
     notes = {
@@ -525,6 +524,7 @@
     presence = {
       neocord.enable = true;
     };
+
     luaConfigPost = ''
       vim.g.undotree_WindowLayout = 3
       vim.g.undotree_SplitWidth = 50
@@ -658,13 +658,8 @@
       local leap = require 'leap'
       vim.keymap.set({ 'n', 'x', 'o' }, '<leader>sa', '<Plug>(leap)')
     '';
+
     autocmds = [
-      # {
-      #   enable = true;
-      #   event = ["BufEnter"];
-      #   pattern = ["*"];
-      #   command = "setlocal indentexpr=nvim_treesitter#indent()";
-      # }
       {
         desc = "Preserve last editing position";
         event = ["BufReadPost"];
@@ -712,6 +707,7 @@
         '';
       }
     ];
+
     mini = {
       ai.enable = true;
       files.enable = true;

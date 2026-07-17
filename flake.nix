@@ -3,10 +3,12 @@
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+
     home-manager = {
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
     zen-browser.url = "github:0xc000022070/zen-browser-flake";
 
     nvf = {
@@ -18,12 +20,14 @@
       url = "github:mangowm/mango";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
     noctalia = {
       url = "github:noctalia-dev/noctalia/cachix";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
     dark-text.url = "github:vimjoyer/dark-text";
+
     stylix.url = "github:danth/stylix";
   };
 
@@ -85,11 +89,5 @@
         default = self.apps.${system}.vimrawi;
       }
     );
-
-    # packages.${system}.vimrawi = myNVF.neovim;
-    # apps.${system}.vimrawi = {
-    #   type = "app";
-    #   program = "${myNVF.neovim}/bin/nvim";
-    # };
   };
 }
