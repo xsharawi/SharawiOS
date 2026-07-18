@@ -135,6 +135,7 @@ in {
   };
 
   services = {
+    elephant.enable = true;
     ratbagd.enable = true;
 
     power-profiles-daemon.enable = true;
