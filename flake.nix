@@ -22,8 +22,8 @@
     };
 
     noctalia = {
-      url = "github:noctalia-dev/noctalia/cachix";
-      inputs.nixpkgs.follows = "nixpkgs";
+      url = "github:noctalia-dev/noctalia";
+      # inputs.nixpkgs.follows = "nixpkgs";
     };
 
     dark-text.url = "github:vimjoyer/dark-text";
