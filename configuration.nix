@@ -21,7 +21,6 @@
         beetle-psx
         pcsx2
         ppsspp
-        fbneo
         beetle-vb
         gw
       ]
