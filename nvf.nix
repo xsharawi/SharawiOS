@@ -490,6 +490,7 @@
       motion = {
         leap.enable = true;
       };
+      sleuth.enable = true;
     };
 
     notes = {
