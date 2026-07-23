@@ -176,7 +176,7 @@ in {
         "wl-clip-persist --clipboard regular"
         "xrandr --output DP-1 --primary"
         "kdeconnect-indicator &"
-        "noctalia"
+        "noctalia --daemon"
         "awww-daemon &"
         "keepassxc"
         "[workspace 1 silent] obsidian"
