@@ -29,7 +29,6 @@ in {
   imports = [
     ./hardware-configuration.nix
     inputs.home-manager.nixosModules.default
-    inputs.mangowm.nixosModules.mango
     inputs.noctalia.nixosModules.default
     ./fih.nix
     ./greetmytui.nix
@@ -44,7 +43,6 @@ in {
         };
       };
     };
-    mango.enable = true;
     nvf = {
       enable = true;
       settings = import ./nvf.nix;
@@ -128,7 +126,7 @@ in {
     loader.systemd-boot.enable = true;
     loader.efi.canTouchEfiVariables = true;
     kernelModules = ["kvm-intel" "kvm-nvidia"];
-    kernelPackages = pkgs.linuxPackages_xanmod_latest;
+    kernelPackages = pkgs.cachyosKernels.linuxPackages-cachyos-latest-lto;
     initrd.luks.devices."luks-695f8df6-9ca9-45ab-a495-ce49f4675b37".device = "/dev/disk/by-uuid/695f8df6-9ca9-45ab-a495-ce49f4675b37";
     initrd.systemd.enable = true;
   };
@@ -213,8 +211,14 @@ in {
         "nix-command"
         "flakes"
       ];
-      extra-substituters = ["https://noctalia.cachix.org"];
-      extra-trusted-public-keys = ["noctalia.cachix.org-1:pCOR47nnMEo5thcxNDtzWpOxNFQsBRglJzxWPp3dkU4="];
+      extra-substituters = [
+        "https://attic.xuyh0120.win/lantian"
+        "https://noctalia.cachix.org"
+      ];
+      extra-trusted-public-keys = [
+        "lantian:EeAUQ+W+6r7EtwnmYjeVwx5kOGEBpjlBfPlzGlTNvHc="
+        "noctalia.cachix.org-1:pCOR47nnMEo5thcxNDtzWpOxNFQsBRglJzxWPp3dkU4="
+      ];
     };
 
     optimise.automatic = true;

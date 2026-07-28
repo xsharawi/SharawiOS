@@ -3,6 +3,7 @@
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    nix-cachyos-kernel.url = "github:xddxdd/nix-cachyos-kernel/release";
 
     home-manager = {
       url = "github:nix-community/home-manager";
@@ -13,11 +14,6 @@
 
     nvf = {
       url = "github:NotAShelf/nvf";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
-    mangowm = {
-      url = "github:mangowm/mango";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
@@ -63,6 +59,11 @@
         }
         inputs.stylix.nixosModules.stylix
         nvf.nixosModules.default
+        ({pkgs, ...}: {
+          nixpkgs.overlays = [
+            inputs.nix-cachyos-kernel.overlays.pinned
+          ];
+        })
       ];
     };
     packages = forAllSystems (
