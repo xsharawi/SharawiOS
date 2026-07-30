@@ -29,7 +29,6 @@ in {
   imports = [
     ./hardware-configuration.nix
     inputs.home-manager.nixosModules.default
-    inputs.noctalia.nixosModules.default
     ./fih.nix
     ./greetmytui.nix
     ./espanso.nix
@@ -341,7 +340,6 @@ in {
     binutils
     glibc
     cmake
-    devenv
 
     winetricks
     gst_all_1.gstreamer
