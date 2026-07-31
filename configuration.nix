@@ -480,6 +480,7 @@ in {
     jj-fzf
     piper
     ddccontrol
+    vesktop
 
     #newpackage
 
@@ -509,7 +510,6 @@ in {
     hyprcursor
     brightnessctl
     grimblast
-    discord
     awww
     emacs
   ];
