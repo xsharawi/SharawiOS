@@ -481,6 +481,9 @@ in {
     piper
     ddccontrol
     vesktop
+    shadps4
+    shadps4-qtlauncher
+    rpcs3
 
     #newpackage
 

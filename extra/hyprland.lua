@@ -128,6 +128,9 @@ hl.config({
 hl.config({
   decoration = {
 
+    -- wobble = {
+    --   enabled = true,
+    -- },
     blur = {
       enabled = true,
       ignore_opacity = true,
