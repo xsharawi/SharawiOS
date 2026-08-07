@@ -58,6 +58,7 @@ in {
     gamemode.enable = true;
     steam.gamescopeSession.enable = true;
 
+    # Hyprland 0.56.1 (Wayland)
     hyprland.enable = true;
     hyprland.xwayland.enable = true;
     kdeconnect.enable = true;
@@ -454,7 +455,6 @@ in {
     android-studio-tools
     kubernetes
     zed-editor
-    linux-wallpaperengine
     binaryninja-free
     st
     bun
