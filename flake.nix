@@ -3,6 +3,7 @@
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    pkgs-emu.url = "github:nixos/nixpkgs/f13ff45afd1b";
     nix-cachyos-kernel.url = "github:xddxdd/nix-cachyos-kernel/release";
 
     home-manager = {
@@ -30,6 +31,7 @@
   outputs = {
     self,
     nixpkgs,
+    pkgs-emu,
     nvf,
     dark-text,
     ...
@@ -47,6 +49,7 @@
       specialArgs = {
         inherit inputs;
         inherit nvf;
+        inherit pkgs-emu;
       };
       system = "x86_64-linux";
 

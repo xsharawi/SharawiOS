@@ -1,5 +1,6 @@
 {
   pkgs,
+  pkgs-emu,
   inputs,
   lib,
   ...
@@ -282,240 +283,249 @@ in {
   nixpkgs.config.allowUnfree = true;
   nixpkgs.config.android_sdk.accept_license = true;
 
-  environment.systemPackages = with pkgs; [
-    vim
-    wget
-    keepassxc
-    xclip
-    linux-firmware
-    gparted
-    grub2
-    clang
-    clang-tools
-    c-for-go
-    rustup
-    cargo
-    gcc
-    ccacheWrapper
-    fzf
-    fd
-    ripgrep
-    gnumake
-    unzip
-    curl
-    zsh
-    openssl
-    tmux
-    python3
-    font-awesome_5
-    rxvt-unicode
-    alsa-utils
-    nodejs_22
-    libnotify
-    gtk3
-    gtk4
-    gtk3-x11
-    pkg-config
-    xdg-desktop-portal-gtk
-    xdg-desktop-portal-hyprland
-    nixd
-    nixdoc
-    nixfmt
-    fastfetch
-    zoxide
-    zsh-powerlevel10k
-    vlc
-    nmap
-    protonup-qt
-    ksnip
+  environment.systemPackages = with pkgs;
+    [
+      vim
+      wget
+      keepassxc
+      xclip
+      linux-firmware
+      gparted
+      grub2
+      clang
+      clang-tools
+      c-for-go
+      rustup
+      cargo
+      gcc
+      ccacheWrapper
+      fzf
+      fd
+      ripgrep
+      gnumake
+      unzip
+      curl
+      zsh
+      openssl
+      tmux
+      python3
+      font-awesome_5
+      rxvt-unicode
+      alsa-utils
+      nodejs_22
+      libnotify
+      gtk3
+      gtk4
+      gtk3-x11
+      pkg-config
+      xdg-desktop-portal-gtk
+      xdg-desktop-portal-hyprland
+      nixd
+      nixdoc
+      nixfmt
+      fastfetch
+      zoxide
+      zsh-powerlevel10k
+      vlc
+      nmap
+      protonup-qt
+      ksnip
 
-    clangStdenv
-    llvmPackages.libcxxClang
-    cppcheck
-    libllvm
-    valgrind
-    libcxx
-    glm
-    SDL2
-    SDL2_gfx
-    binutils
-    glibc
-    cmake
+      clangStdenv
+      llvmPackages.libcxxClang
+      cppcheck
+      libllvm
+      valgrind
+      libcxx
+      glm
+      SDL2
+      SDL2_gfx
+      binutils
+      glibc
+      cmake
 
-    winetricks
-    gst_all_1.gstreamer
-    qbittorrent
+      winetricks
+      gst_all_1.gstreamer
+      qbittorrent
 
-    yt-dlp
-    protonup-ng
-    dxvk
-    filezilla
+      yt-dlp
+      protonup-ng
+      dxvk
+      filezilla
 
-    go
-    air
-    htmx-lsp
-    obs-studio
-    veracrypt
-    tree
-    tokei
-    docker-compose
-    retroarchWithCores
-    retroarch-assets
-    retroarch-joypad-autoconfig
-    onlyoffice-desktopeditors
-    graphite-cli
-    screenkey
-    zig
-    networkmanagerapplet
-    swaylock
-    swaylock-effects
-    pipes
-    stdmanpages
-    man-pages
-    man-pages-posix
-    clang-manpages
-    unrar
-    zip
-    openjdk8
-    jre8
-    jdk8
-    libXext
-    libXxf86vm
-    yazi
-    obsidian
-    coreutils
-    gimp
-    jq
-    wl-clipboard-x11
-    pulseaudioFull
-    postman
-    pcsx2
-    cbonsai
-    ruby
-    rubyPackages.solargraph
-    rubyPackages.rexml
-    inputs.zen-browser.packages."${pkgs.stdenv.hostPlatform.system}".default
-    inputs.dark-text.packages.${pkgs.stdenv.hostPlatform.system}.default
-    beamPackages.elixir
-    beamPackages.elixir-ls
-    ocaml
-    mangohud
-    fuse
-    alsa-lib
-    atk
-    cairo
-    dbus
-    expat
-    fontconfig
-    freetype
-    gdk-pixbuf
-    glib
-    pango
-    nspr
-    nss
-    stdenv.cc.cc
-    zlib
-    libuuid
-    wezterm
-    p7zip
-    solaar
-    logitech-udev-rules
-    logiops
-    godot
-    gopls
-    playerctl
-    pavucontrol
-    sshfs
-    entr
-    libretro.gpsp
-    osu-lazer-bin
-    pamixer
-    libinput
-    eza
-    nemo-with-extensions
-    file
-    odin
-    quickshell
-    bolt-launcher
-    busybox
-    kdePackages.qt6ct
-    tuigreet
-    swayimg
-    hyprpolkitagent
-    tmuxPlugins.catppuccin
-    kdePackages.ark
-    font-awesome
-    kdePackages.gwenview
-    net-tools
-    noto-fonts
-    kdePackages.okular
-    openvpn
-    heroic
-    android-studio
-    android-studio-tools
-    kubernetes
-    zed-editor
-    binaryninja-free
-    st
-    bun
-    sqlite
-    ghidra
-    drawy
-    dolphin-emu
-    gopher64
-    scrcpy
-    woomer
-    nix-search-tv
-    nnd
-    neovide
-    terraform
-    terraform-providers.dmacvicar_libvirt
-    dnsmasq
-    libvirt
-    cdrkit
-    gf
-    dina-font
-    ghostty
-    jujutsu
-    jj-fzf
-    piper
-    ddccontrol
-    vesktop
-    shadps4
-    shadps4-qtlauncher
-    rpcs3
+      go
+      air
+      htmx-lsp
+      obs-studio
+      veracrypt
+      tree
+      tokei
+      docker-compose
+      retroarchWithCores
+      retroarch-assets
+      retroarch-joypad-autoconfig
+      onlyoffice-desktopeditors
+      graphite-cli
+      screenkey
+      zig
+      networkmanagerapplet
+      swaylock
+      swaylock-effects
+      pipes
+      stdmanpages
+      man-pages
+      man-pages-posix
+      clang-manpages
+      unrar
+      zip
+      openjdk8
+      jre8
+      jdk8
+      libXext
+      libXxf86vm
+      yazi
+      obsidian
+      coreutils
+      gimp
+      jq
+      wl-clipboard-x11
+      pulseaudioFull
+      postman
+      # pcsx2
+      cbonsai
+      ruby
+      rubyPackages.solargraph
+      rubyPackages.rexml
+      inputs.zen-browser.packages."${pkgs.stdenv.hostPlatform.system}".default
+      inputs.dark-text.packages.${pkgs.stdenv.hostPlatform.system}.default
+      beamPackages.elixir
+      beamPackages.elixir-ls
+      ocaml
+      mangohud
+      fuse
+      alsa-lib
+      atk
+      cairo
+      dbus
+      expat
+      fontconfig
+      freetype
+      gdk-pixbuf
+      glib
+      pango
+      nspr
+      nss
+      stdenv.cc.cc
+      zlib
+      libuuid
+      wezterm
+      p7zip
+      solaar
+      logitech-udev-rules
+      logiops
+      godot
+      gopls
+      playerctl
+      pavucontrol
+      sshfs
+      entr
+      libretro.gpsp
+      osu-lazer-bin
+      pamixer
+      libinput
+      eza
+      nemo-with-extensions
+      file
+      odin
+      quickshell
+      bolt-launcher
+      busybox
+      kdePackages.qt6ct
+      tuigreet
+      swayimg
+      hyprpolkitagent
+      tmuxPlugins.catppuccin
+      kdePackages.ark
+      font-awesome
+      kdePackages.gwenview
+      net-tools
+      noto-fonts
+      kdePackages.okular
+      openvpn
+      heroic
+      android-studio
+      android-studio-tools
+      kubernetes
+      zed-editor
+      binaryninja-free
+      st
+      bun
+      sqlite
+      ghidra
+      drawy
+      dolphin-emu
+      gopher64
+      scrcpy
+      woomer
+      nix-search-tv
+      nnd
+      neovide
+      terraform
+      terraform-providers.dmacvicar_libvirt
+      dnsmasq
+      libvirt
+      cdrkit
+      gf
+      dina-font
+      ghostty
+      jujutsu
+      jj-fzf
+      piper
+      ddccontrol
+      vesktop
+      shadps4
+      shadps4-qtlauncher
+      # inputs.zen-browser.packages."${pkgs.stdenv.hostPlatform.system}".default
 
-    #newpackage
+      #newpackage
 
-    wineWow64Packages.stable
-    (lutris.override {
-      buildFHSEnv = args:
-        pkgs.buildFHSEnv (args
-          // {
-            multiPkgs = envPkgs: let
-              # Fetch original package list
-              originalPkgs = args.multiPkgs envPkgs;
+      wineWow64Packages.stable
+      (lutris.override {
+        buildFHSEnv = args:
+          pkgs.buildFHSEnv (args
+            // {
+              multiPkgs = envPkgs: let
+                # Fetch original package list
+                originalPkgs = args.multiPkgs envPkgs;
 
-              # Disable tests for openldap
-              customLdap = envPkgs.openldap.overrideAttrs (_: {doCheck = false;});
-            in
-              # Replace broken openldap with the custom one
-              builtins.filter (p: (p.pname or "") != "openldap") originalPkgs ++ [customLdap];
-          });
-      extraPkgs = pkgs: [
-        pkgs.wineWow64Packages.stable
-        pkgs.winetricks
-      ];
-    })
-    waybar
-    egl-wayland
-    wl-clip-persist
-    hyprcursor
-    brightnessctl
-    grimblast
-    awww
-    emacs
-  ];
+                # Disable tests for openldap
+                customLdap = envPkgs.openldap.overrideAttrs (_: {doCheck = false;});
+              in
+                # Replace broken openldap with the custom one
+                builtins.filter (p: (p.pname or "") != "openldap") originalPkgs ++ [customLdap];
+            });
+        extraPkgs = pkgs: [
+          pkgs.wineWow64Packages.stable
+          pkgs.winetricks
+        ];
+      })
+      waybar
+      egl-wayland
+      wl-clip-persist
+      hyprcursor
+      brightnessctl
+      grimblast
+      awww
+      emacs
+    ]
+    ++ (with (import pkgs-emu {
+        system = pkgs.stdenv.hostPlatform.system;
+        config.allowUnfree = true;
+      }); [
+        # list of emu packages go here
+        pcsx2
+        rpcs3
+      ]);
 
   xdg = {
     menus.enable = true;
