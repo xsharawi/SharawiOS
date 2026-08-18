@@ -495,6 +495,7 @@
 
     notes = {
       todo-comments.enable = true;
+      todo-comments.mappings.quickFix = "<leader>st";
     };
 
     terminal = {
