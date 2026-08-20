@@ -456,7 +456,6 @@ in {
       android-studio
       android-studio-tools
       kubernetes
-      zed-editor
       binaryninja-free
       st
       bun
