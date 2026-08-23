@@ -11,7 +11,7 @@ in {
     homeDirectory = "/home/xsharawi";
 
     # something something don't change unless new install something something
-    stateVersion = "24.05";
+    stateVersion = "26.11";
     file.".tmux.conf".source = ./extra/.tmux.conf;
 
     packages = [
@@ -159,7 +159,7 @@ in {
   wayland.windowManager.hyprland = {
     systemd.enable = true;
     xwayland.enable = true;
-    enable = true;
+    # enable = true;
   };
 
   home.file.".config/hypr/hyprland.lua".source = ./extra/hyprland.lua;

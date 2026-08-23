@@ -590,5 +590,5 @@ in {
   system.systemBuilderCommands = "ln -s ${inputs.self.sourceInfo.outPath} $out/src";
 
   # something something don't change unless new install something something
-  system.stateVersion = "23.11";
+  system.stateVersion = "26.11";
 }
