@@ -128,6 +128,12 @@
 
     statusline = {
       lualine = {
+        integrations = {
+          breadcrumbs = {
+            navbuddy.enable = true;
+            nvim-navic.enable = true;
+          };
+        };
         enable = true;
         theme = lib.mkForce "auto";
       };
@@ -508,10 +514,6 @@
     ui = {
       borders.enable = true;
       colorizer.enable = true;
-      breadcrumbs = {
-        enable = true;
-        navbuddy.enable = true;
-      };
       fastaction.enable = true;
     };
 
