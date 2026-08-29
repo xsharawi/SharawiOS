@@ -456,6 +456,7 @@ in {
       android-studio
       android-studio-tools
       kubernetes
+      k3s
       binaryninja-free
       st
       bun
@@ -538,7 +539,7 @@ in {
     };
   };
 
-  users.defaultUserShell = pkgs.fish;
+  users.defaultUserShell = pkgs.zsh;
 
   environment.sessionVariables = {
     STEAM_EXTRA_COMPAT_TOOLS_PATH = "/home/xsharawi/.steam/root/compatibilitytools.d";
