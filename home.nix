@@ -153,12 +153,13 @@ in {
   imports = [
     ./xdgmime.nix
     ./waybar-style.nix
-    ./wallpaper-random.nix
+    # ./wallpaper-random.nix
   ];
 
   wayland.windowManager.hyprland = {
     systemd.enable = true;
     xwayland.enable = true;
+    portalPackage = pkgs.xdg-desktop-portal-hyprland;
     # enable = true;
   };
 
@@ -183,6 +184,20 @@ in {
   };
 
   programs = {
+    vesktop = {
+      enable = true;
+      vencord.extraQuickCss = ''
+        @import url("https://catppuccin.github.io/discord/dist/catppuccin-mocha-blue.theme.css");
+        @import url("https://allpurposemat.codeberg.page/Disblock-Origin/DisblockOrigin.theme.css");
+        :root {
+          /* show the GIF picker button */
+          --display-gif-button: unset;
+          --display-sticker-button: unset;
+          --display-messages-button: unset;
+        }
+      '';
+    };
+
     starship = {
       enableNushellIntegration = true;
       enable = true;
@@ -452,6 +467,7 @@ in {
       kitty.enable = true;
       kitty.variant256Colors = true;
       waybar.enable = false;
+      vesktop.enable = false;
 
       swaylock.enable = true;
       sway.enable = true;

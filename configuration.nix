@@ -58,10 +58,12 @@ in {
     # gaming stuff
     gamemode.enable = true;
     steam.gamescopeSession.enable = true;
-
     # Hyprland 0.56.1 (Wayland)
-    hyprland.enable = true;
-    hyprland.xwayland.enable = true;
+    hyprland = {
+      enable = true;
+      portalPackage = pkgs.xdg-desktop-portal-hyprland;
+      xwayland.enable = true;
+    };
     kdeconnect.enable = true;
     ssh.askPassword = "";
 
@@ -159,6 +161,14 @@ in {
       wireplumber = {
         enable = true;
         extraConfig = {
+          pipewire = {
+            "context.properties" = {
+              "default.clock.rate" = 48000;
+              "default.clock.quantum" = 2048;
+              "default.clock.min-quantum" = 2048;
+              "default.clock.max-quantum" = 8192;
+            };
+          };
           "10-disable-camera" = {
             "wireplumber.profiles" = {
               main."monitor.libcamera" = "disabled";
@@ -319,7 +329,6 @@ in {
       gtk3-x11
       pkg-config
       xdg-desktop-portal-gtk
-      xdg-desktop-portal-hyprland
       nixd
       nixdoc
       nixfmt
@@ -356,7 +365,6 @@ in {
       go
       air
       htmx-lsp
-      obs-studio
       veracrypt
       tree
       tokei
@@ -391,7 +399,7 @@ in {
       wl-clipboard-x11
       pulseaudioFull
       postman
-      # pcsx2
+      pcsx2
       cbonsai
       ruby
       rubyPackages.solargraph
@@ -482,10 +490,9 @@ in {
       jj-fzf
       piper
       ddccontrol
-      vesktop
       shadps4
       shadps4-qtlauncher
-      # inputs.zen-browser.packages."${pkgs.stdenv.hostPlatform.system}".default
+      qt6.qtwayland
 
       #newpackage
 
@@ -523,7 +530,7 @@ in {
         config.allowUnfree = true;
       }); [
         # list of emu packages go here
-        pcsx2
+        # pcsx2
         rpcs3
       ]);
 
@@ -532,11 +539,36 @@ in {
     mime.enable = true;
     portal = {
       enable = true;
+      config = {
+        common = {
+          default = "*";
+        };
+      };
+      wlr.enable = true;
       extraPortals = with pkgs; [
-        xdg-desktop-portal-hyprland
         xdg-desktop-portal-gtk
+        xdg-desktop-portal
       ];
     };
+  };
+
+  programs.obs-studio = {
+    enable = true;
+
+    # optional Nvidia hardware acceleration
+    package = pkgs.obs-studio.override {
+      cudaSupport = true;
+    };
+    enableVirtualCamera = true;
+
+    plugins = with pkgs.obs-studio-plugins; [
+      wlrobs
+      obs-backgroundremoval
+      obs-pipewire-audio-capture
+      obs-gstreamer
+      obs-vkcapture
+      obs-multi-rtmp
+    ];
   };
 
   users.defaultUserShell = pkgs.zsh;
@@ -575,6 +607,7 @@ in {
   };
 
   fonts = {
+    # packages = builtins.filter lib.attrsets.isDerivation (builtins.attrValues pkgs.nerd-fonts);
     packages = builtins.filter lib.attrsets.isDerivation (builtins.attrValues pkgs.nerd-fonts);
     fontconfig = {
       defaultFonts = {
