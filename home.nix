@@ -196,6 +196,58 @@ in {
           --display-messages-button: unset;
         }
       '';
+      vencord.settings = {
+        autoUpdate = true;
+        autoUpdateNotification = true;
+        notifyAboutUpdates = true;
+
+        plugins = {
+          ClearURLs.enabled = true;
+          FixYoutubeEmbeds.enabled = true;
+          ForceOwnerCrown.enabled = true;
+          CommandsAPI.enabled = true;
+          MessageAccessoriesAPI.enabled = true;
+          MessageEventsAPI.enabled = true;
+          UserSettingsAPI.enabled = true;
+          AnonymiseFileNames.enabled = true;
+          BetterSessions.enabled = true;
+          CallTimer.enabled = true;
+          CharacterCounter.enabled = true;
+          CopyStickerLinks.enabled = true;
+          CrashHandler.enabled = true;
+          FakeNitro = {
+            enabled = true;
+            FakeEenableStickerBypass = true;
+            enableStreamQualityypass = true;
+            enableEmojiBypass = true;
+            transformEmojis = true;
+            transformStickes = true;
+          };
+          IgnoreActivities.enabled = true;
+          MemberCount = {
+            enabled = true;
+            memberList = true;
+            toolTip = true;
+            voiceActivity = true;
+          };
+          MessageClickActions.enabled = true;
+          NoBlockedMessages.enabled = true;
+          QuickReply.enabled = true;
+          WebKeybinds = {
+            enabled = true;
+            showNavigationButtons = true;
+            overrideCommonKeybinds = true;
+          };
+          BadgeAPI.enabled = true;
+          NoTrack = {
+            enabled = true;
+            disableAnalytics = true;
+          };
+          DisableDeepLinks.enabled = true;
+          NoticesAPI.enabled = true;
+          YoutubeAdblock.enabled = true;
+        };
+      };
     };
 
     starship = {

@@ -214,6 +214,9 @@ in {
 
     firewall.allowedTCPPorts = [8081 27031];
     firewall.trustedInterfaces = ["virbr0"];
+    hosts = {
+      "0.0.0.0" = ["frpg2-steam64-ope-login.fromsoftware-game.net"];
+    };
   };
 
   nix = {
