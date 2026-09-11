@@ -67,6 +67,11 @@ in {
     kdeconnect.enable = true;
     ssh.askPassword = "";
 
+    umbriel = {
+      enable = true;
+      portalPackage = pkgs.xdg-desktop-portal-umbriel;
+    };
+
     thunar.enable = true;
     xfconf.enable = true;
     thunar.plugins = with pkgs; [
@@ -204,8 +209,15 @@ in {
     speechd.enable = lib.mkForce false;
     orca.enable = lib.mkForce false;
 
-    postgresql.enable = true;
-    postgresql.package = pkgs.postgresql_17;
+    postgresql = {
+      enable = true;
+      package = pkgs.postgresql_17;
+      ensureDatabases = ["devdb"];
+      authentication = pkgs.lib.mkOverride 10 ''
+        #type database  DBuser  auth-method
+        local all       all     trust
+      '';
+    };
   };
 
   networking = {

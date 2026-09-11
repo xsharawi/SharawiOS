@@ -26,7 +26,7 @@ hl.on("hyprland.start", function()
   hl.exec_cmd("wl-clip-persist --clipboard regular")
   hl.exec_cmd("xrandr --output DP-1 --primary")
   hl.exec_cmd("kdeconnect-indicator &")
-  hl.exec_cmd("noctalia --daemon")
+  hl.exec_cmd("noctalia")
   hl.exec_cmd("awww-daemon &")
   hl.exec_cmd("keepassxc")
   hl.exec_cmd("systemctl --user start hyprland-session.target")
@@ -236,30 +236,14 @@ hl.animation({ leaf = "workspaces", enabled = true, speed = 1.94, bezier = "almo
 hl.animation({ leaf = "workspacesIn", enabled = true, speed = 1.21, bezier = "almostLinear", style = "fade" })
 hl.animation({ leaf = "workspacesOut", enabled = true, speed = 1.94, bezier = "almostLinear", style = "fade" })
 hl.animation({ leaf = "zoomFactor", enabled = true, speed = 7, bezier = "quick" })
--- one day when it get better
--- local MAX_ZOOM = 20
--- local MIN_ZOOM = 1
--- local ZOOM_TOGGLE_FACTOR = 1.5
---
--- ---@param offset number
--- ---@return nil
--- local function zoom(offset)
---   local current = hl.get_config("cursor.zoom_factor")
---   if offset ~= nil then
---     current = current + offset
---   elseif current ~= MIN_ZOOM then
---     current = MIN_ZOOM
---   else
---     current = ZOOM_TOGGLE_FACTOR
---   end
---   current = math.max(MIN_ZOOM, math.min(MAX_ZOOM, current))
---   hl.config({ cursor = { zoom_factor = current } })
--- end
---
--- hl.bind("SUPER + Z", zoom)
--- hl.bind("SUPER + mouse_up", function()
---   zoom(0.5)
--- end)
--- hl.bind("SUPER + mouse_down", function()
---   zoom(-0.5)
--- end)
+
+hl.layer_rule({
+  name = "noctalia",
+  match = {
+    namespace = "^noctalia-(bar-.+|notification|dock|panel|attached-panel|osd|window-switcher)$",
+  },
+  no_anim = true,
+  ignore_alpha = 0.5,
+  blur = true,
+  blur_popups = true,
+})
