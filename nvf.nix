@@ -253,7 +253,7 @@
 
       typescript.enable = true;
       typescript.lsp.servers = [
-        "typescript-go"
+        "typescript-language-server"
         "emmet-ls"
       ];
       svelte = {
@@ -268,7 +268,7 @@
         enable = true;
         format.enable = true;
         lsp.servers = [
-          "typescript-go"
+          "typescript-language-server"
           "emmet-ls"
         ];
       };
