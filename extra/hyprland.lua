@@ -20,6 +20,9 @@ hl.monitor({
 hl.workspace_rule({ workspace = "2", monitor = "DP-1", default = false })
 hl.workspace_rule({ workspace = "3", monitor = "DP-1", default = true })
 
+hl.workspace_rule({ workspace = "1", monitor = "HDMI-A-1", default = true })
+hl.workspace_rule({ workspace = "5", monitor = "HDMI-A-1", default = false })
+
 hl.on("hyprland.start", function()
   -- hl.exec_cmd("dbus-update-activation-environment")
   hl.exec_cmd("dbus-update-activation-environment --systemd --all")
@@ -27,12 +30,14 @@ hl.on("hyprland.start", function()
   hl.exec_cmd("xrandr --output DP-1 --primary")
   hl.exec_cmd("kdeconnect-indicator &")
   hl.exec_cmd("noctalia")
-  hl.exec_cmd("awww-daemon &")
+  -- hl.exec_cmd("awww-daemon &")
   hl.exec_cmd("keepassxc")
   hl.exec_cmd("systemctl --user start hyprland-session.target")
   hl.exec_cmd("systemctl --user start hyprpolkitagent")
   hl.exec_cmd("hyprctl plugin load /etc/nixos/extra/hyprselect.so")
   hl.exec_cmd(terminal)
+  hl.exec_cmd("obsidian")
+  hl.exec_cmd("zen-beta")
 end)
 
 hl.config({
@@ -40,10 +45,6 @@ hl.config({
     preserve_split = true, -- You probably want this
   },
 })
-
-hl.workspace_rule({ workspace = "1", on_created_empty = "[silent] obsidian" })
-hl.workspace_rule({ workspace = "2", on_created_empty = "[silent] " .. terminal })
-hl.workspace_rule({ workspace = "3", on_created_empty = "[silent] zen-beta" })
 
 hl.bind(mainMod .. " + SHIFT + SPACE", hl.dsp.window.float({ action = "toggle" }))
 hl.bind(mainMod .. " + RETURN", hl.dsp.exec_cmd(terminal))
@@ -246,4 +247,28 @@ hl.layer_rule({
   ignore_alpha = 0.5,
   blur = true,
   blur_popups = true,
+})
+
+hl.window_rule({
+  name = "zen",
+  match = {
+    class = "zen-beta",
+  },
+  workspace = "3 silent",
+})
+
+hl.window_rule({
+  name = "term",
+  match = {
+    class = "com.mitchellh.ghostty",
+  },
+  workspace = "2 silent",
+})
+
+hl.window_rule({
+  name = "term",
+  match = {
+    class = "md.obsidian.Obsidian",
+  },
+  workspace = "1 silent",
 })
