@@ -25,7 +25,8 @@ hl.workspace_rule({ workspace = "5", monitor = "HDMI-A-1", default = false })
 
 hl.on("hyprland.start", function()
   -- hl.exec_cmd("dbus-update-activation-environment")
-  hl.exec_cmd("dbus-update-activation-environment --systemd --all")
+  -- hl.exec_cmd("dbus-update-activation-environment --systemd --all")
+  hl.exec_cmd("dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP")
   hl.exec_cmd("wl-clip-persist --clipboard regular")
   hl.exec_cmd("xrandr --output DP-1 --primary")
   hl.exec_cmd("kdeconnect-indicator &")
@@ -35,7 +36,7 @@ hl.on("hyprland.start", function()
   hl.exec_cmd("systemctl --user start hyprland-session.target")
   hl.exec_cmd("systemctl --user start hyprpolkitagent")
   hl.exec_cmd("hyprctl plugin load /etc/nixos/extra/hyprselect.so")
-  hl.exec_cmd(terminal)
+  hl.exec_cmd(terminal, { workspace = "2 silent" })
   hl.exec_cmd("obsidian")
   hl.exec_cmd("zen-beta")
 end)
@@ -190,7 +191,7 @@ hl.config({
 
 hl.config({
   input = {
-    touchpad = { natural_scroll = yes },
+    touchpad = { natural_scroll = true },
     follow_mouse = 2,
     kb_layout = "us,ara",
     numlock_by_default = true,
@@ -255,14 +256,6 @@ hl.window_rule({
     class = "zen-beta",
   },
   workspace = "3 silent",
-})
-
-hl.window_rule({
-  name = "term",
-  match = {
-    class = "com.mitchellh.ghostty",
-  },
-  workspace = "2 silent",
 })
 
 hl.window_rule({

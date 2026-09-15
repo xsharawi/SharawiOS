@@ -22,9 +22,9 @@ in {
       (pkgs.writeShellScriptBin "up" ''
         nh os switch /etc/nixos --update && dark-text --death --text "Nixos Rebuilt" --duration 1000
       '')
-      (pkgs.writeShellScriptBin "fih" ''
-        ${lib.getExe pkgs.fish}
-      '')
+      # (pkgs.writeShellScriptBin "fih" ''
+      #   ${lib.getExe pkgs.fish}
+      # '')
 
       # prevent IFD, thanks @Michael-C-Buckley
       # goated get and iynaix as always
@@ -283,7 +283,7 @@ in {
         directory = {
           style = "fg:#f5c2e7";
           format = "[](fg:#f5c2e7)[ $path](fg:#11111b bg:#f5c2e7)[](fg:#f5c2e7)";
-          fish_style_pwd_dir_length = 3;
+          # fish_style_pwd_dir_length = 3;
           # truncation_length = 0;
           truncate_to_repo = false;
           truncation_symbol = "";
@@ -291,7 +291,7 @@ in {
 
         shell = {
           disabled = false;
-          fish_indicator = "🐟";
+          # fish_indicator = "🐟";
         };
 
         git_branch = {
@@ -369,21 +369,27 @@ in {
       };
     };
 
-    fish = {
-      enable = true;
-      shellAbbrs = {
-        gc = {
-          position = "command";
-          setCursor = "%";
-          expansion = "git commit -am \"%\"";
-        };
-        gp = {
-          expansion = "git push";
-          position = "command";
-        };
-      };
-    };
+    # fish = {
+    #   enable = true;
+    #   shellAbbrs = {
+    #     gc = {
+    #       position = "command";
+    #       setCursor = "%";
+    #       expansion = "git commit -am \"%\"";
+    #     };
+    #     gp = {
+    #       expansion = "git push";
+    #       position = "command";
+    #     };
+    #   };
+    # };
 
+    # # fish completions https://www.nushell.sh/cookbook/external_completers.html#fish-completer
+    # let fish_completer = {|spans|
+    #   ${lib.getExe pkgs.fish} --command $'complete "--do-complete=($spans | str join " ")"'
+    #   | $"value(char tab)description(char newline)" + $in
+    #   | from tsv --flexible --no-infer
+    # }
     nushell = {
       enable = true;
       # for editing directly to config.nu
@@ -412,12 +418,6 @@ in {
         # https://carapace-sh.github.io/carapace-bin/setup.html#nushell
         $env.CARAPACE_BRIDGES = 'zsh,fish,bash,inshellisense'
 
-        # fish completions https://www.nushell.sh/cookbook/external_completers.html#fish-completer
-        let fish_completer = {|spans|
-          ${lib.getExe pkgs.fish} --command $'complete "--do-complete=($spans | str join " ")"'
-          | $"value(char tab)description(char newline)" + $in
-          | from tsv --flexible --no-infer
-        }
 
         # zoxide completions https://www.nushell.sh/cookbook/external_completers.html#zoxide-completer
         let zoxide_completer = {|spans|
@@ -500,7 +500,7 @@ in {
         allow_hyperlinks = "yes";
         shell_integration = "enabled";
       };
-      shellIntegration.enableFishIntegration = true;
+      # shellIntegration.enableFishIntegration = true;
     };
 
     rofi.enable = true;

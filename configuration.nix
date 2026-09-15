@@ -30,7 +30,7 @@ in {
   imports = [
     ./hardware-configuration.nix
     inputs.home-manager.nixosModules.default
-    ./fih.nix
+    # ./fih.nix
     ./greetmytui.nix
     ./espanso.nix
   ];
