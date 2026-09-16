@@ -5,6 +5,7 @@
   ...
 }: let
   inherit (lib) concatStrings;
+  myfont = "GoogleSansCode Nerd Font";
 in {
   home = {
     username = "xsharawi";
@@ -186,9 +187,9 @@ in {
   fonts = {
     fontconfig = {
       defaultFonts = {
-        monospace = lib.mkForce ["JetBrainsMono Nerd Font Mono"];
-        sansSerif = lib.mkForce ["JetBrainsMono Nerd Font"];
-        serif = lib.mkForce ["JetBrainsMono Nerd Font"];
+        monospace = lib.mkForce [myfont];
+        sansSerif = lib.mkForce [myfont];
+        serif = lib.mkForce [myfont];
         emoji = lib.mkForce ["Noto Color Emoji"];
       };
     };
@@ -503,7 +504,7 @@ in {
 
         scroll_back = -1;
         mouse_hide_wait = 2.0;
-        font_family = "JetBrainsMono Nerd Font";
+        font_family = myfont;
         font_size = 13;
         enable_audio_bell = true;
         cursor_trail = 3;

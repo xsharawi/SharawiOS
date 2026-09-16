@@ -5,6 +5,7 @@
   lib,
   ...
 }: let
+  myfont = "GoogleSansCode Nerd Font";
   retroarchWithCores = pkgs.retroarch.withCores (
     cores:
       with cores; [
@@ -630,9 +631,9 @@ in {
     packages = builtins.filter lib.attrsets.isDerivation (builtins.attrValues pkgs.nerd-fonts);
     fontconfig = {
       defaultFonts = {
-        monospace = lib.mkForce ["JetBrainsMono Nerd Font Mono"];
-        sansSerif = lib.mkForce ["JetBrainsMono Nerd Font"];
-        serif = lib.mkForce ["JetBrainsMono Nerd Font"];
+        monospace = lib.mkForce [myfont];
+        sansSerif = lib.mkForce [myfont];
+        serif = lib.mkForce [myfont];
         emoji = lib.mkForce ["Noto Color Emoji"];
       };
     };
