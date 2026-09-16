@@ -508,6 +508,10 @@ in {
       shadps4
       shadps4-qtlauncher
       qt6.qtwayland
+      zsh-abbr
+      tmux.terminfo
+      kitty.terminfo
+      ghostty.terminfo
 
       #newpackage
 
@@ -626,9 +630,9 @@ in {
     packages = builtins.filter lib.attrsets.isDerivation (builtins.attrValues pkgs.nerd-fonts);
     fontconfig = {
       defaultFonts = {
-        serif = ["JetBrainsMono Nerd Font"];
-        sansSerif = ["JetBrainsMono Nerd Font"];
-        monospace = ["JetBrainsMono Nerd Font"];
+        serif = ["JetBrainsMono Nerd Font Mono"];
+        sansSerif = ["JetBrainsMono Nerd Font Mono"];
+        monospace = ["JetBrainsMono Nerd Font Mono"];
       };
     };
   };
