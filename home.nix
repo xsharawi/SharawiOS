@@ -183,6 +183,17 @@ in {
     };
   };
 
+  fonts = {
+    fontconfig = {
+      defaultFonts = {
+        monospace = lib.mkForce ["JetBrainsMono Nerd Font Mono"];
+        sansSerif = lib.mkForce ["JetBrainsMono Nerd Font"];
+        serif = lib.mkForce ["JetBrainsMono Nerd Font"];
+        emoji = lib.mkForce ["Noto Color Emoji"];
+      };
+    };
+  };
+
   programs = {
     vesktop = {
       enable = true;

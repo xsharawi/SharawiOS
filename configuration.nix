@@ -630,9 +630,10 @@ in {
     packages = builtins.filter lib.attrsets.isDerivation (builtins.attrValues pkgs.nerd-fonts);
     fontconfig = {
       defaultFonts = {
-        serif = ["JetBrainsMono Nerd Font Mono"];
-        sansSerif = ["JetBrainsMono Nerd Font Mono"];
-        monospace = ["JetBrainsMono Nerd Font Mono"];
+        monospace = lib.mkForce ["JetBrainsMono Nerd Font Mono"];
+        sansSerif = lib.mkForce ["JetBrainsMono Nerd Font"];
+        serif = lib.mkForce ["JetBrainsMono Nerd Font"];
+        emoji = lib.mkForce ["Noto Color Emoji"];
       };
     };
   };
