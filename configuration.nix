@@ -5,7 +5,7 @@
   lib,
   ...
 }: let
-  myfont = "GoogleSansCode Nerd Font";
+  myfont = "RobotoMono Nerd Font";
   retroarchWithCores = pkgs.retroarch.withCores (
     cores:
       with cores; [
@@ -543,7 +543,6 @@ in {
       brightnessctl
       grimblast
       awww
-      emacs
     ]
     ++ (with (import pkgs-emu {
         system = pkgs.stdenv.hostPlatform.system;

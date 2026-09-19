@@ -5,7 +5,7 @@
   ...
 }: let
   inherit (lib) concatStrings;
-  myfont = "GoogleSansCode Nerd Font";
+  myfont = "RobotoMono Nerd Font";
 in {
   home = {
     username = "xsharawi";
