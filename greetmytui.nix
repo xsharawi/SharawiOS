@@ -1,5 +1,5 @@
 let
-  cmd = "start-hyprland";
+  cmd = "dbus-launch --exit-with-session start-hyprland";
 in {
   services.greetd = {
     enable = true;

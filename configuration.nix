@@ -64,6 +64,8 @@ in {
       enable = true;
       portalPackage = pkgs.xdg-desktop-portal-hyprland;
       xwayland.enable = true;
+      withUWSM = true;
+      systemd.setPath.enable = true;
     };
     kdeconnect.enable = true;
     ssh.askPassword = "";
@@ -513,6 +515,7 @@ in {
       tmux.terminfo
       kitty.terminfo
       ghostty.terminfo
+      evtest
 
       #newpackage
 
@@ -558,9 +561,17 @@ in {
     mime.enable = true;
     portal = {
       enable = true;
+
       config = {
         common = {
           default = "*";
+        };
+        hyprland = {
+          default = [
+            "hyprland"
+            "gtk"
+          ];
+          "org.freedesktop.impl.portal.FileChooser" = "gtk";
         };
       };
       wlr.enable = true;
