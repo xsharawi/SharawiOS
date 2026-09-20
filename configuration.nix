@@ -268,6 +268,7 @@ in {
       pkgs.linux-firmware
     ];
 
+    graphics.enable = true;
     nvidia.open = false;
     nvidia.modesetting.enable = true;
 
@@ -503,7 +504,6 @@ in {
       cdrkit
       gf
       dina-font
-      ghostty
       jujutsu
       jj-fzf
       piper
@@ -514,7 +514,6 @@ in {
       zsh-abbr
       tmux.terminfo
       kitty.terminfo
-      ghostty.terminfo
       evtest
 
       #newpackage

@@ -135,8 +135,8 @@
             nvim-navic.enable = true;
           };
         };
+        setupOpts.options.theme = lib.mkForce "auto";
         enable = true;
-        theme = lib.mkForce "auto";
       };
     };
 

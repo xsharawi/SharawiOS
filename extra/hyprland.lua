@@ -1,6 +1,6 @@
 -- Set programs that you use
 local mainMod = "SUPER"
-local terminal = "ghostty"
+local terminal = "kitty"
 local fileManager = "thunar"
 
 hl.monitor({
