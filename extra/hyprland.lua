@@ -41,6 +41,8 @@ hl.on("hyprland.start", function()
   hl.exec_cmd("zen-beta")
 end)
 
+hl.bind("F8", hl.dsp.exec_cmd("mpv ~/Music/lizard.mp3"), { repeating = true })
+
 hl.config({
   dwindle = {
     preserve_split = true, -- You probably want this
