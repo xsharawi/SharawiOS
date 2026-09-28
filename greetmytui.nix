@@ -4,6 +4,9 @@ in {
   services.greetd = {
     enable = true;
     settings = {
+      unitConfig = {
+        After = ["graphical-session.target"];
+      };
       # Session on first login which would use auto-login
       initial_session = {
         user = "xsharawi";

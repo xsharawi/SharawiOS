@@ -616,7 +616,6 @@
               elseif is_dir then
               -- Jump to your Harpoon entry after startup
               vim.schedule(function()
-                      pcall(function() require("mini.files").close() end)
 
                       -- protect in case list is empty
                       pcall(function() require("harpoon"):list():select(1) end)
@@ -635,7 +634,6 @@
       vim.o.grepformat = "%f:%l:%c:%m"
       vim.keymap.set('t', '<ESC><ESC>', [[<C-\><C-n>]])
       vim.keymap.set('n', '<leader>w', "<cmd>MCstart<CR>")
-      vim.keymap.set('n', '<leader>ff', "<cmd>lua MiniFiles.open(vim.api.nvim_buf_get_name(0))<CR>")
       vim.opt.shortmess:append("S")
 
       vim.g.last_compile_command = "make"
@@ -715,7 +713,6 @@
 
     mini = {
       ai.enable = true;
-      files.enable = true;
     };
   };
 }

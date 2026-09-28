@@ -516,6 +516,7 @@ in {
       kitty.terminfo
       evtest
       mpv
+      ffmpeg
 
       #newpackage
 
