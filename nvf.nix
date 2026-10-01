@@ -494,6 +494,23 @@
       preview.markdownPreview.enable = true;
       multicursors.enable = true;
 
+      oil-nvim = {
+        enable = true;
+        gitStatus.enable = true;
+        setupOpts = {
+          skip_confirm_for_simple_edits = true;
+          columns = [
+            "icon"
+            "permissions"
+            "size"
+            "mtime"
+          ];
+          view_options = {
+            show_hidden = true;
+          };
+        };
+      };
+
       motion = {
         leap.enable = true;
       };
@@ -660,6 +677,7 @@
       end
       local leap = require 'leap'
       vim.keymap.set({ 'n', 'x', 'o' }, '<leader>sa', '<Plug>(leap)')
+      vim.keymap.set({ 'n' }, '<leader>ff', "<CMD>Oil<CR>")
     '';
 
     autocmds = [

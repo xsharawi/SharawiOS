@@ -339,7 +339,6 @@ in {
       tmux
       python3
       font-awesome_5
-      rxvt-unicode
       alsa-utils
       nodejs_22
       libnotify
@@ -384,7 +383,6 @@ in {
       go
       air
       htmx-lsp
-      veracrypt
       tree
       tokei
       docker-compose
@@ -533,6 +531,7 @@ in {
       hyprcursor
       brightnessctl
       grimblast
+      veracrypt
       awww
     ]
     ++ (with (import pkgs-emu {
@@ -540,7 +539,6 @@ in {
         config.allowUnfree = true;
       }); [
         # list of emu packages go here
-        # pcsx2
         rpcs3
       ]);
 
