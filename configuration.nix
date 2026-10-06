@@ -459,7 +459,6 @@ in {
       pamixer
       libinput
       eza
-      nemo-with-extensions
       file
       odin
       quickshell
