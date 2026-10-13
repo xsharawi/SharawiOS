@@ -356,7 +356,6 @@ in {
       vlc
       nmap
       protonup-qt
-      ksnip
 
       clangStdenv
       llvmPackages.libcxxClang
@@ -393,7 +392,6 @@ in {
       graphite-cli
       screenkey
       zig
-      networkmanagerapplet
       swaylock
       swaylock-effects
       pipes
