@@ -33,7 +33,7 @@ in {
     inputs.home-manager.nixosModules.default
     # ./fih.nix
     ./greetmytui.nix
-    ./espanso.nix
+    # ./espanso.nix
   ];
   programs = {
     git = {

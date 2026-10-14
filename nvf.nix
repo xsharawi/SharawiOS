@@ -251,27 +251,27 @@
         ];
       };
 
-      typescript.enable = true;
-      typescript.lsp.servers = [
-        "typescript-language-server"
-        "emmet-ls"
-      ];
-      svelte = {
-        enable = true;
-        format.enable = true;
-        lsp.servers = [
-          "svelte-language-server"
-          "emmet-ls"
-        ];
-      };
-      tsx = {
-        enable = true;
-        format.enable = true;
-        lsp.servers = [
-          "typescript-language-server"
-          "emmet-ls"
-        ];
-      };
+      # typescript.enable = true;
+      # typescript.lsp.servers = [
+      # "typescript-language-server"
+      # "emmet-ls"
+      # ];
+      # svelte = {
+      #   enable = true;
+      #   format.enable = true;
+      #   lsp.servers = [
+      #     "svelte-language-server"
+      #     "emmet-ls"
+      #   ];
+      # };
+      # tsx = {
+      #   enable = true;
+      #   format.enable = true;
+      #   lsp.servers = [
+      #     "typescript-language-server"
+      #     "emmet-ls"
+      #   ];
+      # };
 
       markdown = {
         enable = true;
