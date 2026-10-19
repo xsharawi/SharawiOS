@@ -137,7 +137,7 @@ in {
     loader.systemd-boot.enable = true;
     loader.efi.canTouchEfiVariables = true;
     kernelModules = ["kvm-intel" "kvm-nvidia"];
-    kernelPackages = pkgs.cachyosKernels.linuxPackages-cachyos-latest-lto;
+    kernelPackages = pkgs.linuxPackages_latest;
     initrd.luks.devices."luks-695f8df6-9ca9-45ab-a495-ce49f4675b37".device = "/dev/disk/by-uuid/695f8df6-9ca9-45ab-a495-ce49f4675b37";
     initrd.systemd.enable = true;
   };
@@ -241,11 +241,9 @@ in {
         "flakes"
       ];
       extra-substituters = [
-        "https://attic.xuyh0120.win/lantian"
         "https://noctalia.cachix.org"
       ];
       extra-trusted-public-keys = [
-        "lantian:EeAUQ+W+6r7EtwnmYjeVwx5kOGEBpjlBfPlzGlTNvHc="
         "noctalia.cachix.org-1:pCOR47nnMEo5thcxNDtzWpOxNFQsBRglJzxWPp3dkU4="
       ];
     };

@@ -2,9 +2,8 @@
   description = "system flake or something ig";
 
   inputs = {
-    nixpkgs.url = "github:nixos/nixpkgs/master";
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     pkgs-emu.url = "github:nixos/nixpkgs/f13ff45afd1b";
-    nix-cachyos-kernel.url = "github:xddxdd/nix-cachyos-kernel/release";
 
     home-manager = {
       url = "github:nix-community/home-manager";
@@ -62,11 +61,6 @@
         }
         inputs.stylix.nixosModules.stylix
         nvf.nixosModules.default
-        ({pkgs, ...}: {
-          nixpkgs.overlays = [
-            inputs.nix-cachyos-kernel.overlays.pinned
-          ];
-        })
       ];
     };
     packages = forAllSystems (
