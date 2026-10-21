@@ -241,8 +241,6 @@
         "nixd"
       ];
 
-      sql.enable = true;
-
       clang = {
         enable = true;
         format.enable = true;

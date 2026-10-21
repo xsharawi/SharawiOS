@@ -444,7 +444,6 @@ in {
       solaar
       logitech-udev-rules
       logiops
-      godot
       gopls
       playerctl
       pavucontrol
@@ -535,6 +534,7 @@ in {
       }); [
         # list of emu packages go here
         rpcs3
+        godot
       ]);
 
   xdg = {
@@ -570,7 +570,6 @@ in {
     package = pkgs.obs-studio.override {
       cudaSupport = true;
     };
-    enableVirtualCamera = true;
 
     plugins = with pkgs.obs-studio-plugins; [
       wlrobs
