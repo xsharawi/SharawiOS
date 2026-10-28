@@ -87,6 +87,10 @@ in {
       autosuggestions.enable = true;
       promptInit = "source ${pkgs.zsh-powerlevel10k}/share/zsh-powerlevel10k/powerlevel10k.zsh-theme";
       syntaxHighlighting.enable = true;
+      interactiveShellInit = ''
+        source ${pkgs.zsh-vi-mode}/share/zsh-vi-mode/zsh-vi-mode.plugin.zsh
+        source ${pkgs.zsh-abbr}/share/zsh/zsh-abbr/zsh-abbr.plugin.zsh
+      '';
       ohMyZsh = {
         enable = true;
         theme = "robbyrussell";
@@ -94,7 +98,6 @@ in {
           "sudo"
           "terraform"
           "systemadmin"
-          "vi-mode"
         ];
       };
     };
