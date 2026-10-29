@@ -215,6 +215,22 @@
         "type": "github"
       }
     },
+    "masterpkgs": {
+      "locked": {
+        "lastModified": 1793271801,
+        "narHash": "sha256-42dOmNw3di9NOL3d3XCL1lrYDeWN5++GJ/KPqEPazlk=",
+        "owner": "nixos",
+        "repo": "nixpkgs",
+        "rev": "72235e6ac5df48e0c21acf20f8aa74681d87be1f",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nixos",
+        "ref": "master",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
     "mnw": {
       "locked": {
         "lastModified": 1784154424,
@@ -388,6 +404,7 @@
       "inputs": {
         "dark-text": "dark-text",
         "home-manager": "home-manager",
+        "masterpkgs": "masterpkgs",
         "nixpkgs": "nixpkgs_2",
         "noctalia": "noctalia",
         "nvf": "nvf",

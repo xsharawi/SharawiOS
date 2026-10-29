@@ -3,6 +3,7 @@
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    masterpkgs.url = "github:nixos/nixpkgs/master";
     pkgs-emu.url = "github:nixos/nixpkgs/f13ff45afd1b";
 
     home-manager = {
@@ -30,6 +31,7 @@
   outputs = {
     self,
     nixpkgs,
+    masterpkgs,
     pkgs-emu,
     nvf,
     dark-text,

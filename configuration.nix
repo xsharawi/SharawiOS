@@ -62,6 +62,7 @@ in {
     # Hyprland 0.56.1 (Wayland)
     hyprland = {
       enable = true;
+      package = inputs.masterpkgs.legacyPackages."${pkgs.stdenv.hostPlatform.system}".hyprland;
       portalPackage = pkgs.xdg-desktop-portal-hyprland;
       xwayland.enable = true;
       withUWSM = true;

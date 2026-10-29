@@ -147,14 +147,22 @@ hl.config({
 hl.config({
   decoration = {
 
-    -- wobble = {
-    --   enabled = true,
-    -- },
+    wobble = {
+      enabled = true,
+      mesh = 25,
+      stiffness = 1000,
+      damping = 1000,
+      mass = 1,
+      intensity = 0.3,
+      value_epsilon = 5,
+      velocity_epsilon = 3,
+    },
     blur = {
       enabled = true,
       ignore_opacity = true,
       passes = 3,
       size = 3,
+      variant = "aurora",
     },
 
     shadow = { color = "rgba(1e1e2e99)" },
