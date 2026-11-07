@@ -492,7 +492,6 @@ in {
       woomer
       nix-search-tv
       nnd
-      neovide
       terraform
       terraform-providers.dmacvicar_libvirt
       dnsmasq
@@ -640,6 +639,5 @@ in {
 
   # something something don't change unless new install something something
   system.stateVersion = "26.11";
-  nixpkgs.config.problems.handlers."gtk+".broken = "warn";
   nixpkgs.overlays = [inputs.millennium.overlays.default];
 }
