@@ -5,6 +5,7 @@
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
     masterpkgs.url = "github:nixos/nixpkgs/master";
     pkgs-emu.url = "github:nixos/nixpkgs/f13ff45afd1b";
+    millennium.url = "github:SteamClientHomebrew/Millennium?dir=packages/nix";
 
     home-manager = {
       url = "github:nix-community/home-manager";

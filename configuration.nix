@@ -58,7 +58,6 @@ in {
 
     # gaming stuff
     gamemode.enable = true;
-    steam.gamescopeSession.enable = true;
     # Hyprland 0.56.1 (Wayland)
     hyprland = {
       enable = true;
@@ -107,6 +106,8 @@ in {
       enable = true;
       remotePlay.openFirewall = true;
       dedicatedServer.openFirewall = true;
+      package = pkgs.millennium-steam;
+      gamescopeSession.enable = true;
     };
 
     nix-ld.enable = true;
@@ -640,4 +641,5 @@ in {
   # something something don't change unless new install something something
   system.stateVersion = "26.11";
   nixpkgs.config.problems.handlers."gtk+".broken = "warn";
+  nixpkgs.overlays = [inputs.millennium.overlays.default];
 }
