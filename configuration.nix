@@ -512,6 +512,7 @@ in {
       evtest
       mpv
       ffmpeg
+      btop
 
       #newpackage
 
