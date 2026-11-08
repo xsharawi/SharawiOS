@@ -37,7 +37,6 @@ hl.on("hyprland.start", function()
   hl.exec_cmd("systemctl --user start hyprpolkitagent")
   hl.exec_cmd("hyprctl plugin load /etc/nixos/extra/hyprselect.so")
   hl.exec_cmd(terminal, { workspace = "2 silent" })
-  hl.exec_cmd("obsidian")
   hl.exec_cmd("zen-beta")
 end)
 
@@ -269,10 +268,10 @@ hl.window_rule({
   workspace = "3 silent",
 })
 
-hl.window_rule({
-  name = "term",
-  match = {
-    class = "md.obsidian.Obsidian",
-  },
-  workspace = "1 silent",
-})
+-- hl.window_rule({
+--   name = "term",
+--   match = {
+--     class = "md.obsidian.Obsidian",
+--   },
+--   workspace = "1 silent",
+-- })
